@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: MIT
+// Logout, shutdown and restart only; keep native layout, buttons and warnings.
+.modal-dialog.end-session-dialog {
+  @include glass-surface;
+  border-top-color: rgba($ink, 0.32);
+  box-shadow: 0 12px 32px $shadow;
+}

@@ -64,3 +64,7 @@ sh tools/build-material.sh
 ```
 
 出力はShell、GTK3、GTK4 material、GTK4 FlatpakのCSSです。従来の基本テーマは`sh tools/build.sh`で生成します。schemaコンパイルはパッケージ組立時に行います。開発記録は配布ソースに含めず、利用者向け仕様をこの`docs/`へまとめます。
+
+## 終了確認ダイアログ
+
+v0.1.1で追加した`components/_end-session-dialog.scss`はShell標準の`.modal-dialog.end-session-dialog`へ限定して、ログアウト・電源オフ・再起動の確認面を調整します。ボタン配置、フォーカス、Escape、警告、カウントダウンは標準実装を使います。材質版は既存の面と同じ56％の半透明です。ログイン画面のGDMとは別のスタイルです。

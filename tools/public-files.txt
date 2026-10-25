@@ -100,3 +100,4 @@ build/Hyalune-GDM/background.svg
 tools/gdm-wallpaper.py
 tools/tests/verify-gdm-wallpaper-vm.py
 tools/tests/verify-gdm-environment.py
+src/scss/components/_end-session-dialog.scss
