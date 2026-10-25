@@ -1,0 +1,82 @@
+/* SPDX-License-Identifier: MIT
+ * GDM material; standard authentication widgets and interactions stay intact.
+ */
+#lockDialogGroup {
+  background-color: #10191f;
+  background-image: url("resource:///org/gnome/shell/theme/hyalune-background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* AuthPrompt also uses this class for its input well: direct children only. */
+.login-dialog > .login-dialog-user-selection-box,
+.login-dialog > .login-dialog-prompt-layout {
+  background-color: rgba(26, 26, 28, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(255, 255, 255, 0.36);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.3);
+}
+
+.login-dialog-user-list-view .login-dialog-user-list {
+  background-color: transparent;
+}
+
+/* Native selected/active rules also fill this row: keep every state clear. */
+.login-dialog .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item {
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: none !important;
+  border-radius: 12px;
+}
+
+.login-dialog .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.login-dialog .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:selected, .login-dialog .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:focus {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.login-dialog .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:active {
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.login-dialog .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:insensitive {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Quiet 1px outlines replace the native accent shadow in GDM only. */
+.login-dialog .login-dialog-prompt-entry,
+.login-dialog .login-dialog-prompt-entry:hover,
+.login-dialog .login-dialog-prompt-entry:focus,
+.login-dialog .login-dialog-prompt-entry:focus:hover,
+.login-dialog .login-dialog-prompt-entry:insensitive {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: none !important;
+}
+
+.login-dialog .login-dialog-prompt-entry:focus,
+.login-dialog .login-dialog-prompt-entry:focus:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.login-dialog .login-dialog-prompt-entry:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.login-dialog .login-dialog-prompt-entry:focus:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.login-dialog .login-dialog-prompt-entry:insensitive {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* The shared panel material is independent of the control outlines. */
+#panel.login-screen {
+  background-color: rgba(20, 20, 22, 0.38);
+  box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.12);
+}

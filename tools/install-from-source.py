@@ -20,12 +20,14 @@ def module(path, name):
 
 
 def main():
+    if sys.argv[1:2] == ['gdm']:
+        return subprocess.call([sys.executable, str(Path(__file__).with_name('manage-gdm.py')), *sys.argv[2:]])
     if sys.argv[1:2] == ['flatpak']:
         return subprocess.call([sys.executable, str(Path(__file__).with_name('manage-flatpak.py')), *sys.argv[2:]])
     p = argparse.ArgumentParser(prog='install.sh', description=
         'git cloneしたソースから導入します。初回は検出したGTK系Flatpakにも適用します。', epilog=
         './install.sh plan; ./install.sh apply --blur on; ./install.sh flatpak scan')
-    p.add_argument('action', nargs='?', choices=['layers', 'plan', 'apply', 'update', 'remove', 'recover', 'status', 'flatpak'])
+    p.add_argument('action', nargs='?', choices=['layers', 'plan', 'apply', 'update', 'remove', 'recover', 'status', 'flatpak', 'gdm'])
     p.add_argument('--target', choices=['desktop', 'vm', 't16-trial'], default='desktop', help=argparse.SUPPRESS)
     p.add_argument('--operation', choices=['apply', 'update', 'remove'], default='apply')
     p.add_argument('--blur', choices=['keep', 'on', 'off'], default='keep')
@@ -43,7 +45,13 @@ def main():
         p.error('--settings keep is only available for remove or plan --operation remove')
     project = Path(__file__).resolve().parent.parent
     source_manager = project / 'tools/manage-material.py'
-    if a.action == 'layers': return subprocess.call([sys.executable, str(source_manager), 'layers'])
+    if a.action == 'layers':
+        info = json.loads(subprocess.check_output([sys.executable, str(source_manager), 'layers'], text=True))
+        # User-package metadata stays compatible; the separate root preview is
+        # advertised only by the source entry, never added to its payload.
+        info['separate_gdm_preview'] = {'entry': './install.sh gdm --help', 'scope': 'system-login',
+                                        'status': 'kvm-and-t16-trial', 'included_in_apply_remove': False}
+        print(json.dumps(info, indent=2)); return 0
     template = module(source_manager, 'source_material')
     if a.target == 't16-trial': module(project / 'tools/manage-t16.py', 't16_template').configure(template)
     desktop = module(project / 'tools/manage-desktop.py', 'desktop_template')

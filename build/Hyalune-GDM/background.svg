@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1200" viewBox="0 0 1920 1200">
+  <!-- SPDX-License-Identifier: MIT. Original Hyalune glass-light study. -->
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#10191f"/><stop offset=".5" stop-color="#16383f"/><stop offset="1" stop-color="#10202b"/>
+    </linearGradient>
+    <radialGradient id="jade">
+      <stop stop-color="#69b2a5" stop-opacity=".65"/><stop offset=".5" stop-color="#3e938b" stop-opacity=".3"/><stop offset="1" stop-color="#28505b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blue">
+      <stop stop-color="#53859b" stop-opacity=".65"/><stop offset="1" stop-color="#284355" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sheet" x1="0" y1="0" x2=".8" y2="1">
+      <stop stop-color="#d0e9e3" stop-opacity=".13"/><stop offset=".4" stop-color="#76b9b0" stop-opacity=".025"/><stop offset="1" stop-color="#091821" stop-opacity=".25"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2=".5">
+      <stop stop-color="#ecfffb" stop-opacity="0"/><stop offset=".48" stop-color="#c2e9e2" stop-opacity=".23"/><stop offset="1" stop-color="#ecfffb" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="shade">
+      <stop offset=".25" stop-color="#091016" stop-opacity="0"/><stop offset="1" stop-color="#091016" stop-opacity=".6"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#night)" d="M0 0h1920v1200H0z"/>
+  <ellipse cx="660" cy="430" rx="1000" ry="780" fill="url(#jade)"/>
+  <ellipse cx="1480" cy="840" rx="1000" ry="850" fill="url(#blue)"/>
+  <path d="M-250 1000C180 210 680 140 2150 450L2150 1350H-250Z" fill="url(#sheet)"/>
+  <path d="M-250 1000C180 210 680 140 2150 450" fill="none" stroke="url(#rim)" stroke-width="2"/>
+  <path d="M-100 1250C650 470 1280 570 2100 20L2100 1300Z" fill="url(#sheet)"/>
+  <path d="M-100 1250C650 470 1280 570 2100 20" fill="none" stroke="url(#rim)" stroke-width="1.5"/>
+  <path fill="url(#shade)" d="M0 0h1920v1200H0z"/>
+</svg>

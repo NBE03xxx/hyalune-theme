@@ -10,7 +10,7 @@ Ubuntu 26.04 / GNOME Shell 50.x / Waylandを対象としたユーザー単位の
 
 HOMEはユーザー登録にある実フォルダー、XDG設定はHOME内の標準配置を使用します。HOMEや設定ディレクトリのシンボリックリンク、独自のXDG配置は現在の導入対象に含めません。GTK CSS入口自体のリンクは保全・復元できます。
 
-第1層Shell、第2層GTK3 / GTK4 / libadwaita、第3層独自拡張を一括配置します。第4層GDMは計画のみです。
+第1層Shell、第2層GTK3 / GTK4 / libadwaita、第3層独自拡張を一括配置します。第4層GDMは別の明示入口を持つ[KVM／T16向けの任意機能](GDM.md)です。通常の一括操作には含みません。
 
 ## 表示と効果の確認範囲
 
@@ -110,4 +110,4 @@ python3 /path/to/saved-package/manage-desktop.py recover --package /path/to/save
 
 新規導入のGTK4入口は`~/.config/gtk-4.0/glass50-managed.css`を参照します。旧形式は復元情報を保つため既存の参照先を継続使用します。GSettingsは対象キーだけを変更します。元データ・モード・ユーザー設定値の有無と処理記録は`~/.local/state/glass50/installer-material-v1/`へ0600で保存します。Flatpakの保存先は[別記](FLATPAK.md)です。
 
-システムテーマ、GDM、パッケージ、サービス、ドライバー、ログイン方式は変更しません。任意ZIPにも共通管理ツールを含められますが、初回Flatpak一括適用の標準入口はGit checkoutの`./install.sh`です。
+この通常入口はシステムテーマ、GDM、パッケージ、サービス、ドライバー、ログイン方式を変更しません。任意ZIPにも共通管理ツールを含められますが、初回Flatpak一括適用の標準入口はGit checkoutの`./install.sh`です。

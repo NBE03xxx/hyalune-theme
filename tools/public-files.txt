@@ -87,3 +87,16 @@ tools/desktop-context.py
 tools/manage-desktop.py
 tools/tests/verify-desktop-context.py
 tools/tests/verify-desktop-installer-vm.py
+
+# Independent opt-in GDM preview (no upstream resource payloads)
+build/Hyalune-GDM/overlay.css
+src/scss/gdm.scss
+tools/build-gdm.sh
+tools/manage-gdm.py
+tools/tests/verify-gdm-vm.py
+docs/GDM.md
+src/gdm/background.svg
+build/Hyalune-GDM/background.svg
+tools/gdm-wallpaper.py
+tools/tests/verify-gdm-wallpaper-vm.py
+tools/tests/verify-gdm-environment.py

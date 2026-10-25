@@ -10,7 +10,7 @@ Hyaluneは、ガラスのような透明感と読みやすさを両立するデ�
 
 GNOME標準の配置・操作を生かし、GNOME Shell、GTK3、GTK4 / libadwaitaの色と質感をそろえます。背景ぼかしは独自拡張による任意機能です。MacTahoeやWhiteSurの導入を必要としません。
 
-現在は**プレビュー版**です。インストーラーは機種名に依存せず、OS・GNOME・Waylandなどの導入条件を確認します。新しい共通入口の導入・更新・解除・復旧は、VMの専用環境で検証しています。
+現在のリリースは**v0.1.0**です。通常のデスクトップ向けインストーラーは機種名に依存せず、OS・GNOME・Waylandなどの導入条件を確認します。新しい共通入口の導入・更新・解除・復旧は、VMの専用環境で検証しています。
 
 旧称はGlass50 Dark / MyGlassです。文書上の名称をHyaluneへ統一しました。既存の導入・復元との互換性を保つため、テーマの配置名・拡張UUID・設定の保存先などには従来の識別名が残っています。[内部識別名について](docs/ARCHITECTURE.md#名称と内部識別名)
 
@@ -35,7 +35,7 @@ GNOME標準の配置・操作を生かし、GNOME Shell、GTK3、GTK4 / libadwai
 - 他のOSでの動作は未確認です。
 - **User Themes**（UUID：`user-theme@gnome-shell-extensions.gcampax.github.com`）を導入・有効化済みであること。
 - `git`、`python3`、PyGObject / Gio（`python3-gi`）、`glib-compile-schemas`が利用できること。Flatpak対応を使う場合は`flatpak`も必要です。
-- 通常ユーザーで実行してください。`sudo`や依存パッケージの自動導入は使いません。通常の導入に`deb`化・`sassc`は不要です。
+- 通常テーマは通常ユーザーで実行してください。任意GDMの管理のみ`sudo`を使います。依存パッケージは自動導入しません。通常の導入に`deb`化・`sassc`は不要です。
 - 任意ぼかしの確認範囲は単一画面・100％表示です。High ContrastやReduced Motionでは効果を停止します。GTK3の自動追従には制約があります。[詳しい条件](docs/INSTALL.md)
 
 ### Install
@@ -91,6 +91,18 @@ Hyalune初回導入時に、インストール済みのFlatpakアプリを検出
 
 適用後はアプリを開き直します。Qt系は未対応です。詳細は[Flatpakへの適用・更新・解除](docs/FLATPAK.md)を参照してください。後追加アプリの検出・選択適用は、将来の管理アプリにも設ける予定です。
 
+### GDM（任意）
+
+ログイン画面のテーマは通常のデスクトップとは別に適用します。現在の確認対象はKVMとThinkPad T16 Gen 4（Ubuntu 26.04 / Shell 50.x）です。他の実機では停止します。
+
+```sh
+sudo ./install.sh gdm plan
+sudo ./install.sh gdm set
+sudo ./install.sh gdm status
+```
+
+初回・更新とも同じコマンドです。初回は現在のデスクトップ壁紙を取り込み、更新では保存した背景を維持します。壁紙の取り込み直しは`sudo ./install.sh gdm background`、解除は`sudo ./install.sh gdm remove`です。[保全・復旧と確認範囲](docs/GDM.md)
+
 ## 詳細
 
 SCSS、Shell効果、導入・復元処理、ビルド方法は[構成とコードの説明](docs/ARCHITECTURE.md)を参照してください。
@@ -109,7 +121,7 @@ SCSS、Shell効果、導入・復元処理、ビルド方法は[構成とコー�
 
 機種固有の指定を不要にした共通の導入・更新・解除・復旧を整備しました。今後も確認する構成と運用条件を広げます。
 
-- **GDM**：ログイン画面への任意適用。ユーザーセッションと分離した保全・復元を用意する予定です。
+- **GDM**：ログイン画面への任意適用を実装。通常テーマと分離した保全・復元を使用します。KVM／T16を対象とし、他の実機は未確認です。[操作手順](docs/GDM.md)
 - **管理アプリ**：Shell、GTK、拡張機能、GDM、Flatpakの不透明度・色合いを連動して変更し、後から追加したFlatpakも選択適用できるようにする予定です。
 - **Hyalune Light**：明るい外観の追加。現在はDarkのみです。将来はGNOMEの設定画面からのDark / Light切り替えを第一候補とし、難しい場合は管理アプリでの切り替えを検討します。
 
