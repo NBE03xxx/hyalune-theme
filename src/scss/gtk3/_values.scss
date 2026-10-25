@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: MIT
+// Opaque surfaces: application text must not depend on wallpaper compositing.
+$gtk-window: opacify($surface-bottom, 1);
+$gtk-header: opacify($surface-top, 1);
+$gtk-sidebar: mix($gtk-header, $gtk-window, 45%);
+$gtk-button: mix($ink, $gtk-window, 8%);
+$gtk-button-hover: mix($ink, $gtk-window, 13%);
+$gtk-button-disabled: mix($ink, $gtk-window, 4%);

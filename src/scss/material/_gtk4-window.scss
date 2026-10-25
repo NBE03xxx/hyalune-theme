@@ -1,0 +1,53 @@
+// SPDX-License-Identifier: MIT
+// Real GTK4 windows expose .csd. Color-only consumers such as Chromium create
+// a generic window.background node for their palette and must retain its
+// previous values. Their separately synthesized CSD header keeps its own face.
+@mixin material-native-window {
+  --window-bg-color: #{$material-gtk4-window};
+  --headerbar-bg-color: transparent;
+  --headerbar-backdrop-color: transparent;
+  background-color: $material-gtk4-window;
+  background-image: none;
+  headerbar, headerbar:backdrop { background-color: transparent; }
+  headerbar.header-bar.titlebar, .titlebar:not(headerbar) {
+    background-color: $material-header;
+  }
+  headerbar.header-bar.titlebar:backdrop, .titlebar:not(headerbar):backdrop {
+    background-color: $material-header-backdrop;
+  }
+  > :not(headerbar):not(.titlebar):not(dialog-host):not(toolbarview),
+  toolbarview > box {
+    background-color: $material-gtk4-content-overlay;
+  }
+}
+
+@mixin material-window {
+  --window-bg-color: #{$material-window};
+  --window-fg-color: #{$ink};
+  --headerbar-bg-color: #{$material-header};
+  --headerbar-backdrop-color: #{$material-header-backdrop};
+  --sidebar-bg-color: #{$material-sidebar};
+  --sidebar-backdrop-color: #{$material-sidebar};
+  --view-bg-color: transparent;
+  --card-bg-color: rgba(255, 255, 255, 0.07);
+  --card-shade-color: rgba(0, 0, 0, 0.10);
+  --border-color: rgba(255, 255, 255, 0.16);
+  color: $ink;
+  background-color: $material-window;
+  background-image: linear-gradient(to bottom, $material-highlight, rgba(245, 249, 255, 0) 30%);
+  border-radius: $material-radius;
+  box-shadow: inset 0 0 0 1px $material-edge;
+  headerbar, .titlebar {
+    background-color: $material-header;
+    background-image: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  headerbar:backdrop, .titlebar:backdrop { background-color: $material-header-backdrop; }
+  .material-sidebar {
+    background-color: $material-sidebar;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .material-list { background-color: transparent; }
+  .material-list > row { border-radius: 10px; margin: 3px 0; }
+  &.csd { @include material-native-window; }
+}

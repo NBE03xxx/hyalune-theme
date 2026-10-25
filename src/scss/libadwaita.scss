@@ -1,0 +1,19 @@
+/* Glass50 Dark: libadwaita 1.9 partial overrides. SPDX-License-Identifier: MIT */
+@import "design-values";
+
+@media (prefers-color-scheme: dark) and (prefers-contrast: no-preference) {
+  :root {
+    --window-bg-color: #{opacify($surface-bottom, 1)};
+    --window-fg-color: #{$ink};
+    --headerbar-bg-color: #{opacify($surface-top, 1)};
+    --headerbar-fg-color: #{$ink};
+    --headerbar-backdrop-color: #{mix(opacify($surface-top, 1), opacify($surface-bottom, 1), 45%)};
+    --sidebar-bg-color: #{mix(opacify($surface-top, 1), opacify($surface-bottom, 1), 45%)};
+    --sidebar-fg-color: #{$ink};
+    --sidebar-backdrop-color: #{opacify($surface-bottom, 1)};
+    --popover-bg-color: #{opacify($surface-top, 1)};
+    --popover-fg-color: #{$ink};
+  }
+  // Accent, destructive, view, card and geometry variables remain native.
+  @import "gtk4/window-controls";
+}

@@ -1,0 +1,20 @@
+/* Glass50 Phase 4 isolated probe. SPDX-License-Identifier: MIT */
+@import "design-values";
+
+// Deliberately more transparent than the current 90% Shell surface, for comparison.
+$probe-surface-opacity: 0.60;
+.glass50-blur-probe-card {
+  background-color: rgba($surface-bottom, $probe-surface-opacity);
+  color: $ink;
+  border: 1px solid $edge;
+  border-radius: 20px;
+  padding: 24px;
+  spacing: 18px;
+  font-size: 18px;
+}
+.glass50-blur-probe-button {
+  background-color: rgba(255, 255, 255, 0.10);
+  color: $ink;
+  border-radius: $radius-small;
+  padding: 10px 18px;
+}

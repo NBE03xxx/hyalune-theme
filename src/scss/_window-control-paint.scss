@@ -1,0 +1,9 @@
+// SPDX-License-Identifier: MIT
+// Shrink only the painted disc, without changing the native CSS box.
+@mixin window-control-disc($colour) {
+  background-image: radial-gradient(circle closest-side,
+    $colour calc(100% - 1px),
+    mix(black, $colour, 18%) calc(100% - 1px),
+    mix(black, $colour, 18%) calc(100% - 0.5px),
+    rgba($colour, 0) 100%);
+}

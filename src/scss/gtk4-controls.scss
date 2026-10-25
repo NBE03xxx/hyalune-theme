@@ -1,0 +1,7 @@
+/* Glass50 Dark: persistent GTK4 window controls only. SPDX-License-Identifier: MIT */
+@import "design-values";
+
+// Native Light and High Contrast controls remain available.
+@media (prefers-color-scheme: dark) and (prefers-contrast: no-preference) {
+  @import "gtk4/window-controls";
+}

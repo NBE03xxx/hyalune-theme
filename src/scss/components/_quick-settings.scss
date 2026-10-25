@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: MIT
+.quick-settings {
+  @include glass-surface;
+  padding: $quick-settings-padding;
+}
+
+.quick-settings-grid {
+  spacing-rows: $quick-settings-gap;
+  spacing-columns: $quick-settings-gap;
+}
+
+.quick-toggle-menu {
+  @include glass-card;
+}
+
+// Leave native toggle shapes, split buttons, active/disabled states and
+// slider/overdrive colours intact. Only the containing material changes.

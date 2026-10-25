@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: MIT
+@import "../window-control-paint";
+// Paint the native image area, keeping the button's layout and hit target.
+@each $action, $colour in (
+  minimize: $window-minimize,
+  maximize: $window-maximize,
+  close: $window-close
+) {
+  headerbar button.titlebutton.#{$action},
+  .titlebar button.titlebutton.#{$action} {
+    &, &:hover, &:active, &:backdrop {
+      background-color: transparent;
+      background-image: none;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    image {
+      background-color: transparent;
+      @include window-control-disc($colour);
+      background-size: $window-control-paint-size $window-control-paint-size;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 999px;
+      box-shadow: none;
+      color: transparent;
+      -gtk-icon-shadow: none;
+    }
+
+    &:hover image, &:focus image {
+      color: rgba(0, 0, 0, 0.72);
+    }
+
+    &:hover image {
+      @include window-control-disc(mix(white, $colour, 12%));
+    }
+
+    &:active image {
+      @include window-control-disc(mix(black, $colour, 16%));
+    }
+
+    &:focus {
+      outline-color: $ink;
+      outline-style: solid;
+      outline-width: 1px;
+      outline-offset: -2px;
+    }
+
+    &:backdrop image {
+      opacity: 0.55;
+    }
+
+    &:disabled image {
+      opacity: 0.35;
+      color: transparent;
+    }
+  }
+}

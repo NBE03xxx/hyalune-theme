@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: MIT
+// GNOME Shell-only dimensions and mixins.
+@import "design-values";
+
+// Give the Quick Settings surface a little more space around native controls.
+$quick-settings-padding: 20px;
+$quick-settings-gap: 14px;
+
+// Leave room for the native event-card scroll area on short logical displays.
+$calendar-day-height: 2.5em;
+$calendar-day-margin: 1px;
+$calendar-today-padding: 6px;
+// Keep a readable centre when the native card scroll area becomes short.
+$calendar-card-fade: 12px;
+
+@mixin glass-surface($radius: $radius-surface) {
+  color: $ink;
+  background-color: $surface-bottom;
+  border: 1px solid $edge;
+  border-radius: $radius;
+  box-shadow: 0 8px 24px 2px $shadow;
+}
+
+@mixin glass-card {
+  background-color: $card;
+  border: 1px solid $edge-soft;
+  border-radius: $radius-card;
+
+  &:hover { background-color: $card-hover; }
+  &:active { background-color: $card-active; }
+  // Keep GNOME's accent-aware focus ring and insensitive foreground.
+}

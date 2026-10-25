@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: MIT
+.popup-menu-content,
+.candidate-popup-content {
+  @include glass-surface;
+}
+
+.popup-menu-item {
+  border-radius: $radius-small;
+}
+
+.popup-sub-menu {
+  background-color: $card;
+}
+
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+  background-color: $edge-soft;
+}
+
+.switcher-list {
+  @include glass-surface;
+}

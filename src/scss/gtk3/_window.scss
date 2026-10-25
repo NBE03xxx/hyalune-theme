@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: MIT
+window.background {
+  background-color: $gtk-window;
+  color: $ink;
+}
+
+headerbar {
+  background-color: $gtk-header;
+  background-image: none;
+  border-bottom: 1px solid $edge-soft;
+  box-shadow: none;
+}
+
+headerbar:backdrop {
+  background-color: $gtk-sidebar;
+}
+
+decoration {
+  border-radius: $radius-small;
+  box-shadow: 0 8px 24px 2px $shadow;
+}
+
+window.maximized decoration,
+window.fullscreen decoration,
+window.tiled decoration,
+window.tiled-top decoration,
+window.tiled-bottom decoration,
+window.tiled-left decoration,
+window.tiled-right decoration {
+  border-radius: 0;
+  box-shadow: none;
+}

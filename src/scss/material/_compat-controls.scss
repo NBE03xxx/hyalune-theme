@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: MIT
+// GTK-style consumers can rasterize a synthetic image much larger than an
+// actual icon (for example a 30px image in a browser's title buttons). Bound
+// the painted disc only; preserve their measured button and image geometry.
+windowcontrols button.titlebutton {
+  image,
+  &:hover image,
+  &:active image,
+  &:backdrop image,
+  &:disabled image,
+  &:focus-visible image {
+    background-size: $material-compat-control-size $material-compat-control-size;
+  }
+}

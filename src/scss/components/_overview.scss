@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: MIT
+#dash .dash-background {
+  @include glass-surface;
+}
+
+#dash .dash-item-container {
+  .overview-icon { background-color: transparent; }
+  .overview-tile:hover .overview-icon,
+  .show-apps:hover .overview-icon { background-color: $card-hover; }
+  .overview-tile:active .overview-icon,
+  .show-apps:active .overview-icon,
+  .show-apps:checked .overview-icon { background-color: $card-active; }
+  .overview-tile:focus .overview-icon,
+  .show-apps:focus .overview-icon {
+    background-color: st-transparentize(-st-accent-color, 0.82);
+  }
+}
+
+.search-entry {
+  color: $ink;
+  background-color: $surface-top;
+  border-color: $edge;
+
+  &:hover { background-color: $surface-hover; }
+  // No focus or animation overrides: use the platform's native feedback.
+}
+
+.workspace-background {
+  box-shadow: 0 6px 22px 2px $shadow;
+}

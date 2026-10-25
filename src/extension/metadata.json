@@ -1,0 +1,13 @@
+{
+  "uuid": "glass50-blur@myglass.local",
+  "name": "Glass50 Blur — trial",
+  "description": "Optional Quick Settings and native window material for the verified KVM-PC and explicitly installed T16 trial.",
+  "shell-version": [
+    "50"
+  ],
+  "session-modes": [
+    "user"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.glass50-blur",
+  "version": 7
+}

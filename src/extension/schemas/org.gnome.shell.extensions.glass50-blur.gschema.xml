@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.glass50-blur" path="/org/gnome/shell/extensions/glass50-blur/">
+    <key name="effect-enabled" type="b">
+      <default>false</default>
+      <summary>Enable the optional VM preview effect</summary>
+    </key>
+    <key name="window-material-enabled" type="b">
+      <default>false</default>
+      <summary>Enable the explicitly applied VM window material preview</summary>
+      <description>Only active with Glass50-Material-Preview at resource scale 1. Separate from the stable base theme.</description>
+    </key>
+    <key name="limit-background-refresh" type="b">
+      <default>true</default>
+      <summary>Limit only the optional backdrop to at most 30 updates per second</summary>
+      <description>VM preview comparison switch. Foreground and native windows keep their frame clock.</description>
+    </key>
+    <key name="diagnostics-enabled" type="b">
+      <default>false</default>
+      <summary>Record bounded VM-only rendering counters</summary>
+      <description>Opt in to at most 120 one-second journal snapshots per activation. No input or application content is recorded.</description>
+    </key>
+  </schema>
+</schemalist>

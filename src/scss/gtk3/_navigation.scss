@@ -1,0 +1,27 @@
+// SPDX-License-Identifier: MIT
+notebook > stack {
+  background-color: $gtk-window;
+}
+
+notebook > header {
+  background-color: $gtk-sidebar;
+  border-color: $edge-soft;
+}
+
+notebook > header > tabs > tab {
+  border-radius: $radius-small $radius-small 0 0;
+}
+
+notebook > header > tabs > tab:checked {
+  background-color: $card;
+  // Native tab selection marker and focus outline remain.
+}
+
+.sidebar, placessidebar {
+  background-color: $gtk-sidebar;
+  border-color: $edge-soft;
+}
+
+.sidebar row:not(:selected):hover {
+  background-color: $card-hover;
+}

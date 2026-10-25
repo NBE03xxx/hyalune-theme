@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: MIT
+// Shared material palette for the verified VM and explicit T16 trial.
+$material-panel: rgba(20, 20, 22, 0.38);
+$material-surface: rgba(26, 26, 28, 0.56);
+$material-window: rgba(26, 26, 28, 0.56);
+// Native GTK4 paints this once under both header and content.
+$material-gtk4-window: $material-panel;
+// Restore the existing content opacity above the shared header/window base.
+$material-gtk4-content-overlay: rgba($material-window,
+  (alpha($material-window) - alpha($material-gtk4-window)) /
+  (1 - alpha($material-gtk4-window)));
+// Standalone/legacy frame consumers retain independently readable surfaces.
+$material-header: rgba(26, 26, 28, 0.92);
+$material-header-backdrop: rgba(26, 26, 28, 0.88);
+$material-compat-control-size: 16px;
+$material-sidebar: rgba(16, 16, 18, 0.16);
+$material-highlight: rgba(255, 255, 255, 0.08);
+$material-edge: rgba(255, 255, 255, 0.22);
+$material-radius: 16px;

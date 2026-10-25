@@ -1,0 +1,17 @@
+/* Glass50 material study: isolated preview only. SPDX-License-Identifier: MIT */
+@import 'tokens';
+@import 'material/values';
+$panel: $material-panel;
+$surface-bottom: $material-surface;
+$edge: $material-edge;
+@import 'components/panel';
+@import 'components/menus';
+@import 'components/quick-settings';
+@import 'components/calendar';
+@import 'components/notifications';
+@import 'components/overview';
+@import 'components/osd';
+
+.quick-settings, .popup-menu-content, .calendar {
+  box-shadow: inset 0 1px 0 0 $material-highlight, 0 10px 32px 2px rgba(0, 0, 0, 0.30);
+}

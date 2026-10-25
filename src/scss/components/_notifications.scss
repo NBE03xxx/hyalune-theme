@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: MIT
+.message {
+  @include glass-card;
+
+  &:second-in-stack { background-color: rgba(46, 52, 63, 0.98); }
+  &:lower-in-stack { background-color: rgba(34, 39, 49, 0.98); }
+
+  .message-header {
+    color: $muted;
+    .message-header-content .event-time { color: $muted; }
+  }
+}
+
+.notification-banner {
+  @include glass-surface($radius-card);
+}

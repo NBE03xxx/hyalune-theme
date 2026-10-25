@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: MIT
+#panel {
+  background-color: $panel;
+  box-shadow: inset 0 -1px 0 0 $edge-soft;
+
+  &:overview {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  // The theme does not style the GDM greeter or lock-screen prompt.
+  &.unlock-screen,
+  &.login-screen {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+// Native panel-button states preserve recording, sharing and privacy colours.

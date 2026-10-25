@@ -1,0 +1,22 @@
+/* Glass50 Dark: GTK4-only overrides. SPDX-License-Identifier: MIT */
+@import "design-values";
+
+@media (prefers-color-scheme: dark) and (prefers-contrast: no-preference) {
+  window.background {
+    color: $ink;
+    background-color: opacify($surface-bottom, 1);
+  }
+  headerbar {
+    color: $ink;
+    background-color: opacify($surface-top, 1);
+    background-image: none;
+  }
+  headerbar:backdrop, .sidebar {
+    background-color: mix(opacify($surface-top, 1), opacify($surface-bottom, 1), 45%);
+  }
+  popover > contents {
+    background-color: opacify($surface-top, 1);
+    color: $ink;
+  }
+  @import "gtk4/window-controls";
+}

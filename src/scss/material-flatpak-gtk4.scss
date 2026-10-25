@@ -1,0 +1,18 @@
+/* App-local Flatpak material. SPDX-License-Identifier: MIT */
+@import 'material-gtk4-global';
+
+// In-window dialogs cannot use the Shell backdrop below the parent window.
+// Keep their own canvas opaque so underlying application text stays hidden.
+@media (prefers-color-scheme: dark) and (prefers-contrast: no-preference) {
+  window.background .floating,
+  window.background .bottom-sheet {
+    --window-bg-color: #{rgba($material-window, 1)};
+    --view-bg-color: #{rgba($material-window, 1)};
+  }
+  window.background.dialog {
+    --window-bg-color: #{rgba($material-window, 1)};
+    --view-bg-color: #{rgba($material-window, 1)};
+    background-color: rgba($material-window, 1);
+    background-image: none;
+  }
+}

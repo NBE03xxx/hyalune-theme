@@ -1,0 +1,19 @@
+# 一時作業、ローカル認証情報、再作成できる受け渡し用アーカイブ
+/work/
+/.env
+/.env.*
+*.pem
+*.key
+__pycache__/
+*.py[cod]
+/outputs/*-source.tar.gz
+/outputs/*-source.sha256
+
+/outputs/Glass50-Material-Preview-*.zip
+
+# ローカルの開発・検証記録。実ファイルは保全し、公開用ソースに含めない。
+/outputs/
+/AGENTS.md
+/HANDOFF.md
+/local-docs/
+/public-export/

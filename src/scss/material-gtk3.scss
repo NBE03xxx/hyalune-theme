@@ -1,0 +1,22 @@
+/* VM-only material preview. SPDX-License-Identifier: MIT */
+@import 'gtk3';
+@import 'material/values';
+window.background {
+  background-color: $material-window;
+  background-image: linear-gradient(to bottom, $material-highlight, rgba(255, 255, 255, 0) 30%);
+}
+headerbar, window.background .titlebar:not(headerbar) {
+  background-color: $material-header;
+  background-image: none;
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+headerbar:backdrop, window.background .titlebar:not(headerbar):backdrop {
+  background-color: $material-header-backdrop;
+}
+stacksidebar.sidebar, .sidebar, placessidebar {
+  background-color: $material-sidebar;
+}
+decoration {
+  border-radius: $material-radius;
+  border: 1px solid $material-edge;
+}

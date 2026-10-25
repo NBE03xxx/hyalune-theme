@@ -1,0 +1,242 @@
+@charset "UTF-8";
+/* Glass50 Dark — original GNOME Shell 50 theme overrides.
+ * SPDX-License-Identifier: MIT
+ * Generated from SCSS; edit the source, not the output CSS.
+ * Background transparency only: no blur or refraction is applied.
+ */
+#panel {
+  background-color: rgba(18, 22, 29, 0.8);
+  box-shadow: inset 0 -1px 0 0 rgba(233, 240, 255, 0.12);
+}
+
+#panel:overview {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+#panel.unlock-screen, #panel.login-screen {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.popup-menu-content,
+.candidate-popup-content {
+  color: #f4f6fa;
+  background-color: rgba(23, 29, 39, 0.9);
+  border: 1px solid rgba(233, 240, 255, 0.21);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px 2px rgba(0, 0, 0, 0.28);
+}
+
+.popup-menu-item {
+  border-radius: 12px;
+}
+
+.popup-sub-menu {
+  background-color: rgba(255, 255, 255, 0.075);
+}
+
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+  background-color: rgba(233, 240, 255, 0.12);
+}
+
+.switcher-list {
+  color: #f4f6fa;
+  background-color: rgba(23, 29, 39, 0.9);
+  border: 1px solid rgba(233, 240, 255, 0.21);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px 2px rgba(0, 0, 0, 0.28);
+}
+
+.quick-settings {
+  color: #f4f6fa;
+  background-color: rgba(23, 29, 39, 0.9);
+  border: 1px solid rgba(233, 240, 255, 0.21);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px 2px rgba(0, 0, 0, 0.28);
+  padding: 20px;
+}
+
+.quick-settings-grid {
+  spacing-rows: 14px;
+  spacing-columns: 14px;
+}
+
+.quick-toggle-menu {
+  background-color: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(233, 240, 255, 0.12);
+  border-radius: 16px;
+}
+
+.quick-toggle-menu:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.quick-toggle-menu:active {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.datemenu-popover {
+  border-radius: 24px;
+}
+
+.datemenu-today-button {
+  padding: 6px;
+}
+
+.calendar .calendar-day {
+  height: 2.5em;
+  margin: 1px;
+}
+
+StScrollView.datemenu-displays-section {
+  -st-vfade-offset: 12px;
+}
+
+.events-button,
+.world-clocks-button,
+.weather-button {
+  background-color: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(233, 240, 255, 0.12);
+  border-radius: 16px;
+}
+
+.events-button:hover,
+.world-clocks-button:hover,
+.weather-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.events-button:active,
+.world-clocks-button:active,
+.weather-button:active {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.calendar .calendar-day,
+.calendar .calendar-day-heading,
+.calendar .calendar-month-header .calendar-month-label,
+.calendar .calendar-month-header .pager-button {
+  background-color: transparent;
+}
+
+.calendar .calendar-day:hover,
+.calendar .calendar-day-heading:hover,
+.calendar .calendar-month-header .calendar-month-label:hover,
+.calendar .calendar-month-header .pager-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.calendar .calendar-day:focus,
+.calendar .calendar-day-heading:focus,
+.calendar .calendar-month-header .calendar-month-label:focus,
+.calendar .calendar-month-header .pager-button:focus {
+  background-color: st-transparentize(-st-accent-color, 0.82);
+}
+
+.calendar .calendar-day:active, .calendar .calendar-day:selected,
+.calendar .calendar-day-heading:active,
+.calendar .calendar-day-heading:selected,
+.calendar .calendar-month-header .calendar-month-label:active,
+.calendar .calendar-month-header .calendar-month-label:selected,
+.calendar .calendar-month-header .pager-button:active,
+.calendar .calendar-month-header .pager-button:selected {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.calendar .calendar-day.calendar-today {
+  color: -st-accent-fg-color;
+  background-color: -st-accent-color;
+}
+
+.calendar .calendar-day.calendar-today:hover {
+  background-color: st-lighten(-st-accent-color, 6%);
+}
+
+.message {
+  background-color: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(233, 240, 255, 0.12);
+  border-radius: 16px;
+}
+
+.message:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.message:active {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.message:second-in-stack {
+  background-color: rgba(46, 52, 63, 0.98);
+}
+
+.message:lower-in-stack {
+  background-color: rgba(34, 39, 49, 0.98);
+}
+
+.message .message-header {
+  color: #bec5d0;
+}
+
+.message .message-header .message-header-content .event-time {
+  color: #bec5d0;
+}
+
+.notification-banner {
+  color: #f4f6fa;
+  background-color: rgba(23, 29, 39, 0.9);
+  border: 1px solid rgba(233, 240, 255, 0.21);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px 2px rgba(0, 0, 0, 0.28);
+}
+
+#dash .dash-background {
+  color: #f4f6fa;
+  background-color: rgba(23, 29, 39, 0.9);
+  border: 1px solid rgba(233, 240, 255, 0.21);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px 2px rgba(0, 0, 0, 0.28);
+}
+
+#dash .dash-item-container .overview-icon {
+  background-color: transparent;
+}
+
+#dash .dash-item-container .overview-tile:hover .overview-icon,
+#dash .dash-item-container .show-apps:hover .overview-icon {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+#dash .dash-item-container .overview-tile:active .overview-icon,
+#dash .dash-item-container .show-apps:active .overview-icon,
+#dash .dash-item-container .show-apps:checked .overview-icon {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+#dash .dash-item-container .overview-tile:focus .overview-icon,
+#dash .dash-item-container .show-apps:focus .overview-icon {
+  background-color: st-transparentize(-st-accent-color, 0.82);
+}
+
+.search-entry {
+  color: #f4f6fa;
+  background-color: rgba(38, 46, 59, 0.92);
+  border-color: rgba(233, 240, 255, 0.21);
+}
+
+.search-entry:hover {
+  background-color: rgba(44, 53, 66, 0.94);
+}
+
+.workspace-background {
+  box-shadow: 0 6px 22px 2px rgba(0, 0, 0, 0.28);
+}
+
+.osd-window {
+  color: #f4f6fa;
+  background-color: rgba(23, 29, 39, 0.9);
+  border: 1px solid rgba(233, 240, 255, 0.21);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px 2px rgba(0, 0, 0, 0.28);
+}

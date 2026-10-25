@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: MIT
+.datemenu-popover {
+  border-radius: $radius-surface;
+}
+
+// Keep the native font size and navigation while reducing vertical spacing.
+.datemenu-today-button {
+  padding: $calendar-today-padding;
+}
+
+.calendar .calendar-day {
+  height: $calendar-day-height;
+  margin: $calendar-day-margin;
+}
+
+// The native 68px fades overlap in the 91px card viewport at 200%.
+StScrollView.datemenu-displays-section {
+  -st-vfade-offset: $calendar-card-fade;
+}
+
+.events-button,
+.world-clocks-button,
+.weather-button {
+  @include glass-card;
+}
+
+// The native flat controls use the native popover's opaque background colour.
+// Make their resting state transparent over our differently coloured surface.
+.calendar .calendar-day,
+.calendar .calendar-day-heading,
+.calendar .calendar-month-header .calendar-month-label,
+.calendar .calendar-month-header .pager-button {
+  background-color: transparent;
+  &:hover { background-color: $card-hover; }
+  &:focus { background-color: st-transparentize(-st-accent-color, 0.82); }
+  &:active,
+  &:selected { background-color: $card-active; }
+}
+
+.calendar .calendar-day.calendar-today {
+  color: -st-accent-fg-color;
+  background-color: -st-accent-color;
+  &:hover { background-color: st-lighten(-st-accent-color, 6%); }
+}
+
+// Other-month text, weekend text and locale-aware layout remain native.

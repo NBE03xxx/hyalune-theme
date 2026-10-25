@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: MIT
+menu, .menu {
+  background-color: $gtk-header;
+  border: 1px solid $edge;
+  border-radius: $radius-small;
+  padding: 6px;
+}
+
+popover.background {
+  background-color: $gtk-header;
+  border-color: $edge;
+  border-radius: $radius-card;
+}
+
+// Menu item selection, disabled states, spacing and focus use native rules.
