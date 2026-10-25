@@ -19,7 +19,7 @@ MAX_PNG = 64 * 1024 * 1024
 MAX_PIXELS = 40_000_000
 
 
-def capture():
+def capture(selected=None):
     if os.geteuid() == 0:
         raise ValueError('Wallpaper decoding must run as the desktop user')
     resource.setrlimit(resource.RLIMIT_AS, (2 * 1024 * 1024 * 1024,) * 2)
@@ -28,24 +28,28 @@ def capture():
     gi.require_version('GdkPixbuf', '2.0')
     from gi.repository import Gio, GdkPixbuf
 
-    appearance = Gio.Settings.new('org.gnome.desktop.interface')
-    settings = Gio.Settings.new('org.gnome.desktop.background')
-    scheme = appearance.get_string('color-scheme')
-    options = settings.get_string('picture-options')
-    if options == 'none' or settings.get_int('picture-opacity') == 0:
-        raise ValueError('The desktop is not displaying a wallpaper image')
-    key = 'picture-uri-dark' if scheme == 'prefer-dark' else 'picture-uri'
-    uri = settings.get_string(key)
-    if key == 'picture-uri-dark' and not uri:
-        key = 'picture-uri'; uri = settings.get_string(key)
-    if not uri:
-        raise ValueError('No desktop wallpaper image is configured')
-    parsed = urlsplit(uri)
-    if parsed.scheme != 'file' or parsed.netloc not in ('', 'localhost') or parsed.query or parsed.fragment:
-        raise ValueError('Only local file:// wallpaper images are supported')
-    path = Gio.File.new_for_uri(uri).get_path()
-    if not path or not os.path.isabs(path):
-        raise ValueError('Wallpaper URI is not an absolute local file')
+    if selected is None:
+        appearance = Gio.Settings.new('org.gnome.desktop.interface')
+        settings = Gio.Settings.new('org.gnome.desktop.background')
+        scheme = appearance.get_string('color-scheme')
+        options = settings.get_string('picture-options')
+        if options == 'none' or settings.get_int('picture-opacity') == 0:
+            raise ValueError('The desktop is not displaying a wallpaper image')
+        key = 'picture-uri-dark' if scheme == 'prefer-dark' else 'picture-uri'
+        uri = settings.get_string(key)
+        if key == 'picture-uri-dark' and not uri:
+            key = 'picture-uri'; uri = settings.get_string(key)
+        if not uri:
+            raise ValueError('No desktop wallpaper image is configured')
+        parsed = urlsplit(uri)
+        if parsed.scheme != 'file' or parsed.netloc not in ('', 'localhost') or parsed.query or parsed.fragment:
+            raise ValueError('Only local file:// wallpaper images are supported')
+        path = Gio.File.new_for_uri(uri).get_path()
+        if not path or not os.path.isabs(path):
+            raise ValueError('Wallpaper URI is not an absolute local file')
+    else:
+        if not os.path.isabs(selected) or '\0' in selected:raise ValueError('An absolute local image is required')
+        path=selected;key='selected';scheme='independent';options='zoom'
     try:
         fd = os.open(path, os.O_RDONLY | os.O_NONBLOCK)
         with os.fdopen(fd, 'rb') as file:
@@ -96,7 +100,7 @@ def capture():
         raise ValueError('Wallpaper is not a supported static image') from None
     png = bytes(png)
     return {'png': base64.b64encode(png).decode('ascii'),
-            'description': {'origin': 'desktop', 'resource_name': 'hyalune-background.png',
+            'description': {'origin': 'image' if selected is not None else 'desktop', 'resource_name': 'hyalune-background.png',
                             'sha256': hashlib.sha256(png).hexdigest(),
                             'source_sha256': hashlib.sha256(raw).hexdigest(),
                             'width': width, 'height': height, 'source_key': key,
@@ -106,6 +110,8 @@ def capture():
 
 if __name__ == '__main__':
     try:
-        print(json.dumps(capture()))
+        import argparse
+        parser=argparse.ArgumentParser();parser.add_argument('--file');args=parser.parse_args()
+        print(json.dumps(capture(args.file)))
     except Exception as error:
         print(json.dumps({'error': str(error)})); sys.exit(1)

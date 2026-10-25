@@ -5,7 +5,24 @@
 @import 'material/values';
 
 // GDM-only trial value; do not change the shared GTK/Shell surface.
-$gdm-surface-opacity: 0.32;
+$gdm-surface-opacity: 0.32 !default;
+$gdm-text-color: null !default;
+
+// Change only primary labels. Native warnings, errors, insensitive labels,
+// password fields, buttons, selection and focus keep their own colors.
+@if $gdm-text-color != null {
+  .login-dialog .login-dialog-user-list-item .login-dialog-user-list-item-name,
+  .login-dialog .login-dialog-user-list-item .user-widget .user-widget-label,
+  .login-dialog .user-widget.vertical .user-widget-label {
+    color: $gdm-text-color;
+  }
+  // Non-interactive St containers are also insensitive; only an actionable
+  // user row has a disabled state that should restore its native foreground.
+  .login-dialog .login-dialog-user-list-item:insensitive .login-dialog-user-list-item-name,
+  .login-dialog .login-dialog-user-list-item:insensitive .user-widget .user-widget-label {
+    color: inherit;
+  }
+}
 
 #lockDialogGroup {
   background-color: #10191f;

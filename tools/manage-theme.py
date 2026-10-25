@@ -385,6 +385,10 @@ def run(args):
     safe(lock)
     shared = home / ".local/state/glass50/appearance.lock"
     safe(shared)
+    # Components with their own state directory (such as the settings app)
+    # still share this lock on a previously untouched user HOME.
+    shared.parent.mkdir(parents=True, exist_ok=True)
+    safe(shared)
     with shared.open("a+b") as appearance, lock.open("a+b") as stream:
         os.fchmod(appearance.fileno(), 0o600)
         os.fchmod(stream.fileno(), 0o600)

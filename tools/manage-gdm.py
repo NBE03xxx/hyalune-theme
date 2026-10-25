@@ -429,7 +429,7 @@ def locked():
         yield
 
 
-def operate(action, overlay, dry=False, crash=0, background=None):
+def operate(action, overlay, dry=False, crash=0, background=None, replace_image=False, manager=None):
     if read(STATE/'pending.json'): raise ValueError('Interrupted GDM operation: run gdm recover first')
     owner = read(STATE/'active.json'); current = alternatives()
     if owner: check_owner(owner, current)
@@ -446,10 +446,12 @@ def operate(action, overlay, dry=False, crash=0, background=None):
                 if background is None: raise ValueError('A replacement background is required')
                 info = replace_background(owner, background, candidate)
             else:
-                snapshot = owned_background(owner) if owner else background
+                snapshot = background if replace_image else (owned_background(owner) if owner else background)
                 info = build(owner['source']['path'] if owner else current['value'], overlay, candidate, snapshot)
             resource_data = candidate.read_bytes()
         new = {**info, 'version': VERSION, 'original': original, 'resource': str(ASSETS/(info['resource_sha256']+'.gresource'))}
+        if manager is not None: new['manager'] = manager
+        elif action == 'set-background' and owner and 'manager' in owner: new['manager'] = owner['manager']
         candidates = dict(original['candidates']); candidates[new['resource']] = -100
         new['installed_alternatives'] = {'mode':'manual', 'value':new['resource'], 'candidates':candidates}
         result.update({'resource':new['resource'], 'source':new['source'], 'overlay_sha256':new['overlay_sha256'], 'background':new['background']})

@@ -29,7 +29,7 @@ def main():
         rel = Path(name)
         if rel.is_absolute() or '..' in rel.parts or not rel.parts:
             p.error('Unsafe public file path')
-        if rel.parts[0] not in ('docs', 'src', 'build', 'tools') and name not in ('README.md', 'LICENSE', '.gitignore', 'install.sh'):
+        if rel.parts[0] not in ('docs', 'src', 'build', 'tools', 'data') and name not in ('README.md', 'LICENSE', '.gitignore', 'install.sh'):
             p.error('Local/development record requested: ' + name)
         source = project / rel
         for node in (source, *source.parents):

@@ -12,7 +12,7 @@ import tempfile
 import zipfile
 
 p = argparse.ArgumentParser(description=__doc__)
-p.add_argument('--version', default='0.1.1')
+p.add_argument('--version', default='0.2.0')
 output = p.add_mutually_exclusive_group(required=True)
 output.add_argument('--output', type=Path, help='Optional ZIP for offline transfer')
 output.add_argument('--directory', type=Path, help='Prepare a source-install snapshot without a ZIP')
@@ -44,10 +44,13 @@ for n, source in {'manage-material.py': 'tools/manage-material.py', 'manage-them
                   'INSTALL.md': 'docs/INSTALL.md', 'INSTALLER-ROADMAP.md': 'docs/ROADMAP.md',
                   'LICENSE': 'LICENSE', 'LICENSES.md': 'docs/LICENSES.md'}.items():
     files[n] = (root / source).read_bytes()
+revision = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=root, text=True, capture_output=True)
+source_commit = revision.stdout.strip() if revision.returncode == 0 else None
+source_dirty = (bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=root, text=True).strip())
+                if source_commit else None)
 manifest = {'format': 2, 'component': 'material-preview', 'version': a.version,
     **m.layer_info(),
-    'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip(),
-    'source_tree_dirty': bool(subprocess.check_output(['git','status','--porcelain'], cwd=root, text=True).strip()),
+    'source_commit': source_commit, 'source_tree_dirty': source_dirty,
     'scope': 'Ubuntu 26.04 / GNOME Shell 50.x / Wayland; user-session installation', 'extension_version': 7,
     'files': {n.removeprefix('payload/'):hashlib.sha256(b).hexdigest() for n,b in files.items() if n.startswith('payload/')},
     'support_files': {n:hashlib.sha256(b).hexdigest() for n,b in files.items() if not n.startswith('payload/')}}

@@ -101,3 +101,32 @@ tools/gdm-wallpaper.py
 tools/tests/verify-gdm-wallpaper-vm.py
 tools/tests/verify-gdm-environment.py
 src/scss/components/_end-session-dialog.scss
+docs/THEME-MANAGER.md
+
+# Hyalune Settings (user application)
+src/manager/__init__.py
+src/manager/profile.py
+src/manager/backend.py
+src/manager/app.py
+src/manager/style.css
+tools/manage-settings.py
+tools/hyalune-settings.py
+tools/install-manager.py
+data/io.github.NBE03xxx.Hyalune.Settings.svg
+tools/tests/verify-manager-vm.py
+tools/tests/probe-manager.js
+tools/tests/probe-manager-ui.py
+tools/tests/run-manager-vm.py
+
+# Flatpak policies and the separate privileged GDM endpoint
+src/manager/flatpak.py
+src/manager/gdm_profile.py
+src/manager/gdm_privileged.py
+src/manager/gdm_ui.py
+tools/install-gdm-helper.py
+data/hyalune-gdm-settings
+data/io.github.NBE03xxx.Hyalune.Gdm.policy
+tools/tests/verify-manager-policies-vm.py
+tools/tests/verify-gdm-manager-vm.py
+tools/tests/probe-gdm-manager.js
+tools/tests/run-gdm-manager-render-vm.py

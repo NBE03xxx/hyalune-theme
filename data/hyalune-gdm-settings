@@ -1,0 +1,31 @@
+#!/usr/bin/python3 -I
+# SPDX-License-Identifier: MIT
+"""Fixed root endpoint; imports only a verified root-owned installed release."""
+import fcntl,hashlib,json,os,pathlib,stat,sys
+BASE=pathlib.Path('/usr/local/share/hyalune/gdm-settings')
+STATE=pathlib.Path('/var/lib/hyalune-gdm-helper')
+def secure(path):
+    for node in (path,*path.parents):
+        s=node.lstat()
+        if stat.S_ISLNK(s.st_mode) or s.st_uid!=0 or s.st_mode&0o022:raise ValueError('Untrusted helper path: '+str(node))
+try:
+    if os.geteuid()!=0:raise ValueError('Administrator authentication required')
+    if len(sys.argv)!=1:raise ValueError('No command-line arguments are accepted')
+    os.environ.update(PATH='/usr/sbin:/usr/bin:/sbin:/bin',LC_ALL='C.UTF-8')
+    secure(STATE);secure(STATE/'lock')
+    with (STATE/'lock').open('a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        secure(STATE/'active.json');record=json.loads((STATE/'active.json').read_text());revision=record['revision']
+        if len(revision)!=64 or any(c not in '0123456789abcdef' for c in revision):raise ValueError('Invalid helper revision')
+        root=BASE/'releases'/revision;secure(root)
+        for name,digest in record['files'].items():
+            rel=pathlib.Path(name)
+            if rel.is_absolute() or '..' in rel.parts:raise ValueError('Unsafe helper file')
+            path=root/rel;secure(path)
+            if hashlib.sha256(path.read_bytes()).hexdigest()!=digest:raise ValueError('Helper source changed')
+        sys.dont_write_bytecode=True;sys.path.insert(0,str(root/'src'))
+        from manager.gdm_privileged import main
+        code=main()
+    sys.exit(code)
+except Exception as error:
+    print(json.dumps({'api':'hyalune.gdm','version':1,'ok':False,'error':{'code':'helper-unavailable','message':str(error)}},ensure_ascii=False));sys.exit(1)
