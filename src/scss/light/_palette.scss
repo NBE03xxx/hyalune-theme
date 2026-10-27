@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: MIT
+// Hyalune Light: semantic palette; toolkit selectors stay in their own modules.
+$ink: #202124;
+$muted: #50545a;
+// Application text needs a stronger foreground over user-adjustable glass.
+// Keep Shell's reviewed palette independent from the application correction.
+$app-ink: #111214;
+$app-dim-opacity: 0.85;
+$panel: rgba(246, 246, 248, 0.74);
+$surface-top: rgba(250, 250, 252, 0.96);
+$surface-bottom: rgba(246, 246, 248, 0.78);
+$surface-hover: rgba(232, 233, 236, 0.98);
+$card: rgba(0, 0, 0, 0.045);
+$card-hover: rgba(0, 0, 0, 0.085);
+$card-active: rgba(0, 0, 0, 0.13);
+$edge: rgba(30, 32, 36, 0.22);
+$edge-soft: rgba(30, 32, 36, 0.12);
+$shadow: rgba(0, 0, 0, 0.18);
+$material-panel: $panel !default;
+$material-surface: $surface-bottom !default;
+$material-window: $surface-bottom !default;
+$material-header: rgba(246, 246, 248, 0.94);
+$material-header-backdrop: rgba(246, 246, 248, 0.90);
+$material-sidebar: rgba(52, 54, 58, 0.055);
+$material-highlight: rgba(255, 255, 255, 0.24);
+$material-edge: $edge;
+$material-card: rgba(0, 0, 0, 0.045);
+$material-border: $edge-soft;
+$material-scheme: light;
+$gtk3-resource: "resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained.css";
+
+// St supports one shadow without CSS spread radius.
+$surface-shadow: 0 8px 24px $shadow;
+$overview-shadow: 0 6px 22px $shadow;
+$material-shell-shadow: 0 10px 32px $shadow;

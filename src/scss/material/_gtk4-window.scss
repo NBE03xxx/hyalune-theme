@@ -29,9 +29,9 @@
   --sidebar-bg-color: #{$material-sidebar};
   --sidebar-backdrop-color: #{$material-sidebar};
   --view-bg-color: transparent;
-  --card-bg-color: rgba(255, 255, 255, 0.07);
+  --card-bg-color: #{$material-card};
   --card-shade-color: rgba(0, 0, 0, 0.10);
-  --border-color: rgba(255, 255, 255, 0.16);
+  --border-color: #{$material-border};
   color: $ink;
   background-color: $material-window;
   background-image: linear-gradient(to bottom, $material-highlight, rgba(245, 249, 255, 0) 30%);

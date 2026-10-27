@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
+import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
-import {assertEffectContext} from './effects/runtime-context.js';
+import {assertEffectContext, MaterialAccessibility, AppearanceSync} from './effects/runtime-context.js';
 import {QuickSettingsBlur} from './effects/quick-settings-blur.js';
 import {WindowMaterial} from './effects/window-material.js';
 import {WindowBackdropSource} from './effects/window-backdrop-source.js';
@@ -12,6 +13,10 @@ export default class Glass50BlurExtension extends Extension {
     enable() {
         assertEffectContext(true);
         this._settings=this.getSettings();
+        this._interface=new Gio.Settings({schema_id:'org.gnome.desktop.interface'});
+        this._schemeId=this._interface.connect('changed::color-scheme',()=>this._queue());
+        this._appearanceSync=new AppearanceSync(this._interface);
+        this._accessibility=new MaterialAccessibility();
         this._pending=0;
         this._diagnosticTimer=0;this._diagnosticSamples=0;
         this._windows=null;
@@ -59,15 +64,13 @@ export default class Glass50BlurExtension extends Extension {
         this._stop();
         if (!this._settings.get_boolean('effect-enabled') || !this._menu.isOpen) return;
         const path=Main.getThemeStylesheet()?.get_path()??'';
-        if (!['Glass50-Dark','Glass50-Material-Preview'].some(name=>path.endsWith(`/${name}/gnome-shell/gnome-shell.css`))) return;
+        if (!['Hyalune','Glass50-Dark','Glass50-Material-Preview','Hyalune-Light'].some(name=>path.endsWith(`/${name}/gnome-shell/gnome-shell.css`))) return;
         try {
             this._lifecycle.source_builds++;
             this._source=new WindowBackdropSource({allowVmSession:true});
             this._blur=new QuickSettingsBlur(this._menu,this._source.actor,
-                {allowVmSession:true,clipSource:true,resolutionScale:0.5,instrument:this._settings.get_boolean('diagnostics-enabled'),maxRefreshRate:this._settings.get_boolean('limit-background-refresh')?30:0});
+                {allowVmSession:true,clipSource:true,resolutionScale:0.5,brightness:this._interface.get_string('color-scheme') === 'prefer-light' ? 1.0 : 0.85,instrument:this._settings.get_boolean('diagnostics-enabled'),maxRefreshRate:this._settings.get_boolean('limit-background-refresh')?30:0});
             this._blur.setEnabled(true);
-            if (path.includes('/Glass50-Material-Preview/') && this._blur.diagnostics.active)
-                this._blur._blur._blur.brightness=0.85;
         } catch(error) {
             this._stop();
             console.error(`Glass50 preview fell back to the existing theme: ${error}`);
@@ -79,13 +82,17 @@ export default class Glass50BlurExtension extends Extension {
         this._source?.destroy();this._source=null;
     }
     get diagnostics() {
-        return {runtime_version:7,window_update_strategy:"owned-commit",lifecycle:{...this._lifecycle},window_material:this._windows?.diagnostics??null,diagnostics_setting:this._settings?.get_boolean('diagnostics-enabled')??false,
+        return {runtime_version:10,appearance_sync:this._appearanceSync?.last??null,high_contrast_fallback:this._accessibility?.active??false,window_update_strategy:"owned-commit",lifecycle:{...this._lifecycle},window_material:this._windows?.diagnostics??null,diagnostics_setting:this._settings?.get_boolean('diagnostics-enabled')??false,
             diagnostics_connection:Boolean(this._diagnosticsId),diagnostic_timer:Boolean(this._diagnosticTimer),diagnostic_samples:this._diagnosticSamples,enabled_setting:this._settings?.get_boolean('effect-enabled')??false,
             refresh_limited_setting:this._settings?.get_boolean('limit-background-refresh')??true,refresh_connection:Boolean(this._refreshId),
             settings_connection:Boolean(this._settingsId),menu_connection:Boolean(this._menuId),pending_sync:Boolean(this._pending),source:this._source?.diagnostics??null,
             blur:this._blur?.diagnostics??null};
     }
     disable() {
+        this._appearanceSync?.destroy();this._appearanceSync=null;
+        this._accessibility?.destroy();this._accessibility=null;
+        if(this._schemeId)this._interface.disconnect(this._schemeId);
+        this._schemeId=0;this._interface=null;
         this._windows?.destroy();this._windows=null;
         if (this._windowSettingsId) this._settings.disconnect(this._windowSettingsId);
         this._windowSettingsId=0;

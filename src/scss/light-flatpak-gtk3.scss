@@ -1,0 +1,6 @@
+/* Hyalune Light GTK3 Flatpak: native accessible appearance.
+ * SPDX-License-Identifier: MIT
+ * GTK3 has no contrast media queries. Do not override its native theme from
+ * app-local user CSS: High Contrast must remain usable. Material preferences
+ * remain saved and native GTK3 still uses its separately installed theme.
+ */

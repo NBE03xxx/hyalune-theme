@@ -54,7 +54,7 @@ def main():
         # User-package metadata stays compatible; the separate root preview is
         # advertised only by the source entry, never added to its payload.
         info['separate_gdm_preview'] = {'entry': './install.sh gdm --help', 'scope': 'system-login',
-                                        'status': 'kvm-and-t16-trial', 'included_in_apply_remove': False}
+                                        'status': 'environment-checked', 'included_in_apply_remove': False}
         print(json.dumps(info, indent=2)); return 0
     template = module(source_manager, 'source_material')
     if a.target == 't16-trial': module(project / 'tools/manage-t16.py', 't16_template').configure(template)

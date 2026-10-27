@@ -3,21 +3,21 @@
   <schema id="org.gnome.shell.extensions.glass50-blur" path="/org/gnome/shell/extensions/glass50-blur/">
     <key name="effect-enabled" type="b">
       <default>false</default>
-      <summary>Enable the optional VM preview effect</summary>
+      <summary>Enable optional Quick Settings background blur</summary>
     </key>
     <key name="window-material-enabled" type="b">
       <default>false</default>
-      <summary>Enable the explicitly applied VM window material preview</summary>
-      <description>Only active with Glass50-Material-Preview at resource scale 1. Separate from the stable base theme.</description>
+      <summary>Enable optional Hyalune window background blur</summary>
+      <description>Applies to managed Hyalune windows at the supported display scale. Text and controls retain their original opacity.</description>
     </key>
     <key name="limit-background-refresh" type="b">
       <default>true</default>
       <summary>Limit only the optional backdrop to at most 30 updates per second</summary>
-      <description>VM preview comparison switch. Foreground and native windows keep their frame clock.</description>
+      <description>Foreground and native windows keep their normal frame clock.</description>
     </key>
     <key name="diagnostics-enabled" type="b">
       <default>false</default>
-      <summary>Record bounded VM-only rendering counters</summary>
+      <summary>Record bounded rendering diagnostics</summary>
       <description>Opt in to at most 120 one-second journal snapshots per activation. No input or application content is recorded.</description>
     </key>
   </schema>

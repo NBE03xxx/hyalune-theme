@@ -1,25 +1,25 @@
 // SPDX-License-Identifier: MIT
 // Shared design values; each toolkit supplies its own selectors and compositing.
-$ink: #f4f6fa;
-$muted: #bec5d0;
-$panel: rgba(18, 22, 29, 0.80);
-$surface-top: rgba(38, 46, 59, 0.92);
-$surface-bottom: rgba(23, 29, 39, 0.90);
-$surface-hover: rgba(44, 53, 66, 0.94);
-$card: rgba(255, 255, 255, 0.075);
-$card-hover: rgba(255, 255, 255, 0.12);
-$card-active: rgba(255, 255, 255, 0.16);
-$edge: rgba(233, 240, 255, 0.21);
-$edge-soft: rgba(233, 240, 255, 0.12);
-$shadow: rgba(0, 0, 0, 0.28);
-$radius-surface: 24px;
-$radius-card: 16px;
-$radius-small: 12px;
+$ink: #f4f6fa !default;
+$muted: #bec5d0 !default;
+$panel: rgba(18, 22, 29, 0.80) !default;
+$surface-top: rgba(38, 46, 59, 0.92) !default;
+$surface-bottom: rgba(23, 29, 39, 0.90) !default;
+$surface-hover: rgba(44, 53, 66, 0.94) !default;
+$card: rgba(255, 255, 255, 0.075) !default;
+$card-hover: rgba(255, 255, 255, 0.12) !default;
+$card-active: rgba(255, 255, 255, 0.16) !default;
+$edge: rgba(233, 240, 255, 0.21) !default;
+$edge-soft: rgba(233, 240, 255, 0.12) !default;
+$shadow: rgba(0, 0, 0, 0.28) !default;
+$radius-surface: 24px !default;
+$radius-card: 16px !default;
+$radius-small: 12px !default;
 
 // Window action colours; toolkit-specific rules keep native hit targets.
-$window-minimize: #f4bf4f;
-$window-maximize: #53c66b;
-$window-close: #f07870;
+$window-minimize: #f4bf4f !default;
+$window-maximize: #53c66b !default;
+$window-close: #f07870 !default;
 
 // Paint circles at 80% of the native image area; keep layout and hit targets.
-$window-control-paint-size: 80%;
+$window-control-paint-size: 80% !default;

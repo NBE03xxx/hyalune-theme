@@ -100,14 +100,13 @@ def main():
         ok('pending recovery retains journal on conflict',(g.STATE/'pending.json').exists())
         g.alt('--remove',g.GROUP,str(other));g.recover()
         ok('recovery succeeds after conflict resolved',g.alternatives()==manual)
-    # Exercise the host guard even when this fixture runs as an ordinary user.
-    old_uid=g.os.geteuid;old_scope=g.machine_scope
+    # Privilege remains mandatory on every hardware platform.
+    old_uid=g.os.geteuid
     try:
-        g.os.geteuid=lambda:0
-        g.machine_scope=lambda:g.validate_machine('none','OTHER','Unverified PC')
-        try:g.guard(restoring=True);raise AssertionError('unverified host accepted')
-        except ValueError as e:ok('unverified host rejected', '未確認の実機' in str(e))
-    finally:g.os.geteuid=old_uid;g.machine_scope=old_scope
+        g.os.geteuid=lambda:1000
+        try:g.guard(restoring=True);raise AssertionError('normal user accepted')
+        except ValueError as e:ok('restoration still requires root', 'root' in str(e))
+    finally:g.os.geteuid=old_uid
     ok('real GDM alternatives untouched',subprocess.check_output(['update-alternatives','--query','gdm-theme.gresource'],text=True)==installed)
     print(json.dumps({'passed':len(checks),'checks':checks},indent=2))
 

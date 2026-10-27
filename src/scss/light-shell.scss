@@ -1,0 +1,6 @@
+/* Hyalune Light. SPDX-License-Identifier: MIT */
+// Reference the installed native light theme, without bundling upstream CSS.
+@import url("resource:///org/gnome/shell/theme/gnome-shell-light.css");
+@import 'light/palette';
+@import 'material-shell';
+@import 'light/shell';

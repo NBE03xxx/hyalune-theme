@@ -1,0 +1,277 @@
+/* Hyalune Light. SPDX-License-Identifier: MIT */
+@import url("resource:///org/gnome/shell/theme/gnome-shell-light.css");
+/* Glass50 material study: isolated preview only. SPDX-License-Identifier: MIT */
+#panel {
+  background-color: rgba(246, 246, 248, 0.74);
+  box-shadow: inset 0 -1px 0 0 rgba(30, 32, 36, 0.12);
+}
+
+#panel:overview {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+#panel.unlock-screen, #panel.login-screen {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.popup-menu-content,
+.candidate-popup-content {
+  color: #202124;
+  background-color: rgba(246, 246, 248, 0.78);
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.popup-menu-item {
+  border-radius: 12px;
+}
+
+.popup-sub-menu {
+  background-color: rgba(0, 0, 0, 0.045);
+}
+
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+  background-color: rgba(30, 32, 36, 0.12);
+}
+
+.switcher-list {
+  color: #202124;
+  background-color: rgba(246, 246, 248, 0.78);
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.modal-dialog.end-session-dialog {
+  color: #202124;
+  background-color: rgba(246, 246, 248, 0.78);
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  border-top-color: rgba(32, 33, 36, 0.32);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.quick-settings {
+  color: #202124;
+  background-color: rgba(246, 246, 248, 0.78);
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  padding: 20px;
+}
+
+.quick-settings-grid {
+  spacing-rows: 14px;
+  spacing-columns: 14px;
+}
+
+.quick-toggle-menu {
+  background-color: rgba(0, 0, 0, 0.045);
+  border: 1px solid rgba(30, 32, 36, 0.12);
+  border-radius: 16px;
+}
+
+.quick-toggle-menu:hover {
+  background-color: rgba(0, 0, 0, 0.085);
+}
+
+.quick-toggle-menu:active {
+  background-color: rgba(0, 0, 0, 0.13);
+}
+
+.datemenu-popover {
+  border-radius: 24px;
+}
+
+.datemenu-today-button {
+  padding: 6px;
+}
+
+.calendar .calendar-day {
+  height: 2.5em;
+  margin: 1px;
+}
+
+StScrollView.datemenu-displays-section {
+  -st-vfade-offset: 12px;
+}
+
+.events-button,
+.world-clocks-button,
+.weather-button {
+  background-color: rgba(0, 0, 0, 0.045);
+  border: 1px solid rgba(30, 32, 36, 0.12);
+  border-radius: 16px;
+}
+
+.events-button:hover,
+.world-clocks-button:hover,
+.weather-button:hover {
+  background-color: rgba(0, 0, 0, 0.085);
+}
+
+.events-button:active,
+.world-clocks-button:active,
+.weather-button:active {
+  background-color: rgba(0, 0, 0, 0.13);
+}
+
+.calendar .calendar-day,
+.calendar .calendar-day-heading,
+.calendar .calendar-month-header .calendar-month-label,
+.calendar .calendar-month-header .pager-button {
+  background-color: transparent;
+}
+
+.calendar .calendar-day:hover,
+.calendar .calendar-day-heading:hover,
+.calendar .calendar-month-header .calendar-month-label:hover,
+.calendar .calendar-month-header .pager-button:hover {
+  background-color: rgba(0, 0, 0, 0.085);
+}
+
+.calendar .calendar-day:focus,
+.calendar .calendar-day-heading:focus,
+.calendar .calendar-month-header .calendar-month-label:focus,
+.calendar .calendar-month-header .pager-button:focus {
+  background-color: st-transparentize(-st-accent-color, 0.82);
+}
+
+.calendar .calendar-day:active, .calendar .calendar-day:selected,
+.calendar .calendar-day-heading:active,
+.calendar .calendar-day-heading:selected,
+.calendar .calendar-month-header .calendar-month-label:active,
+.calendar .calendar-month-header .calendar-month-label:selected,
+.calendar .calendar-month-header .pager-button:active,
+.calendar .calendar-month-header .pager-button:selected {
+  background-color: rgba(0, 0, 0, 0.13);
+}
+
+.calendar .calendar-day.calendar-today {
+  color: -st-accent-fg-color;
+  background-color: -st-accent-color;
+}
+
+.calendar .calendar-day.calendar-today:hover {
+  background-color: st-lighten(-st-accent-color, 6%);
+}
+
+.message {
+  background-color: rgba(0, 0, 0, 0.045);
+  border: 1px solid rgba(30, 32, 36, 0.12);
+  border-radius: 16px;
+}
+
+.message:hover {
+  background-color: rgba(0, 0, 0, 0.085);
+}
+
+.message:active {
+  background-color: rgba(0, 0, 0, 0.13);
+}
+
+.message:second-in-stack {
+  background-color: rgba(46, 52, 63, 0.98);
+}
+
+.message:lower-in-stack {
+  background-color: rgba(34, 39, 49, 0.98);
+}
+
+.message .message-header {
+  color: #50545a;
+}
+
+.message .message-header .message-header-content .event-time {
+  color: #50545a;
+}
+
+.notification-banner {
+  color: #202124;
+  background-color: rgba(246, 246, 248, 0.78);
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+#dash .dash-background {
+  color: #202124;
+  background-color: rgba(246, 246, 248, 0.78);
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+#dash .dash-item-container .overview-icon {
+  background-color: transparent;
+}
+
+#dash .dash-item-container .overview-tile:hover .overview-icon,
+#dash .dash-item-container .show-apps:hover .overview-icon {
+  background-color: rgba(0, 0, 0, 0.085);
+}
+
+#dash .dash-item-container .overview-tile:active .overview-icon,
+#dash .dash-item-container .show-apps:active .overview-icon,
+#dash .dash-item-container .show-apps:checked .overview-icon {
+  background-color: rgba(0, 0, 0, 0.13);
+}
+
+#dash .dash-item-container .overview-tile:focus .overview-icon,
+#dash .dash-item-container .show-apps:focus .overview-icon {
+  background-color: st-transparentize(-st-accent-color, 0.82);
+}
+
+.search-entry {
+  color: #202124;
+  background-color: rgba(250, 250, 252, 0.96);
+  border-color: rgba(30, 32, 36, 0.22);
+}
+
+.search-entry:hover {
+  background-color: rgba(232, 233, 236, 0.98);
+}
+
+.workspace-background {
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+}
+
+.osd-window {
+  color: #202124;
+  background-color: rgba(246, 246, 248, 0.78);
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.quick-settings, .popup-menu-content, .calendar {
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18);
+}
+
+#panel {
+  color: #202124;
+}
+
+#panel:overview {
+  color: white;
+}
+
+#panel.unlock-screen, #panel.login-screen {
+  color: white;
+}
+
+.message:second-in-stack {
+  background-color: rgba(242, 242, 244, 0.98);
+}
+
+.message:lower-in-stack {
+  background-color: rgba(232, 233, 236, 0.98);
+}
+
+.quick-settings, .popup-menu-content, .calendar {
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18);
+}

@@ -3,7 +3,7 @@
 
 // In-window dialogs cannot use the Shell backdrop below the parent window.
 // Keep their own canvas opaque so underlying application text stays hidden.
-@media (prefers-color-scheme: dark) and (prefers-contrast: no-preference) {
+@media (prefers-color-scheme: #{$material-scheme}) and (prefers-contrast: no-preference) {
   window.background .floating,
   window.background .bottom-sheet {
     --window-bg-color: #{rgba($material-window, 1)};

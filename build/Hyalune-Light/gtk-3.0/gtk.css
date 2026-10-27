@@ -1,0 +1,310 @@
+/* Hyalune Light. SPDX-License-Identifier: MIT */
+/* VM-only material preview. SPDX-License-Identifier: MIT */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained.css");
+window.background {
+  background-color: #f6f6f8;
+  color: #111214;
+}
+
+headerbar {
+  background-color: #fafafc;
+  background-image: none;
+  border-bottom: 1px solid rgba(30, 32, 36, 0.12);
+  box-shadow: none;
+}
+
+headerbar:backdrop {
+  background-color: #f8f8fa;
+}
+
+decoration {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px 2px rgba(0, 0, 0, 0.18);
+}
+
+window.maximized decoration,
+window.fullscreen decoration,
+window.tiled decoration,
+window.tiled-top decoration,
+window.tiled-bottom decoration,
+window.tiled-left decoration,
+window.tiled-right decoration {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+headerbar button.titlebutton.minimize, headerbar button.titlebutton.minimize:hover, headerbar button.titlebutton.minimize:active, headerbar button.titlebutton.minimize:backdrop,
+.titlebar button.titlebutton.minimize,
+.titlebar button.titlebutton.minimize:hover,
+.titlebar button.titlebutton.minimize:active,
+.titlebar button.titlebutton.minimize:backdrop {
+  background-color: transparent;
+  background-image: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+headerbar button.titlebutton.minimize image,
+.titlebar button.titlebutton.minimize image {
+  background-color: transparent;
+  background-image: radial-gradient(circle closest-side, #f4bf4f calc(100% - 1px), #c89d41 calc(100% - 1px), #c89d41 calc(100% - 0.5px), rgba(244, 191, 79, 0) 100%);
+  background-size: 80% 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 999px;
+  box-shadow: none;
+  color: transparent;
+  -gtk-icon-shadow: none;
+}
+
+headerbar button.titlebutton.minimize:hover image, headerbar button.titlebutton.minimize:focus image,
+.titlebar button.titlebutton.minimize:hover image,
+.titlebar button.titlebutton.minimize:focus image {
+  color: rgba(0, 0, 0, 0.72);
+}
+
+headerbar button.titlebutton.minimize:hover image,
+.titlebar button.titlebutton.minimize:hover image {
+  background-image: radial-gradient(circle closest-side, #f5c764 calc(100% - 1px), #c9a352 calc(100% - 1px), #c9a352 calc(100% - 0.5px), rgba(245, 199, 100, 0) 100%);
+}
+
+headerbar button.titlebutton.minimize:active image,
+.titlebar button.titlebutton.minimize:active image {
+  background-image: radial-gradient(circle closest-side, #cda042 calc(100% - 1px), #a88336 calc(100% - 1px), #a88336 calc(100% - 0.5px), rgba(205, 160, 66, 0) 100%);
+}
+
+headerbar button.titlebutton.minimize:focus,
+.titlebar button.titlebutton.minimize:focus {
+  outline-color: #111214;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-offset: -2px;
+}
+
+headerbar button.titlebutton.minimize:backdrop image,
+.titlebar button.titlebutton.minimize:backdrop image {
+  opacity: 0.55;
+}
+
+headerbar button.titlebutton.minimize:disabled image,
+.titlebar button.titlebutton.minimize:disabled image {
+  opacity: 0.35;
+  color: transparent;
+}
+
+headerbar button.titlebutton.maximize, headerbar button.titlebutton.maximize:hover, headerbar button.titlebutton.maximize:active, headerbar button.titlebutton.maximize:backdrop,
+.titlebar button.titlebutton.maximize,
+.titlebar button.titlebutton.maximize:hover,
+.titlebar button.titlebutton.maximize:active,
+.titlebar button.titlebutton.maximize:backdrop {
+  background-color: transparent;
+  background-image: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+headerbar button.titlebutton.maximize image,
+.titlebar button.titlebutton.maximize image {
+  background-color: transparent;
+  background-image: radial-gradient(circle closest-side, #53c66b calc(100% - 1px), #44a258 calc(100% - 1px), #44a258 calc(100% - 0.5px), rgba(83, 198, 107, 0) 100%);
+  background-size: 80% 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 999px;
+  box-shadow: none;
+  color: transparent;
+  -gtk-icon-shadow: none;
+}
+
+headerbar button.titlebutton.maximize:hover image, headerbar button.titlebutton.maximize:focus image,
+.titlebar button.titlebutton.maximize:hover image,
+.titlebar button.titlebutton.maximize:focus image {
+  color: rgba(0, 0, 0, 0.72);
+}
+
+headerbar button.titlebutton.maximize:hover image,
+.titlebar button.titlebutton.maximize:hover image {
+  background-image: radial-gradient(circle closest-side, #68cd7d calc(100% - 1px), #55a867 calc(100% - 1px), #55a867 calc(100% - 0.5px), rgba(104, 205, 125, 0) 100%);
+}
+
+headerbar button.titlebutton.maximize:active image,
+.titlebar button.titlebutton.maximize:active image {
+  background-image: radial-gradient(circle closest-side, #46a65a calc(100% - 1px), #39884a calc(100% - 1px), #39884a calc(100% - 0.5px), rgba(70, 166, 90, 0) 100%);
+}
+
+headerbar button.titlebutton.maximize:focus,
+.titlebar button.titlebutton.maximize:focus {
+  outline-color: #111214;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-offset: -2px;
+}
+
+headerbar button.titlebutton.maximize:backdrop image,
+.titlebar button.titlebutton.maximize:backdrop image {
+  opacity: 0.55;
+}
+
+headerbar button.titlebutton.maximize:disabled image,
+.titlebar button.titlebutton.maximize:disabled image {
+  opacity: 0.35;
+  color: transparent;
+}
+
+headerbar button.titlebutton.close, headerbar button.titlebutton.close:hover, headerbar button.titlebutton.close:active, headerbar button.titlebutton.close:backdrop,
+.titlebar button.titlebutton.close,
+.titlebar button.titlebutton.close:hover,
+.titlebar button.titlebutton.close:active,
+.titlebar button.titlebutton.close:backdrop {
+  background-color: transparent;
+  background-image: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+headerbar button.titlebutton.close image,
+.titlebar button.titlebutton.close image {
+  background-color: transparent;
+  background-image: radial-gradient(circle closest-side, #f07870 calc(100% - 1px), #c5625c calc(100% - 1px), #c5625c calc(100% - 0.5px), rgba(240, 120, 112, 0) 100%);
+  background-size: 80% 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 999px;
+  box-shadow: none;
+  color: transparent;
+  -gtk-icon-shadow: none;
+}
+
+headerbar button.titlebutton.close:hover image, headerbar button.titlebutton.close:focus image,
+.titlebar button.titlebutton.close:hover image,
+.titlebar button.titlebutton.close:focus image {
+  color: rgba(0, 0, 0, 0.72);
+}
+
+headerbar button.titlebutton.close:hover image,
+.titlebar button.titlebutton.close:hover image {
+  background-image: radial-gradient(circle closest-side, #f28881 calc(100% - 1px), #c6706a calc(100% - 1px), #c6706a calc(100% - 0.5px), rgba(242, 136, 129, 0) 100%);
+}
+
+headerbar button.titlebutton.close:active image,
+.titlebar button.titlebutton.close:active image {
+  background-image: radial-gradient(circle closest-side, #ca655e calc(100% - 1px), #a6534d calc(100% - 1px), #a6534d calc(100% - 0.5px), rgba(202, 101, 94, 0) 100%);
+}
+
+headerbar button.titlebutton.close:focus,
+.titlebar button.titlebutton.close:focus {
+  outline-color: #111214;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-offset: -2px;
+}
+
+headerbar button.titlebutton.close:backdrop image,
+.titlebar button.titlebutton.close:backdrop image {
+  opacity: 0.55;
+}
+
+headerbar button.titlebutton.close:disabled image,
+.titlebar button.titlebutton.close:disabled image {
+  opacity: 0.35;
+  color: transparent;
+}
+
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action) {
+  background-image: none;
+  background-color: #e4e4e6;
+  border-color: rgba(30, 32, 36, 0.12);
+  border-radius: 12px;
+}
+
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):hover {
+  background-color: #d8d8da;
+  border-color: rgba(30, 32, 36, 0.22);
+}
+
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):active, button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):checked {
+  background-color: @theme_selected_bg_color;
+  color: @theme_selected_fg_color;
+}
+
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):disabled {
+  background-color: #ededef;
+  border-color: rgba(30, 32, 36, 0.12);
+}
+
+notebook > stack {
+  background-color: #f6f6f8;
+}
+
+notebook > header {
+  background-color: #f8f8fa;
+  border-color: rgba(30, 32, 36, 0.12);
+}
+
+notebook > header > tabs > tab {
+  border-radius: 12px 12px 0 0;
+}
+
+notebook > header > tabs > tab:checked {
+  background-color: rgba(0, 0, 0, 0.045);
+}
+
+.sidebar, placessidebar {
+  background-color: #f8f8fa;
+  border-color: rgba(30, 32, 36, 0.12);
+}
+
+.sidebar row:not(:selected):hover {
+  background-color: rgba(0, 0, 0, 0.085);
+}
+
+menu, .menu {
+  background-color: #fafafc;
+  border: 1px solid rgba(30, 32, 36, 0.22);
+  border-radius: 12px;
+  padding: 6px;
+}
+
+popover.background {
+  background-color: #fafafc;
+  border-color: rgba(30, 32, 36, 0.22);
+  border-radius: 16px;
+}
+
+window.background {
+  background-color: rgba(246, 246, 248, 0.78);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0) 30%);
+}
+
+headerbar, window.background .titlebar:not(headerbar) {
+  background-color: rgba(246, 246, 248, 0.94);
+  background-image: none;
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+headerbar:backdrop, window.background .titlebar:not(headerbar):backdrop {
+  background-color: rgba(246, 246, 248, 0.9);
+}
+
+stacksidebar.sidebar, .sidebar, placessidebar {
+  background-color: rgba(52, 54, 58, 0.055);
+}
+
+decoration {
+  border-radius: 16px;
+  border: 1px solid rgba(30, 32, 36, 0.22);
+}
+
+window.background, window.background:backdrop {
+  color: #111214;
+}
+
+window.background headerbar, window.background headerbar:backdrop {
+  color: #111214;
+}
+
+window.background .dim-label:not(:disabled),
+window.background headerbar .subtitle:not(:disabled),
+window.background .titlebar:not(headerbar) .subtitle:not(:disabled) {
+  opacity: 0.85;
+}

@@ -13,7 +13,7 @@ import time
 
 spec = importlib.util.spec_from_file_location('flatpak_transactions', Path(__file__).with_name('manage-theme.py'))
 core = importlib.util.module_from_spec(spec); spec.loader.exec_module(core)
-VERSION = '0.1.0-vm-preview.5'
+VERSION = '0.3.0'
 BEGIN = b'/* Glass50 managed: flatpak GTK begin */'
 END = b'/* Glass50 managed: flatpak GTK end */'
 DENY = ('xdg-config/gtk-3.0', 'xdg-config/gtk-4.0')
@@ -67,6 +67,11 @@ def locate(data):
 def sources():
     root = Path(ARGS.source).absolute()
     paths = {'gtk3': root / 'gtk-3.0/gtk.css', 'gtk4': root / 'gtk-4.0/flatpak.css'}
+    # GTK3 has no contrast media queries. Light uses native GTK3 inside
+    # Flatpak so user CSS cannot override High Contrast. Native GTK3 retains
+    # its separately installed material theme. No runtime module is injected.
+    accessible = root / 'gtk-3.0/flatpak.css'
+    if accessible.exists(): paths['gtk3'] = accessible
     result = {}
     for k, p in paths.items():
         core.safe(p); data = p.read_bytes()

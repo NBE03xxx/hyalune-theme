@@ -79,7 +79,7 @@ for kind in ['trial','legacy']:
   subprocess.run(['gsettings','set','org.gnome.shell','enabled-extensions',repr(members)],env=env(h),check=True,capture_output=True)
  q=call(h,['plan','--operation','update']);call(h,['update'])
  migrated=json.loads((h/state/'active.json').read_text())
- check(kind+': all original native/settings restoration data retained',all(migrated[k]==original[k] for k in ['originals','settings_before','css_original','enabled_before_effective']))
+ check(kind+': all original native/settings restoration data retained',all(migrated['originals'].get(n)==image for n,image in original['originals'].items()) and all(migrated[k]==original[k] for k in ['settings_before','css_original','enabled_before_effective']))
  check(kind+': existing layout auto-detected without target flag',migrated['target']=='desktop' and migrated['desktop']['layout']==('legacy-t16' if kind=='trial' else 'legacy-import'))
  if kind=='legacy':
   entry=h/links[0];saved_bytes=entry.read_bytes();saved_mode=stat.S_IMODE(entry.stat().st_mode)

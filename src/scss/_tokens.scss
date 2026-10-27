@@ -13,12 +13,15 @@ $calendar-today-padding: 6px;
 // Keep a readable centre when the native card scroll area becomes short.
 $calendar-card-fade: 12px;
 
+$surface-shadow: 0 8px 24px 2px $shadow !default;
+$overview-shadow: 0 6px 22px 2px $shadow !default;
+
 @mixin glass-surface($radius: $radius-surface) {
   color: $ink;
   background-color: $surface-bottom;
   border: 1px solid $edge;
   border-radius: $radius;
-  box-shadow: 0 8px 24px 2px $shadow;
+  box-shadow: $surface-shadow;
 }
 
 @mixin glass-card {

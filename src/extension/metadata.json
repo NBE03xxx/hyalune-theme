@@ -1,7 +1,7 @@
 {
   "uuid": "glass50-blur@myglass.local",
-  "name": "Glass50 Blur — trial",
-  "description": "Optional Quick Settings and native window material for the verified KVM-PC and explicitly installed T16 trial.",
+  "name": "Hyalune",
+  "description": "Hyalune desktop integration for Ubuntu 26.04 / GNOME Shell 50 / Wayland. Follows the system light and dark appearance, provides optional background blur, and respects accessibility settings. GDM is managed separately.",
   "shell-version": [
     "50"
   ],
@@ -9,5 +9,5 @@
     "user"
   ],
   "settings-schema": "org.gnome.shell.extensions.glass50-blur",
-  "version": 7
+  "version": 10
 }

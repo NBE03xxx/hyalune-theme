@@ -2,7 +2,7 @@
 @import 'design-values';
 @import 'material/values';
 @import 'material/gtk4-window';
-@media (prefers-color-scheme: dark) and (prefers-contrast: no-preference) {
+@media (prefers-color-scheme: #{$material-scheme}) and (prefers-contrast: no-preference) {
   window.background { @include material-window; }
   @import 'gtk4/window-controls';
   @import 'material/compat-controls';

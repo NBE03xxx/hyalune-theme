@@ -50,7 +50,14 @@ def payload(home,temp,test_root):
     names=['manage-theme','manage-material','manage-desktop','desktop-context','manage-flatpak','flatpak-discovery','manage-settings','hyalune-settings','gdm-wallpaper']
     for name in names:source['tools/'+name+'.py']=(ROOT/'tools'/(name+'.py')).read_bytes()
     base=temp/'manager-base'
-    subprocess.run([sys.executable,str(ROOT/'tools/package-material.py'),'--directory',str(base)],check=True,stdout=subprocess.DEVNULL)
+    saved = ROOT/'manager-base'
+    if saved.is_dir():
+        # A saved restore source must install its exact validated payload base,
+        # matching backend.make_base, rather than regenerate today's package.
+        module('manage-material').load_package(saved)
+        shutil.copytree(saved,base)
+    else:
+        subprocess.run([sys.executable,str(ROOT/'tools/package-material.py'),'--directory',str(base)],check=True,stdout=subprocess.DEVNULL)
     for p in base.rglob('*'):
         if p.is_file():source['manager-base/'+str(p.relative_to(base))]=p.read_bytes()
     source['LICENSE']=(ROOT/'LICENSE').read_bytes()
@@ -99,7 +106,7 @@ def main():
                 after=originals[name] if action=='remove' or name not in files else c.image(files[name])
                 if now!=after:operations.append({'kind':'file','name':name,'before':now,'after':after})
                 installed[name]=after
-            state=None if action=='remove' else c.image(c.canonical({'format':1,'component':'hyalune-settings-app','version':'0.2.0',
+            state=None if action=='remove' else c.image(c.canonical({'format':1,'component':'hyalune-settings-app','version':'0.3.0',
                   'originals':originals,'installed':installed}),0o600)
             current=c.snapshot(h/c.ACTIVE)
             if current!=state:operations.append({'kind':'file','name':c.ACTIVE,'before':current,'after':state})

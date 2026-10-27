@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: MIT
-"""Independent, opt-in GDM resources for Ubuntu 26.04; KVM and T16 trial."""
+"""Independent, opt-in GDM resources for supported Ubuntu/GNOME environments."""
 import argparse
 import base64
 import contextlib
@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import pwd
+import re
 import stat
 import subprocess
 import sys
@@ -22,7 +23,7 @@ LINK = '/usr/share/gnome-shell/gdm-theme.gresource'
 STATE = Path('/var/lib/hyalune-gdm')
 ASSETS = Path('/usr/local/share/hyalune/gdm')
 PREFIX = '/org/gnome/shell/theme/'
-VERSION = '0.1.0'
+VERSION = '0.3.0'
 
 
 def call(*args):
@@ -70,39 +71,26 @@ def read(path):
     return json.loads(path.read_text()) if path.exists() else None
 
 
-def validate_machine(virtualization, vendor='', family=''):
-    if virtualization == 'kvm':
-        return 'kvm'
-    if virtualization == 'none' and vendor == 'LENOVO' and family == 'ThinkPad T16 Gen 4':
-        return 't16-trial'
-    raise ValueError('GDMの確認対象はKVMまたはThinkPad T16 Gen 4です。未確認の実機では停止します。')
-
-
-def machine_scope():
-    result = subprocess.run(['systemd-detect-virt', '--vm'], text=True, capture_output=True)
-    value = result.stdout.strip()
-    if result.returncode not in (0, 1) or (result.returncode == 1 and value != 'none'):
-        raise ValueError('Cannot identify GDM machine environment')
-    if value != 'none':
-        return validate_machine(value)
-    dmi = Path('/sys/class/dmi/id')
-    return validate_machine(value, (dmi/'sys_vendor').read_text().strip(),
-                            (dmi/'product_family').read_text().strip())
+def validate_environment(os_id, os_version, shell_version, loader):
+    """Bound new changes by the OS and actual resource loader, not hardware."""
+    if os_id != 'ubuntu' or os_version != '26.04':
+        raise ValueError('Ubuntu 26.04 is required')
+    if re.fullmatch(r'50\.\d+(?:\.\d+)?', shell_version) is None:
+        raise ValueError('GNOME Shell 50.x is required')
+    if b"themeResourceName: 'gdm-theme.gresource'" not in loader or b"stylesheetName: 'gdm.css'" not in loader:
+        raise ValueError('Unsupported Ubuntu GDM resource loader')
 
 
 def guard(restoring=False):
     if os.geteuid() != 0:
         raise ValueError('GDM管理はrootが必要です: sudo ./install.sh gdm ...（通常applyはsudo不要）')
-    machine_scope()
     if not restoring:
         info = dict(line.split('=', 1) for line in Path('/etc/os-release').read_text().splitlines() if '=' in line)
-        if info.get('ID', '').strip('"') != 'ubuntu' or info.get('VERSION_ID', '').strip('"') != '26.04':
-            raise ValueError('Ubuntu 26.04 is required')
-        if not call('gnome-shell', '--version').split()[-1].startswith('50.'):
-            raise ValueError('GNOME Shell 50.x is required')
-        js = subprocess.check_output(['gresource', 'extract', '/usr/lib/gnome-shell/libshell-18.so', '/org/gnome/shell/ui/sessionMode.js'])
-        if b"themeResourceName: 'gdm-theme.gresource'" not in js or b"stylesheetName: 'gdm.css'" not in js:
-            raise ValueError('Unverified Ubuntu GDM resource loader')
+        version = call('gnome-shell', '--version').split()[-1]
+        loader = subprocess.check_output(['gresource', 'extract', '/usr/lib/gnome-shell/libshell-18.so', '/org/gnome/shell/ui/sessionMode.js'])
+        validate_environment(info.get('ID', '').strip('"'), info.get('VERSION_ID', '').strip('"'), version, loader)
+    # Restoration can survive an OS upgrade; owned assets, alternatives and
+    # source hashes are still rechecked by the transaction/recovery engine.
     for p in (STATE, ASSETS): safe(p)
 
 
@@ -531,7 +519,7 @@ def show_result(result, action, operation, as_json=False):
 def main():
     primary = '{plan,set,status,background,remove,recover}'
     p = argparse.ArgumentParser(prog='install.sh gdm', description=
-        'GDMを管理します。初回・更新とも plan → set → status。確認対象はKVMとT16 Gen 4です。',
+        'GDMを管理します。初回・更新とも plan → set → status。Ubuntu 26.04 / GNOME Shell 50.x向け。機種名による制限はありません。',
         epilog='background: 現在のデスクトップ壁紙へ入れ替え。background --plan: その予定確認。')
     p.add_argument('action', choices=['build','plan','set','apply','update','remove','recover','status','background','set-background'], metavar=primary)
     p.add_argument('--plan', action='store_true', help='backgroundの予定だけを確認')
@@ -561,7 +549,7 @@ def main():
         snapshot = capture_desktop_background(a.desktop_user) if a.background == 'desktop' else None
         print(json.dumps(build(source, css.read_bytes(), a.output, snapshot), indent=2))
         return
-    # Environment checks are unconditional, including on the supported T16 trial.
+    # Root/path checks are unconditional; new changes also validate the OS/loader.
     guard(restoring=a.action in ('remove','recover','status') or
           (a.action == 'plan' and a.operation == 'remove'))
     owner = read(STATE/'active.json')

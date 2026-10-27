@@ -1,0 +1,173 @@
+/* Hyalune Light. SPDX-License-Identifier: MIT */
+/* VM-only material preview for native GTK4 windows. SPDX-License-Identifier: MIT */
+@media (prefers-color-scheme: light) and (prefers-contrast: no-preference) {
+  window.background {
+    --window-bg-color: rgba(246, 246, 248, 0.78);
+    --window-fg-color: #111214;
+    --headerbar-bg-color: rgba(246, 246, 248, 0.94);
+    --headerbar-backdrop-color: rgba(246, 246, 248, 0.9);
+    --sidebar-bg-color: rgba(52, 54, 58, 0.055);
+    --sidebar-backdrop-color: rgba(52, 54, 58, 0.055);
+    --view-bg-color: transparent;
+    --card-bg-color: rgba(0, 0, 0, 0.045);
+    --card-shade-color: rgba(0, 0, 0, 0.10);
+    --border-color: rgba(30, 32, 36, 0.12);
+    color: #111214;
+    background-color: rgba(246, 246, 248, 0.78);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.24), rgba(245, 249, 255, 0) 30%);
+    border-radius: 16px;
+    box-shadow: inset 0 0 0 1px rgba(30, 32, 36, 0.22);
+  }
+  window.background headerbar, window.background .titlebar {
+    background-color: rgba(246, 246, 248, 0.94);
+    background-image: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  window.background headerbar:backdrop, window.background .titlebar:backdrop {
+    background-color: rgba(246, 246, 248, 0.9);
+  }
+  window.background .material-sidebar {
+    background-color: rgba(52, 54, 58, 0.055);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  window.background .material-list {
+    background-color: transparent;
+  }
+  window.background .material-list > row {
+    border-radius: 10px;
+    margin: 3px 0;
+  }
+  window.background.csd {
+    --window-bg-color: rgba(246, 246, 248, 0.74);
+    --headerbar-bg-color: transparent;
+    --headerbar-backdrop-color: transparent;
+    background-color: rgba(246, 246, 248, 0.74);
+    background-image: none;
+  }
+  window.background.csd headerbar, window.background.csd headerbar:backdrop {
+    background-color: transparent;
+  }
+  window.background.csd headerbar.header-bar.titlebar, window.background.csd .titlebar:not(headerbar) {
+    background-color: rgba(246, 246, 248, 0.94);
+  }
+  window.background.csd headerbar.header-bar.titlebar:backdrop, window.background.csd .titlebar:not(headerbar):backdrop {
+    background-color: rgba(246, 246, 248, 0.9);
+  }
+  window.background.csd > :not(headerbar):not(.titlebar):not(dialog-host):not(toolbarview),
+window.background.csd toolbarview > box {
+    background-color: rgba(246, 246, 248, 0.153846);
+  }
+  windowcontrols button.minimize, windowcontrols button.minimize:hover, windowcontrols button.minimize:active, windowcontrols button.minimize:backdrop {
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+  }
+  windowcontrols button.minimize image {
+    background-color: transparent;
+    background-image: radial-gradient(circle closest-side, #f4bf4f calc(100% - 1px), #c89d41 calc(100% - 1px), #c89d41 calc(100% - 0.5px), rgba(244, 191, 79, 0) 100%);
+    background-size: 80% 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 999px;
+    box-shadow: none;
+    color: transparent;
+    -gtk-icon-shadow: none;
+  }
+  windowcontrols button.minimize:hover image, windowcontrols button.minimize:focus-visible image {
+    color: rgba(0, 0, 0, 0.72);
+  }
+  windowcontrols button.minimize:hover image {
+    background-image: radial-gradient(circle closest-side, #f5c764 calc(100% - 1px), #c9a352 calc(100% - 1px), #c9a352 calc(100% - 0.5px), rgba(245, 199, 100, 0) 100%);
+  }
+  windowcontrols button.minimize:active image {
+    background-image: radial-gradient(circle closest-side, #cda042 calc(100% - 1px), #a88336 calc(100% - 1px), #a88336 calc(100% - 0.5px), rgba(205, 160, 66, 0) 100%);
+  }
+  windowcontrols button.minimize:backdrop image {
+    opacity: 0.55;
+  }
+  windowcontrols button.minimize:disabled image {
+    opacity: 0.35;
+    color: transparent;
+  }
+  windowcontrols button.maximize, windowcontrols button.maximize:hover, windowcontrols button.maximize:active, windowcontrols button.maximize:backdrop {
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+  }
+  windowcontrols button.maximize image {
+    background-color: transparent;
+    background-image: radial-gradient(circle closest-side, #53c66b calc(100% - 1px), #44a258 calc(100% - 1px), #44a258 calc(100% - 0.5px), rgba(83, 198, 107, 0) 100%);
+    background-size: 80% 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 999px;
+    box-shadow: none;
+    color: transparent;
+    -gtk-icon-shadow: none;
+  }
+  windowcontrols button.maximize:hover image, windowcontrols button.maximize:focus-visible image {
+    color: rgba(0, 0, 0, 0.72);
+  }
+  windowcontrols button.maximize:hover image {
+    background-image: radial-gradient(circle closest-side, #68cd7d calc(100% - 1px), #55a867 calc(100% - 1px), #55a867 calc(100% - 0.5px), rgba(104, 205, 125, 0) 100%);
+  }
+  windowcontrols button.maximize:active image {
+    background-image: radial-gradient(circle closest-side, #46a65a calc(100% - 1px), #39884a calc(100% - 1px), #39884a calc(100% - 0.5px), rgba(70, 166, 90, 0) 100%);
+  }
+  windowcontrols button.maximize:backdrop image {
+    opacity: 0.55;
+  }
+  windowcontrols button.maximize:disabled image {
+    opacity: 0.35;
+    color: transparent;
+  }
+  windowcontrols button.close, windowcontrols button.close:hover, windowcontrols button.close:active, windowcontrols button.close:backdrop {
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+  }
+  windowcontrols button.close image {
+    background-color: transparent;
+    background-image: radial-gradient(circle closest-side, #f07870 calc(100% - 1px), #c5625c calc(100% - 1px), #c5625c calc(100% - 0.5px), rgba(240, 120, 112, 0) 100%);
+    background-size: 80% 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 999px;
+    box-shadow: none;
+    color: transparent;
+    -gtk-icon-shadow: none;
+  }
+  windowcontrols button.close:hover image, windowcontrols button.close:focus-visible image {
+    color: rgba(0, 0, 0, 0.72);
+  }
+  windowcontrols button.close:hover image {
+    background-image: radial-gradient(circle closest-side, #f28881 calc(100% - 1px), #c6706a calc(100% - 1px), #c6706a calc(100% - 0.5px), rgba(242, 136, 129, 0) 100%);
+  }
+  windowcontrols button.close:active image {
+    background-image: radial-gradient(circle closest-side, #ca655e calc(100% - 1px), #a6534d calc(100% - 1px), #a6534d calc(100% - 0.5px), rgba(202, 101, 94, 0) 100%);
+  }
+  windowcontrols button.close:backdrop image {
+    opacity: 0.55;
+  }
+  windowcontrols button.close:disabled image {
+    opacity: 0.35;
+    color: transparent;
+  }
+  windowcontrols button.titlebutton image, windowcontrols button.titlebutton:hover image, windowcontrols button.titlebutton:active image, windowcontrols button.titlebutton:backdrop image, windowcontrols button.titlebutton:disabled image, windowcontrols button.titlebutton:focus-visible image {
+    background-size: 16px 16px;
+  }
+}
+
+@media (prefers-color-scheme: light) and (prefers-contrast: no-preference) {
+  window.background {
+    --window-fg-color: #111214;
+    --view-fg-color: #111214;
+    --headerbar-fg-color: #111214;
+    --sidebar-fg-color: #111214;
+    --sidebar-backdrop-fg-color: #111214;
+    --card-fg-color: #111214;
+    --dialog-fg-color: #111214;
+    --popover-fg-color: #111214;
+    --dim-opacity: 0.85;
+  }
+}

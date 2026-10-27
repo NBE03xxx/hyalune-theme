@@ -1,0 +1,6 @@
+/* Hyalune Light. SPDX-License-Identifier: MIT */
+@import 'light/palette';
+$ink: $app-ink;
+@import 'material-gtk3';
+@import 'light/app-text';
+window.background { @include light-gtk3-text; }

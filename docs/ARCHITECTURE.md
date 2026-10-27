@@ -2,69 +2,84 @@
 
 ## 名称と内部識別名
 
-正式名称はHyalune、現在のダーク版はHyalune Darkです。旧称Glass50 Dark / MyGlassから文書上の名称を変更しています。
+製品名はHyalune、外観はHyalune Dark／Hyalune Lightです。GNOME Shellの選択名と独自拡張の表示名は`Hyalune`で、Shellテーマ名は明暗共通です。
 
-既存の導入・更新・解除・復元との互換性を保つため、`Glass50-Material-Preview`、`glass50-blur@myglass.local`、`glass50`を含む配置先・設定schema・管理記録・CSSの識別子は維持しています。画像ファイル名や従来の生成物名も既存の参照先を継続使用します。表示される旧名は別テーマの導入を意味しません。今回の名称変更でコード・CSS・インストーラーの動作は変更していません。
+Shellの配置先は`~/.local/share/themes/Hyalune/gnome-shell/`です。GTKの内部配置名`Glass50-Material-Preview`、拡張UUID `glass50-blur@myglass.local`、schema・管理記録・CSSの識別子は既存導入との互換性のため保持します。生成物のディレクトリ名と、利用者がShellで選ぶ名前を区別します。
 
 ## 入口と生成物
 
 | 場所 | 役割 |
 | --- | --- |
-| `install.sh` | Git clone後の共通入口 |
-| `tools/install-from-source.py` | 対象照合、導入用コード保存、基本テーマとFlatpakの一括導入・解除 |
-| `src/scss/` | 色、透明度、角丸、境界線、影、余白と、Shell / GTK別スタイルの編集元 |
-| `src/scss/material/` | 現行のガラス材質値・GTK4ウィンドウ・互換操作ボタンなど |
-| `build/Glass50-Material-Preview/` | 導入に使う生成済みCSS。利用者は手編集しない |
-| `src/extension/` | 独自拡張の入口・メタデータ・GSettings schema |
-| `src/effects/` | 任意の背景ぼかし、角丸マスク、ウィンドウ背面と更新管理 |
-| `tools/manage-material.py` | 材質テーマ・拡張の所有記録と変更計画 |
+| `install.sh`、`tools/install-from-source.py` | 共通の導入・更新・解除・復旧、初回Flatpak一括適用 |
+| `src/scss/` | 色・透明度・角丸・境界・影・余白の編集元。ShellとGTKは別出力 |
+| `src/scss/material/` | 共通の材質・GTK4ウィンドウ・互換操作ボタン |
+| `src/scss/light/` | Light配色、アプリ文字、Shellの補正 |
+| `build/Glass50-Material-Preview/` | 固定Darkの生成済みCSS |
+| `build/Hyalune-Light/` | Lightの生成済みCSS |
+| `src/extension/`、`src/effects/` | 自動明暗連動・アクセシビリティ退避・任意ぼかし |
+| `src/manager/` | GTK4管理アプリ、型付きプロファイル、JSON API、Flatpak・GDM接続 |
+| `tools/manage-material.py` | 素材と拡張の所有検査・計画、新旧Shell配置の移行 |
 | `tools/manage-theme.py` | ファイルと設定のトランザクション・競合検知・逆順復旧 |
+| `tools/manage-desktop.py` | GTK入口とリンクの保全・復元、runtime marker、既存所有形式の移行 |
 | `tools/desktop-context.py` | OS・実行中Shell・Wayland・通常ユーザーの共通照合 |
-| `tools/manage-desktop.py` | GTK入口の保全・復元、共通runtime marker、旧管理記録の移行 |
-| `tools/manage-t16.py` | 旧試用コードとの互換用。共通入口は旧記録を自動認識 |
-| `tools/manage-flatpak.py` | アプリ単位のCSS・権限上書きの適用と復元 |
-| `tools/flatpak-discovery.py` | アプリを実行しないGTK判定、管理記録のscan、一括導入・解除計画と復旧対象の照合 |
+| `tools/manage-flatpak.py`、`tools/flatpak-discovery.py` | GTK判定、アプリ単位CSS、管理一覧、一括保全・復旧 |
+| `tools/manage-gdm.py`、`tools/install-gdm-helper.py` | 通常デスクトップと独立したGDM管理・認証窓口 |
 
-`build/Glass50-Dark/`と従来の基本管理ツールは以前の基本テーマ用です。現行の材質管理と識別を分けています。材質管理中に古い基本ツールで解除を代用しないでください。
+`build/Glass50-Dark/`と基本テーマ専用ツールは、従来パッケージの復旧用に区別して保持します。現在の材質管理の解除を、この基本ツールで代用しません。[従来パッケージ](LEGACY-INSTALL.md)
 
-## スタイル
+## 素材とプロファイル
 
-Shell・GTK3・GTK4は別出力です。共通化するのはデザイン値と意味であり、同じCSSを全UIへ流用しません。`src/scss/material/_values.scss`が現行材質の主な編集元です。
+Shell・GTK3・GTK4で共通化するのはデザイン値と意味です。同じCSSをすべてへ流用しません。Darkは共通面56％／パネル38％、Lightは共通面78％／パネル74％を既定とし、管理アプリで編集できます。
 
-Shellトップバーは暗い無彩色の38％面、標準GTK4クライアント装飾は同じ下地を使い、一般的な本文は重ね塗りで56％の面にします。文字・アイコン自体のopacityは下げません。アプリ固有の階層や追加CSSにより結果は変わります。
+GTK4は下地と内容面を重ねて共通面の不透明度へ合わせます。Dark既定では38％の下地と内容面を合わせて56％、Lightは74％の下地と内容面を合わせて78％です。文字・アイコンを含むウィンドウ全体のopacityは下げません。階層や独自CSSによる差はアプリごとに残ります。
 
-GTK4の一般パレットとクライアント装飾用`.csd`を分け、Chromeなどの色取得へネイティブ用の透明面が漏れないようにします。独立した互換タイトル面は暗い面を維持します。GTK由来の合成操作ボタンは色面16pxとし、通常のGTKボタンの操作領域を維持します。
+GTK4の一般パレットと`.csd`のクライアント装飾を分け、Chrome等の色取得へ透明面が漏れないようにします。独立した互換タイトル面は暗い面を維持し、GTK由来の丸い操作ボタンは標準の操作領域を保持します。
 
-GTK4 / libadwaitaはDark・通常コントラストの条件内で上書きします。Flatpak用出力は自己完結したCSSにし、ウィンドウ内ダイアログを不透明化します。
+形式3のプロファイルは`variant`、現在の`common`／`overrides`、反対側の`alternate`を持ちます。ぼかしとFlatpak政策は共通です。形式1／2の読取りとhashは維持し、単なる状態照会で書き換えません。
 
-## 任意効果
+`src/manager/profile.py`は型を検証し、一時的なSCSS変数を使ってCSSを生成します。任意CSS・import・実行命令を設定として受け付けません。通常GTK4と管理Flatpakの形式3出力は明暗両方のmedia branchを含みます。[値と操作](LIGHT.md)
 
-`extension.js`がセッションと適用状態を確認し、Quick Settingsとウィンドウ材質の管理クラスを生成します。`runtime-context.js`はUbuntu 26.04・実行中Shell 50.x・Waylandとユーザー単位の適用markerを照合します。独立検証セッションは専用環境変数で区別します。ホスト名・CPU・GPU・固定ディスクは判定に使いません。
+## 自動明暗連動と任意効果
 
-`window-backdrop-source.js`は対象ウィンドウの背面を組み立て、`rounded-background-blur.js`と`rounded-mask.js`が背景ぼかしと角丸を担当します。`refresh-gate.js`で背景更新を抑え、`window-material-commit.js`で対象の描画更新と同期します。前景の文字・アイコン・入力は元のウィンドウが担当します。
+`runtime-context.js`の`AppearanceSync`がGNOMEの`color-scheme`を監視し、配置済みmanagerの`sync`を呼びます。GUIの常時起動や独立したserviceは不要です。同期元は最後に適用した所有プロファイルで、未保存のGUI編集やGDMを消費しません。
 
-右クリックメニュー等の一時ポップアップの出入りでは既存のぼかしを保持します。GNOMEがネイティブ窓を並べ直す通知では、保持したぼかし層とアンカーを次の描画前に各窓の直下へ戻し、文字やアイコンを覆わないようにします。ポップアップの追加・削除時は、同じ層のまま有限回の背景更新を行い、閉じたメニューの位置に古い画素を残しません。ぼかし対象の通常ウィンドウ同士の順序が変わった場合は、背面の依存関係を組み直します。
+Debounceと直列実行で連打をまとめ、ロック取得後にownerと明暗設定を再照合します。no-opは変更記録を増やしません。全体停止・個別停止・pending・外部競合を尊重し、自動コード更新は拒否します。詳細は[Light](LIGHT.md#連動が停止保留する場合)を参照してください。
 
-無効化時には生成したActor・シグナル・タイマーを解放します。High Contrast / Reduced Motionや確認条件外では任意効果を停止します。外部のぼかし拡張や独自シェーダーを導入依存にはしません。
+`extension.js`は明暗監視とアクセシビリティ退避をぼかし選択と別に管理します。任意効果には`window-backdrop-source.js`、`rounded-background-blur.js`、`rounded-mask.js`、`refresh-gate.js`、`window-material-commit.js`を使います。前景の文字・アイコン・入力は元のウィンドウが描画します。
 
-## 保全と復元
+一時ポップアップの開閉では既存のぼかしを保持し、並び替え時は各窓の直下へ層を戻します。通常ウィンドウの前後関係が変わる場合は背面の依存関係を組み直します。Lightは背景明度1.0、Darkは0.85です。
 
-変更前後のファイルbytes・mode・設定のユーザー値と不在状態を記録します。所有記録に一致しない改変は停止し、無関係なCSSや設定を保持します。書き込み前にjournalを保存し、commit前の中断は逆順で復元します。commit後の中断は確定処理だけを完了します。同じ設定を複数段階で変更する場合も、各段階の状態を照合して初期値へ戻します。基本テーマとFlatpakで外観変更の共通ロックを使います。全体解除は管理記録をscanし、全対象の起動状態・CSS・権限・所有記録を検査してから一つのjournalへ計画します。途中失敗ではFlatpakも基本テーマも戻します。
+High Contrast／Reduced Motion／条件外倍率では任意効果を停止します。無効化ではActor・signal・timerを解放し、新しい同期を予約しません。既に始まったtransactionは強制killせず回収します。実行時の照合はOS・Shell・Wayland・適用markerを使い、CPU・GPU・ホスト名を固定条件にしません。
 
-新しい共通入口は`manage-desktop.py`を使い、GTK入口2ファイルの内容・リンクを保存して専用includeへ切り替えます。旧VMのimport形式と旧試用のリンク管理形式は所有記録から判別し、導入前の復元情報を保ったまま共通markerへ移行します。保存済みコードからの復旧でも中断journalから同じ形式を選びます。[条件と操作](INSTALL.md)
+## 外観の適用範囲
 
-復旧用コピーは公開用ソースに含めません。設定・処理記録の削除とテーマの解除を混同しません。[操作方法](INSTALL.md)
+パネル、Quick Settings、通知、カレンダー、Overview、ポップアップ、切替一覧、OSD、GTKの主要面と丸い操作ボタンを調整します。`components/_end-session-dialog.scss`はログアウト・電源オフ・再起動の確認へ限定し、ボタン配置・警告・フォーカス・Escape・カウントダウンは標準実装を使います。面の値は選択中の素材に従います。
 
-## ビルド
+認証・権限・マウント・応答しないアプリ等の共通ダイアログ、ワークスペース切替表示、スクリーンショット操作部、画面キーボード、開発者ツールには専用の面調整を追加せず、GNOME標準表示を維持します。ユーザーセッションのロック画面も独立したテーマ対象へ広げません。GDMとは別の範囲です。
 
-SCSS編集時のみ`sassc`が必要です。
+GTK4 Flatpakのアプリ内ダイアログは、背後の本文が重ならないよう不透明化します。LightのGTK3 FlatpakはHigh Contrastを優先して標準外観を使い、素材値は保持します。これらを未実装の漏れと扱いません。[対応アプリ](FLATPAK.md)
+
+## 所有・保全・復元
+
+変更前後のbytes・mode・設定のユーザー値と不在状態を保存します。所有状態と一致しない外部編集は停止し、無関係なCSSや設定を保持します。書込み前にjournalを保存し、commit前の中断は逆順で戻し、commit後の中断は完了処理を行います。
+
+通常テーマと対応Flatpakは共有ロックと同じjournalを使います。一括解除では、起動状態・CSS・権限・所有記録を全体検査してから復元します。GDMと管理アプリ本体は別の所有・操作です。
+
+GTK入口の内容・リンク・参照先bytesを保全し、リンク先の独立資産を変更しません。既存のimport形式・試用記録も所有情報から解釈し、元の復元情報を維持します。[条件と操作](INSTALL.md)
+
+Shell配置の移行では、新旧の閉じた許可一覧を使い、旧Shellファイルをoriginalへ戻して新パスを登録します。移行後の所有には退役パスの欠落状態も含まれます。packageの実在16ファイルと、所有の最大17項目を区別します。古い限定形式のengineで新しいownerを操作しません。
+
+保存sourceに`manager-base`がある場合、manager backendとアプリ導入は検証済みのそのbaseを使います。旧コードへ戻す際も、互換engine・保存payload・プロファイルをそろえます。コード更新の復帰をプロファイル用undoやowner単独コピーで代用しません。
+
+## ビルドと公開ファイル
+
+SCSSのビルドとプロファイルからの素材生成には`sassc`が必要です。固定の生成済みテーマの導入には不要です。
 
 ```sh
 sh tools/build-material.sh
+sh tools/build-light.sh
 ```
 
-出力はShell、GTK3、GTK4 material、GTK4 FlatpakのCSSです。従来の基本テーマは`sh tools/build.sh`で生成します。schemaコンパイルはパッケージ組立時に行います。開発記録は配布ソースに含めず、利用者向け仕様をこの`docs/`へまとめます。
+Darkは`build/Glass50-Material-Preview/`、Lightは`build/Hyalune-Light/`へ生成します。従来の基本テーマは`sh tools/build.sh`です。schemaはpackage組立時にコンパイルします。生成物を手編集しません。
 
-## 終了確認ダイアログ
-
-v0.1.1で追加した`components/_end-session-dialog.scss`はShell標準の`.modal-dialog.end-session-dialog`へ限定して、ログアウト・電源オフ・再起動の確認面を調整します。ボタン配置、フォーカス、Escape、警告、カウントダウンは標準実装を使います。材質版は既存の面と同じ56％の半透明です。ログイン画面のGDMとは別のスタイルです。
+利用者向け情報は`docs/`、ローカルの引き継ぎ・測定・環境保全は公開対象外の資料へ分けます。[公開ファイルの管理](PUBLISHING.md)

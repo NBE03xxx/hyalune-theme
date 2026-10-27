@@ -13,10 +13,16 @@ $material-gtk4-content-overlay: transparent;
     (1 - alpha($material-gtk4-window)));
 }
 // Standalone/legacy frame consumers retain independently readable surfaces.
-$material-header: rgba(26, 26, 28, 0.92);
-$material-header-backdrop: rgba(26, 26, 28, 0.88);
-$material-compat-control-size: 16px;
-$material-sidebar: rgba(16, 16, 18, 0.16);
-$material-highlight: rgba(255, 255, 255, 0.08);
-$material-edge: rgba(255, 255, 255, 0.22);
-$material-radius: 16px;
+$material-header: rgba(26, 26, 28, 0.92) !default;
+$material-header-backdrop: rgba(26, 26, 28, 0.88) !default;
+$material-compat-control-size: 16px !default;
+$material-sidebar: rgba(16, 16, 18, 0.16) !default;
+$material-highlight: rgba(255, 255, 255, 0.08) !default;
+$material-edge: rgba(255, 255, 255, 0.22) !default;
+$material-radius: 16px !default;
+
+$material-scheme: dark !default;
+$material-card: rgba(255, 255, 255, 0.07) !default;
+$material-border: rgba(255, 255, 255, 0.16) !default;
+
+$material-shell-shadow: inset 0 1px 0 0 $material-highlight, 0 10px 32px 2px rgba(0, 0, 0, 0.30) !default;

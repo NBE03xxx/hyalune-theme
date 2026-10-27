@@ -94,6 +94,14 @@ class Window(Adw.ApplicationWindow):
             title = label(text); title.add_css_class('title-1'); box.append(title)
             clamp.set_child(box); scroll.set_child(clamp); self.stack.add_named(scroll, key); self.pages[key]=box
         self.make_appearance(); self.make_other_pages()
+        self._watch_timer = 0; self._watch_closed = False; self._state_monitor = None
+        self._interface = Gio.Settings.new('org.gnome.desktop.interface')
+        self._interface_signal = self._interface.connect('changed::color-scheme',lambda *_:self.queue_reload())
+        home = Path(test_root) if test_root else Path(GLib.get_home_dir())
+        folder = home/'.local/state/glass50/installer-material-v1'
+        if folder.is_dir():
+            self._state_monitor = Gio.File.new_for_path(str(folder)).monitor_directory(Gio.FileMonitorFlags.NONE,None)
+            self._state_monitor.connect('changed',lambda _m,f,_other,_event:self.queue_reload() if f.get_basename()=='active.json' else None)
         nav.select_row(nav.get_row_at_index(1))
         self.reload()
 
@@ -117,6 +125,12 @@ class Window(Adw.ApplicationWindow):
     def make_appearance(self):
         box = self.pages['appearance']
         box.append(label('共通の素材を調整し、プレビューで確認してから適用します。'))
+        self.variant_selector = Gtk.DropDown.new_from_strings(['Hyalune Dark', 'Hyalune Light'])
+        self.variant_selector.add_css_class('hyalune-target-selector')
+        self.variant_selector.update_property([Gtk.AccessibleProperty.LABEL], ['外観の明暗'])
+        self.variant_selector.connect('notify::selected', self.change_variant)
+        box.append(self.variant_selector)
+        box.append(label('Ubuntuの明暗設定に自動で連動します。ここで編集した明暗・素材は「適用」で反映します。ログイン画面は別管理です。', css_classes=['dim-label']))
         self.preview = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12, margin_top=4, margin_bottom=4)
         self.preview.add_css_class('hyalune-preview')
         self.preview_panel = label('Hyalune  •  パネルの参考表示', margin_top=14, margin_bottom=14, margin_start=16, margin_end=16)
@@ -189,6 +203,11 @@ class Window(Adw.ApplicationWindow):
         # the explicit default/common action, never the disclosure checkbox.
         return entry
 
+    def change_variant(self, *_):
+        if self.updating: return
+        self.value = profile.select_variant(self.value, 'light' if self.variant_selector.get_selected() else 'dark')
+        self.sync_form()
+
     def change_surface(self, scope, field, value):
         self.value[scope][field] = value; self.changed()
 
@@ -219,18 +238,22 @@ class Window(Adw.ApplicationWindow):
 
     def changed(self):
         self.plan=None
+        if hasattr(self,'app_scope_note'): self.app_scope_note.set_visible(profile.variant(self.value)=='light')
         self.summary.set_text('個別設定: '+('、'.join(profile.TARGETS[k] for k in self.value['overrides']) or 'なし')+'。ログイン画面は別管理（既定32％）。')
         dirty = self.applied is None or self.value != self.applied
         self.edit_state.set_text('未適用の編集があります。保存だけでは実環境に反映しません。' if dirty else '最後に配置したプロファイルと同じ値です。実読み込みは別途確認してください。')
+        ink='#111214' if profile.variant(self.value)=='light' else '#f4f6fa'
+        edge='alpha(black,.22)' if profile.variant(self.value)=='light' else 'alpha(white,.22)'
         p=profile.rgba(profile.effective(self.value,'panel')); c=profile.rgba(self.value['common'])
         self.provider.load_from_string('''
 .hyalune-preview { background-image: linear-gradient(135deg, #286c83, #8c5965 48%%, #c0ad79); border-radius: 18px; }
-.hyalune-preview .hyalune-panel { background-color: %s; color: #f4f6fa; border-radius: 14px; }
-.hyalune-preview .hyalune-card { background-color: %s; color: #f4f6fa; border-radius: 16px; border: 1px solid alpha(white,.22); }
-''' % (p,c))
+.hyalune-preview .hyalune-panel { background-color: %s; color: %s; border-radius: 14px; }
+.hyalune-preview .hyalune-card { background-color: %s; color: %s; border-radius: 16px; border: 1px solid %s; }
+''' % (p,ink,c,ink,edge))
 
     def sync_form(self):
         self.updating=True
+        self.variant_selector.set_selected(1 if profile.variant(self.value)=='light' else 0)
         self.common_scale.set_value(self.value['common']['opacity']*100); self.common_color.set_text(self.value['common']['color'])
         self.common_color.remove_css_class('error')
         if hasattr(self,'blur_switches'):
@@ -247,11 +270,12 @@ class Window(Adw.ApplicationWindow):
         for key,title in [('quick_settings','Quick Settingsのぼかし'),('windows','ウィンドウの素材効果')]:
             row=Adw.SwitchRow(title=title); b.append(row); self.blur_switches[key]=row
             row.connect('notify::active',lambda w,_,k=key:self.change_blur(k,w.get_active()))
-        b.append(label('既存拡張の対応条件で動きます。配置／設定の有効と実際の描画は区別します。倍率・High Contrast等により停止する場合があります。'))
+        b.append(label('Lightでも対応条件内でぼかしを使います。High Contrast／Reduced Motion／対応外の倍率では停止します。既存拡張の対応条件で動きます。配置／設定の有効と実際の描画は区別します。倍率・High Contrast等により停止する場合があります。'))
         b.append(button('変更内容を確認して適用',lambda _:self.review(),True))
         from .gdm_ui import View
         self.gdm_view=View(self);self.pages['gdm'].append(self.gdm_view)
         apps=self.pages['apps']; apps.append(label('共通設定へ追従するアプリは「適用」のたびに更新します。起動中や競合中の対象は保留し、勝手に終了しません。'))
+        self.app_scope_note=label('LightのGTK3 Flatpakは標準外観を使います。素材の個別値は保存します。',css_classes=['dim-label'],visible=profile.variant(self.value)=='light');apps.append(self.app_scope_note)
         apps.append(button('再検出',lambda _:self.reload())); self.app_rows=Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=8); apps.append(self.app_rows)
         self.app_editor=Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=12,visible=False);apps.append(self.app_editor)
         self.app_title=label('');self.app_editor.append(self.app_title);self.active_app=None
@@ -272,12 +296,14 @@ class Window(Adw.ApplicationWindow):
     def change_blur(self,key,value):
         if not self.updating: self.value['blur'][key]=value; self.changed()
 
-    def reload(self):
+    def reload(self, passive=False):
         if self.busy:return
-        self.set_busy(True,'配置状態とFlatpakを確認しています')
+        self.set_busy(True,'' if passive else '配置状態とFlatpakを確認しています')
         def done(response):
             self.set_busy(False)
-            if not response.get('ok'):self.error(response);return
+            if not response.get('ok'):
+                if not passive:self.error(response)
+                return
             state=response['result']; self.current=state
             if not self.initialized:
                 self.applied=profile.upgrade(state['profile']) if state['profile'] else None
@@ -288,19 +314,41 @@ class Window(Adw.ApplicationWindow):
                     except Exception as error:self.error({'error':{'message':'保存プロファイルを読み込めません: '+str(error)}})
                 self.initialized=True;self.sync_form()
             else:
-                self.applied=profile.upgrade(state['profile']) if state['profile'] else None; self.changed()
+                clean = self.applied is not None and self.value == self.applied
+                self.applied=profile.upgrade(state['profile']) if state['profile'] else None
+                if clean and self.applied is not None:
+                    self.value=copy.deepcopy(self.applied);self.sync_form()
+                else:self.changed()
             issues=[]
             if getattr(self,'pending_result',None):issues.append(self.pending_result);self.pending_result=None
             if state['pending']:issues.append('中断があります。履歴と復元から復旧してください。')
             if state['legacy_pending']:issues.append('旧導入の中断があります。既存CLIで復旧してください。')
             if state['conflicts']:issues.append('外部変更を検出しました。適用前に競合を解消してください。')
+            if state.get('external_color_scheme'):issues.append('GNOME側の明暗設定が変わっています。「適用」で選んだ外観へそろえます。')
+            if state.get('extensions_globally_disabled'):issues.append('GNOME拡張全体が停止中のため、明暗連動も停止しています。拡張機能アプリで有効にすると再開します。')
             if state['identification']=='unidentified-fixed-values':issues.append('旧版の値は未判定です。編集用の既定値を表示しています。')
-            self.notice.set_title(' '.join(issues) or '配置状態を確認しました。実読み込みは未確認です。');self.notice.set_revealed(True)
+            if not passive:
+                self.notice.set_title(' '.join(issues) or '配置状態を確認しました。実読み込みは未確認です。');self.notice.set_revealed(True)
             self.apply_button.set_sensitive(not(state['pending'] or state['legacy_pending'] or state['conflicts']))
             self.overview_text.set_text(('通常テーマ: '+str(state['version']) if state['managed'] else '通常テーマ: 未導入')+'\nプロファイル: '+state['identification']+'\nGDM: 明示した管理者確認が必要\n'+state['runtime']['note'])
             self.update_apps(state['flatpak'])
             self.history_text.set_text('\n\n'.join(r['at']+'\n'+r['action']+' / '+r['status'] for r in state['history']) or '適用履歴はありません。')
         self.adapter.call('status',None,done)
+
+    def queue_reload(self):
+        if self._watch_closed or self._watch_timer:return
+        def tick():
+            if self.busy:return True
+            self._watch_timer=0;self.reload(passive=True);return False
+        self._watch_timer=GLib.timeout_add(700,tick)
+
+    def stop_watch(self):
+        if self._watch_closed:return
+        self._watch_closed=True
+        if self._watch_timer:GLib.source_remove(self._watch_timer)
+        self._watch_timer=0
+        self._interface.disconnect(self._interface_signal)
+        if self._state_monitor:self._state_monitor.cancel();self._state_monitor=None
 
     def update_apps(self,inventory):
         self.inventory=inventory
@@ -317,12 +365,12 @@ class Window(Adw.ApplicationWindow):
             policy=self.value['flatpak'].get(app_id,{'mode':'hold'})
             box=Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=4)
             w=button(app_id,lambda _,name=app_id:self.open_app(name));w.set_sensitive(row['toolkit'] in ('gtk3','gtk4'))
-            box.append(w);box.append(label(statuses.get(row['status'],row['status'])+' · '+modes[policy['mode']]+(' · 再適用待ち' if row.get('needs_update') else '')+'\n'+row.get('reason',''),css_classes=['dim-label']))
+            box.append(w);box.append(label(statuses.get(row['status'],row['status'])+' · '+modes[policy['mode']]+(' · 再適用待ち' if row.get('needs_update') else '')+'\n'+row.get('reason','')+row.get('rendering_note',''),css_classes=['dim-label']))
             self.app_rows.append(box);self.row_controls.append(w)
         if not inventory['apps']:self.app_rows.append(label('Flatpakアプリはありません。' if inventory['available'] else 'Flatpakは導入されていません。'))
 
     def open_app(self,name):
-        self.active_app=name;self.app_title.set_text(name);self.app_editor.set_visible(True)
+        self.active_app=name;self.app_title.set_text(name+(' — LightのGTK3は標準外観（個別値は保存）' if profile.variant(self.value)=='light' and any(r['app']==name and r['toolkit']=='gtk3' for r in self.inventory['apps']) else ''));self.app_editor.set_visible(True)
         policy=self.value['flatpak'].get(name,{'mode':'hold'})
         self.updating=True;self.app_mode.set_selected(['follow','custom','hold'].index(policy['mode']))
         face=policy.get('surface',self.value['common']);self.app_scale.set_value(face['opacity']*100);self.app_color.set_text(face['color']);self.app_color.remove_css_class('error')
@@ -358,7 +406,8 @@ class Window(Adw.ApplicationWindow):
             if not response.get('ok'):self.error(response);return
             result=response['result'];token=result['manager']['token']
             self.plan=copy.deepcopy(request)
-            d=Adw.AlertDialog(heading='変更内容を適用',body='通常テーマと追従・個別設定のFlatpak '+str(sum(r.get('status')=='planned' for r in result['manager']['apps']))+'件を変更します。\n保留 '+str(sum(r.get('status')=='deferred' for r in result['manager']['apps']))+'件。GDMは含みません。\nアプリの再起動や再ログインが必要です。')
+            scope_notes='\n'.join(sorted({r.get('note') for r in result['manager']['apps'] if r.get('note')}))
+            d=Adw.AlertDialog(heading='変更内容を適用',body='通常テーマと追従・個別設定のFlatpak '+str(sum(r.get('status')=='planned' for r in result['manager']['apps']))+'件を変更します。\n保留 '+str(sum(r.get('status')=='deferred' for r in result['manager']['apps']))+'件。GDMは含みません。\nアプリの再起動や再ログインが必要です。'+('\n'+scope_notes if scope_notes else ''))
             d.add_response('cancel','キャンセル');d.add_response('apply','適用');d.set_response_appearance('apply',Adw.ResponseAppearance.SUGGESTED)
             d.set_default_response('cancel');d.set_close_response('cancel')
             def selected(dialog,response):
@@ -415,7 +464,7 @@ class Window(Adw.ApplicationWindow):
         self.value=copy.deepcopy(self.applied or profile.defaults());self.sync_form()
 
     def reset_defaults(self,*_):
-        policies=copy.deepcopy(self.value.get('flatpak',{}));self.value=profile.defaults();self.value['flatpak']=policies;self.sync_form()
+        self.value=profile.reset_material(self.value);self.sync_form()
 
     def close_request(self,*_):
         if self.busy:
@@ -426,6 +475,7 @@ class Window(Adw.ApplicationWindow):
             def selected(_,r):
                 if r=='close':self.initialized=False;self.close()
             d.connect('response',selected);d.present(self);return True
+        self.stop_watch()
         return False
 
 

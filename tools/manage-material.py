@@ -17,14 +17,23 @@ core_path = Path(__file__).with_name('manage-theme.py')
 spec = importlib.util.spec_from_file_location('glass50_transactions', core_path)
 core = importlib.util.module_from_spec(spec); spec.loader.exec_module(core)
 UUID = 'glass50-blur@myglass.local'
+# GTK paths stay compatible; the user-visible Shell selection is Hyalune.
 THEME = '.local/share/themes/Glass50-Material-Preview/'
+SHELL_THEME = '.local/share/themes/Hyalune/'
+
+def theme_target(name, legacy=False):
+    return (SHELL_THEME if name.startswith('gnome-shell/') and not legacy else THEME) + name
+
 EXT = '.local/share/gnome-shell/extensions/' + UUID + '/'
 THEME_FILES = ('gnome-shell/gnome-shell.css', 'gtk-3.0/gtk.css', 'gtk-3.0/gtk-dark.css', 'gtk-4.0/material.css')
 EFFECTS = ('rounded-background-blur', 'rounded-mask', 'refresh-gate', 'quick-settings-blur',
            'runtime-context', 'window-backdrop-source', 'window-material', 'window-material-commit')
 EXT_FILES = ('extension.js', 'schemas/gschemas.compiled',
              'schemas/org.gnome.shell.extensions.glass50-blur.gschema.xml', *('effects/' + n + '.js' for n in EFFECTS), 'metadata.json')
-TARGETS = tuple(THEME + n for n in THEME_FILES) + tuple(EXT + n for n in EXT_FILES)
+PAYLOAD_TARGETS = tuple(theme_target(n) for n in THEME_FILES) + tuple(EXT + n for n in EXT_FILES)
+LEGACY_TARGETS = tuple(THEME + n for n in THEME_FILES) + tuple(EXT + n for n in EXT_FILES)
+TARGETS = tuple(dict.fromkeys((*PAYLOAD_TARGETS, *LEGACY_TARGETS)))
+TARGET_SETS = (set(PAYLOAD_TARGETS), set(LEGACY_TARGETS), set(TARGETS))
 STATE = '.local/state/glass50/installer-material-v1'
 BEGIN = b'/* Glass50 managed: material preview begin */'
 END = b'/* Glass50 managed: material preview end */'
@@ -32,7 +41,7 @@ core.THEME = ''; core.FILES = TARGETS; core.STATE = STATE; core.ACTIVE = STATE +
 core.KEYS = {
  'gtk-theme': ('org.gnome.desktop.interface', 'gtk-theme', "'Glass50-Material-Preview'"),
  'color-scheme': ('org.gnome.desktop.interface', 'color-scheme', "'prefer-dark'"),
- 'shell-theme': ('org.gnome.shell.extensions.user-theme', 'name', "'Glass50-Material-Preview'"),
+ 'shell-theme': ('org.gnome.shell.extensions.user-theme', 'name', "'Hyalune'"),
  'effect-enabled': ('org.gnome.shell.extensions.glass50-blur', 'effect-enabled', None),
  'window-material-enabled': ('org.gnome.shell.extensions.glass50-blur', 'window-material-enabled', None),
  'enabled-extensions': ('org.gnome.shell', 'enabled-extensions', None),
@@ -41,7 +50,8 @@ LEGACY_SUPPORT = {'manage-material.py', 'manage-theme.py', 'INSTALL.md', 'LICENS
 PREVIOUS_SUPPORT = LEGACY_SUPPORT | {'INSTALLER-ROADMAP.md'}
 FLATPAK_SUPPORT = PREVIOUS_SUPPORT | {'flatpak-discovery.py'}
 TRIAL_SUPPORT = FLATPAK_SUPPORT | {'manage-t16.py'}
-SUPPORT = TRIAL_SUPPORT | {'manage-desktop.py', 'desktop-context.py'}
+PREVIOUS_DESKTOP_SUPPORT = TRIAL_SUPPORT | {'manage-desktop.py', 'desktop-context.py'}
+SUPPORT = (PREVIOUS_DESKTOP_SUPPORT - {'INSTALLER-ROADMAP.md'}) | {'ARCHITECTURE.md'}
 INSTALL_LAYERS = [1, 2, 3]
 LAYERS = [
     {'id': 1, 'component': 'gnome-shell', 'scope': 'user-session', 'status': 'included'},
@@ -59,24 +69,25 @@ def layer_info():
 
 def load_package(path):
     core.safe(path / 'manifest.json'); m = json.loads((path / 'manifest.json').read_text())
-    if m.get('format') != 2 or m.get('component') != 'material-preview' or set(m.get('files', {})) != set(TARGETS):
+    if m.get('format') != 2 or m.get('component') != 'material-preview' or set(m.get('files', {})) not in (set(PAYLOAD_TARGETS), set(LEGACY_TARGETS)):
         core.fail('Unknown material package format/targets.')
     # Accept earlier format-2 packages without this metadata. Explicit layer
     # declarations must match the supported profile; GDM cannot be selected.
     if any(k in m for k in layer_info()) and any(m.get(k) != v for k, v in layer_info().items()):
         core.fail('Unsupported layer declaration: layers 1-3 only; GDM is planned.')
-    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,79}', m.get('version', '')) or set(m.get('support_files', {})) not in (SUPPORT, TRIAL_SUPPORT, FLATPAK_SUPPORT, PREVIOUS_SUPPORT, LEGACY_SUPPORT):
+    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,79}', m.get('version', '')) or set(m.get('support_files', {})) not in (SUPPORT, PREVIOUS_DESKTOP_SUPPORT, TRIAL_SUPPORT, FLATPAK_SUPPORT, PREVIOUS_SUPPORT, LEGACY_SUPPORT):
         core.fail('Invalid material version/support list.')
     for n, digest in m['support_files'].items():
         core.safe(path / n)
         if core.digest((path / n).read_bytes()) != digest: core.fail('Support hash mismatch: ' + n)
+    if m.get('appearance', 'dark') not in ('dark', 'light'): core.fail('Invalid appearance variant.')
     payload = {}
-    for n in TARGETS:
+    for n in m['files']:
         p = path / 'payload' / n; core.safe(p); data = p.read_bytes()
         if core.digest(data) != m['files'][n]: core.fail('Payload hash mismatch: ' + n)
         payload[n] = core.image(data)
     meta = json.loads(core.contents(payload[EXT + 'metadata.json']))
-    if meta.get('uuid') != UUID or meta.get('shell-version') != ['50'] or meta.get('version') not in (3, 4, 5, 6, 7) or m.get('extension_version') != meta.get('version'):
+    if meta.get('uuid') != UUID or meta.get('shell-version') != ['50'] or meta.get('version') not in (3, 4, 5, 6, 7, 8, 9, 10) or m.get('extension_version') != meta.get('version'):
         core.fail('Unexpected extension identity/version.')
     return m, payload
 
@@ -87,10 +98,12 @@ class Settings(core.Settings):
         self.Gio, self.GLib = Gio, GLib
         source = Gio.SettingsSchemaSource.get_default()
         dirs = [real_home / '.local/share/gnome-shell/extensions' / core.USER_THEMES / 'schemas',
+                real_home / EXT / 'schemas',
                 Path(ARGS.package) / 'payload' / EXT / 'schemas']
+        if ARGS.test_root: dirs.append(Path(ARGS.test_root) / EXT / 'schemas')
         dirs.append(Path('/usr/share/gnome-shell/extensions') / core.USER_THEMES / 'schemas')
         for p in dirs:
-            if p.is_dir(): source = Gio.SettingsSchemaSource.new_from_directory(str(p), source, False)
+            if (p/'gschemas.compiled').is_file(): source = Gio.SettingsSchemaSource.new_from_directory(str(p), source, False)
         self.items = {}
         for alias, (sid, key, _) in core.KEYS.items():
             schema = source.lookup(sid, True)
@@ -105,6 +118,10 @@ class Settings(core.Settings):
 
     def put(self, alias, value):
         super().put(alias, value)
+        if (alias == 'shell-theme' and value == "''") or (alias == 'gtk-theme' and value == "'Adwaita'"):
+            # Give User Themes a main-loop turn to unload its old StTheme;
+            # writing the final name immediately can coalesce both changes.
+            time.sleep(.2)
         if alias != 'enabled-extensions' or ARGS.test_root: return
         enabled = UUID in self.effective(alias)
         if enabled: return  # Code activation is verified after the VM re-login.
@@ -168,13 +185,16 @@ def make_plan(home, settings, action, package):
     old_state = core.snapshot(home / core.ACTIVE)
     active = json.loads(core.contents(old_state)) if old_state else None
     if active:
-        if active.get('format') != 1 or active.get('component') != 'material-preview' or set(active.get('originals', {})) != set(TARGETS) or set(active.get('installed', {})) != set(TARGETS) or set(active.get('settings_before', {})) != set(core.KEYS):
+        if active.get('format') != 1 or active.get('component') != 'material-preview' or set(active.get('installed', {})) not in TARGET_SETS or set(active.get('originals', {})) != set(active.get('installed', {})) or set(active.get('settings_before', {})) != set(core.KEYS):
             core.fail('Invalid material ownership manifest.')
     if action == 'apply' and active: core.fail('Already managed: use update.')
     if action in ['update', 'remove'] and not active: core.fail('No managed material installation.')
     if ARGS.adopt_preview and (action != 'apply' or active): core.fail('Adoption is only for initial apply.')
     record = adoption(home) if ARGS.adopt_preview else None
-    if action != 'remove': manifest, payload = load_package(package)
+    if action != 'remove':
+        manifest, payload = load_package(package)
+        if active and active.get('manager', {}).get('profile', {}).get('format') == 3 and 'appearance' not in manifest:
+            core.fail('Dark/Light profile is managed by Hyalune Settings. Use its Apply action; a fixed Dark update would discard variant values.')
     operations, notes = [], []
     def file_op(n, a, b):
         if a != b: operations.append({'kind': 'file', 'name': n, 'before': a, 'after': b})
@@ -187,13 +207,25 @@ def make_plan(home, settings, action, package):
     if action == 'remove' and UUID in enabled_before:
         operations.append({'kind': 'setting', 'name': 'enabled-extensions', 'before': extension_current, 'after': disabled})
         extension_current = disabled
-    for n in TARGETS:
+    # Keep both historical and current Shell paths in the closed ownership
+    # record after migration. The retired path is restored to its original,
+    # never renamed/deleted outside the journal or silently overwritten.
+    originals = dict(active['originals']) if active else {}
+    managed = tuple(dict.fromkeys((*payload, *(active['installed'] if active else ())))) if action != 'remove' else tuple(active['installed'])
+    desired_payload = dict(payload) if action != 'remove' else {}
+    for n in managed:
         now = core.snapshot(home / n)
-        if active and now != active['installed'][n]: core.fail('User modification: ' + n)
-        if not active and now is not None and now != payload[n] and not record:
+        if active and n in active['installed']:
+            if now != active['installed'][n]: core.fail('User modification: ' + n)
+        elif action != 'remove' and now is not None and now != payload[n] and not record:
             if core.contents(now) != core.contents(payload[n]): core.fail('Unmanaged different file: ' + n)
-        if action != 'remove' and now is not None: payload[n]['mode'] = now['mode']
-        file_op(n, now, active['originals'][n] if action == 'remove' else payload[n])
+        if n not in originals: originals[n] = now
+        if action == 'remove': after = originals[n]
+        else:
+            after = desired_payload.get(n, originals[n])
+            if n in payload and after is not None and now is not None: after = dict(after, mode=now['mode'])
+            desired_payload[n] = after
+        file_op(n, now, after)
     css_before = core.snapshot(home / core.CSS); data = core.contents(css_before)
     desired = BEGIN + b'\n@import url("' + (home / THEME / 'gtk-4.0/material.css').as_uri().encode() + b'");\n' + END
     original_begin, original_end = core.BEGIN, core.END
@@ -222,6 +254,12 @@ def make_plan(home, settings, action, package):
     for k, (_, _, value) in core.KEYS.items():
         if k == 'enabled-extensions': continue
         now = current_values[k]
+        if action != 'remove' and k == 'shell-theme':
+            value = "'Hyalune'" if theme_target('gnome-shell/gnome-shell.css') in payload else "'Glass50-Material-Preview'"
+        if action != 'remove' and k == 'color-scheme' and manifest.get('appearance') == 'light':
+            value = "'prefer-light'"
+        if action != 'remove' and k == 'color-scheme' and getattr(ARGS, 'system_appearance_sync', False):
+            value = now  # Preserve even an unset/default system preference.
         if action == 'remove':
             if k in ['effect-enabled', 'window-material-enabled'] and getattr(ARGS, 'settings', 'discard') == 'keep':
                 notes.append('Glass50 effect preference retained: ' + k)
@@ -231,7 +269,10 @@ def make_plan(home, settings, action, package):
         elif k in ['effect-enabled', 'window-material-enabled']:
             value = ('true' if ARGS.blur == 'on' else 'false') if ARGS.blur != 'keep' else (active['settings_installed'][k] if active else now)
         elif active and now != active['settings_installed'][k]:
-            core.fail('User setting changed: ' + k)
+            if k == 'color-scheme' and getattr(ARGS, 'manager_profile_apply', False):
+                notes.append('External GNOME color scheme is reconciled by this explicit profile apply.')
+            else:
+                core.fail('User setting changed: ' + k)
         if action != 'remove' and active and k in ['effect-enabled', 'window-material-enabled'] and now != active['settings_installed'][k]:
             core.fail('User effect setting changed; remove preserves it.')
         targets[k] = value
@@ -261,10 +302,9 @@ def make_plan(home, settings, action, package):
     if action == 'remove': after_state = None
     else:
         targets['enabled-extensions'] = final_enabled
-        originals = active['originals'] if active else {n: core.snapshot(home / n) for n in TARGETS}
-        extension_changed = any(n.startswith(EXT) and core.snapshot(home / n) != payload[n] for n in TARGETS)
+        extension_changed = any(n.startswith(EXT) and core.snapshot(home / n) != payload[n] for n in payload)
         new_state = {'format': 1, 'component': 'material-preview', 'version': manifest['version'], 'package_files': manifest['files'],
-            'originals': originals, 'installed': payload, 'settings_before': active['settings_before'] if active else current_values,
+            'originals': originals, 'installed': desired_payload, 'settings_before': active['settings_before'] if active else current_values,
             'settings_installed': targets, 'enabled_before_effective': active['enabled_before_effective'] if active else enabled_before,
             'enabled_installed_effective': final_list, 'css_original': active['css_original'] if active else css_before,
             'css_installed': active['css_installed'] if active else css_after, 'adopted_preview': active.get('adopted_preview') if active else record,
@@ -282,7 +322,7 @@ core.make_plan = make_plan
 
 
 def status_extra(home, active):
-    result = {'component': 'material-preview', 'expected_extension_version': 7,
+    result = {'component': 'material-preview', 'expected_extension_version': 10,
               'runtime_note': 'Extension info is metadata; verify code after logging out and in.', **layer_info()}
     if active and 'flatpak_auto' in active: result['flatpak_auto_at_install'] = active['flatpak_auto']
     disk = home / EXT / 'metadata.json'; core.safe(disk)

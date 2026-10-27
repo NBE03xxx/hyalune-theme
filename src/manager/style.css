@@ -18,3 +18,19 @@
     background-image: none;
   }
 }
+
+@media (prefers-color-scheme: light) and (prefers-contrast: no-preference) {
+  dropdown.hyalune-target-selector > popover.background {
+    background-color: transparent;
+    background-image: none;
+  }
+  dropdown.hyalune-target-selector > popover.background > contents {
+    background-color: rgba(246, 246, 248, 0.94);
+    background-image: none;
+    border: 1px solid rgba(30, 32, 36, 0.22);
+  }
+  dropdown.hyalune-target-selector > popover.background listview {
+    background-color: transparent;
+    background-image: none;
+  }
+}

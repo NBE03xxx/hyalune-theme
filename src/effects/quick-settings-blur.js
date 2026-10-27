@@ -13,7 +13,7 @@ const BLUR_RADIUS = 12;
 // GNOME 50 adapter restricted to the verified VM; explicit normal-session preview required.
 // The native box/grid/input hierarchy and CSS remain owned by Shell.
 export class QuickSettingsBlur {
-    constructor(menu, source, {resolutionScale = 0.5, maxRefreshRate = 30, allowVmSession = false, instrument = false, clipSource = false} = {}) {
+    constructor(menu, source, {resolutionScale = 0.5, maxRefreshRate = 30, brightness = 1.0, allowVmSession = false, instrument = false, clipSource = false} = {}) {
         assertEffectContext(allowVmSession);
         if (!menu.box || !menu._boxPointer || !menu.actor ||
             menu._boxPointer.get_parent() !== menu.actor || source.contains(menu.actor))
@@ -27,6 +27,7 @@ export class QuickSettingsBlur {
         this._sourceDestroyed = false;
         this._resolutionScale = resolutionScale;
         this._maxRefreshRate = maxRefreshRate;
+        this._brightness = brightness;
         this._interface = new Gio.Settings({schema_id: 'org.gnome.desktop.interface'});
         this._a11y = new Gio.Settings({schema_id: 'org.gnome.desktop.a11y.interface'});
         this._connections = [];
@@ -85,7 +86,7 @@ export class QuickSettingsBlur {
         if (!this._requested) return 'disabled';
         if (!this._menu.isOpen) return 'menu-closed';
         if (this._a11y.get_boolean('high-contrast')) return 'high-contrast';
-        if (this._interface.get_string('color-scheme') !== 'prefer-dark') return 'not-dark';
+        if (!['prefer-dark','prefer-light'].includes(this._interface.get_string('color-scheme'))) return 'not-dark';
         if (this._a11y.get_string('reduced-motion') !== 'no-preference') return 'reduced-motion';
         if (this._menu._overlay.get_children().some(actor => actor.visible)) return 'submenu';
         if (Main.overview.visible || Main.sessionMode.isLocked) return 'overview-or-locked';
@@ -144,7 +145,7 @@ export class QuickSettingsBlur {
                 this._anchor = new Clutter.Actor({name: 'glass50-quick-settings-anchor', reactive: false});
                 this._menu.actor.insert_child_below(this._anchor, this._menu._boxPointer);
                 this._blur = new RoundedBackgroundBlur(this._source, this._anchor,
-                    {radius: BLUR_RADIUS, resolutionScale: this._resolutionScale, stageSource: true, maxRefreshRate: this._maxRefreshRate, instrument: this._instrument,
+                    {radius: BLUR_RADIUS, brightness: this._brightness, resolutionScale: this._resolutionScale, stageSource: true, maxRefreshRate: this._maxRefreshRate, instrument: this._instrument,
                         cornerRadius: box.get_theme_node().get_border_radius(St.Corner.TOPLEFT)});
             }
             this._anchor.set_position(x, y);

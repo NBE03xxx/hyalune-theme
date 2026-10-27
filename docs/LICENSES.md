@@ -2,7 +2,7 @@
 
 本プロジェクトで新規作成したSCSS・生成CSS・独自拡張・管理ツール・文書はMIT Licenseです。正本はルートの[LICENSE](../LICENSE)です。Copyright (c) 2026 Glass50 contributors。
 
-Hyaluneへの名称変更後も、LICENSEと既存ソースの著作権表示は保持しています。Glass50は本プロジェクトの旧称です。
+LICENSEと既存ソースに記載された著作権表示を保持します。
 
 | 対象 | 取扱い |
 | --- | --- |

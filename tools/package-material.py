@@ -12,7 +12,7 @@ import tempfile
 import zipfile
 
 p = argparse.ArgumentParser(description=__doc__)
-p.add_argument('--version', default='0.2.0')
+p.add_argument('--version', default='0.3.0')
 output = p.add_mutually_exclusive_group(required=True)
 output.add_argument('--output', type=Path, help='Optional ZIP for offline transfer')
 output.add_argument('--directory', type=Path, help='Prepare a source-install snapshot without a ZIP')
@@ -27,7 +27,7 @@ files = {}
 for n in m.THEME_FILES:
     source = root / 'build/Glass50-Material-Preview' / n
     if source.is_symlink(): p.error('Symlink theme payload: ' + str(source))
-    files['payload/' + m.THEME + n] = source.read_bytes()
+    files['payload/' + m.theme_target(n)] = source.read_bytes()
 for n in m.EXT_FILES:
     if n == 'schemas/gschemas.compiled': continue
     source = root / ('src/' + n if n.startswith('effects/') else 'src/extension/' + n)
@@ -41,7 +41,7 @@ with tempfile.TemporaryDirectory(prefix='glass50-schema-') as directory:
 for n, source in {'manage-material.py': 'tools/manage-material.py', 'manage-theme.py': 'tools/manage-theme.py',
                   'flatpak-discovery.py': 'tools/flatpak-discovery.py', 'manage-t16.py': 'tools/manage-t16.py',
                   'manage-desktop.py':'tools/manage-desktop.py', 'desktop-context.py':'tools/desktop-context.py',
-                  'INSTALL.md': 'docs/INSTALL.md', 'INSTALLER-ROADMAP.md': 'docs/ROADMAP.md',
+                  'INSTALL.md': 'docs/INSTALL.md', 'ARCHITECTURE.md': 'docs/ARCHITECTURE.md',
                   'LICENSE': 'LICENSE', 'LICENSES.md': 'docs/LICENSES.md'}.items():
     files[n] = (root / source).read_bytes()
 revision = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=root, text=True, capture_output=True)
@@ -51,7 +51,7 @@ source_dirty = (bool(subprocess.check_output(['git', 'status', '--porcelain'], c
 manifest = {'format': 2, 'component': 'material-preview', 'version': a.version,
     **m.layer_info(),
     'source_commit': source_commit, 'source_tree_dirty': source_dirty,
-    'scope': 'Ubuntu 26.04 / GNOME Shell 50.x / Wayland; user-session installation', 'extension_version': 7,
+    'scope': 'Ubuntu 26.04 / GNOME Shell 50.x / Wayland; user-session installation', 'extension_version': 10,
     'files': {n.removeprefix('payload/'):hashlib.sha256(b).hexdigest() for n,b in files.items() if n.startswith('payload/')},
     'support_files': {n:hashlib.sha256(b).hexdigest() for n,b in files.items() if not n.startswith('payload/')}}
 files['manifest.json'] = (json.dumps(manifest, ensure_ascii=False, sort_keys=True, indent=2)+'\n').encode()

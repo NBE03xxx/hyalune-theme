@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Use the installed GTK3 Adwaita Dark resources without copying upstream CSS.
-@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+$gtk3-resource: "resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css" !default;
+@import url($gtk3-resource);
 @import "design-values";
 @import "gtk3/values";
 @import "gtk3/window";

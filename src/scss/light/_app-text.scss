@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: MIT
+// Use semantic foregrounds so native selection, accents and disabled controls
+// retain their own colors. Never apply a foreground to every descendant label.
+@mixin light-gtk4-text {
+  --window-fg-color: #{$app-ink};
+  --view-fg-color: #{$app-ink};
+  --headerbar-fg-color: #{$app-ink};
+  --sidebar-fg-color: #{$app-ink};
+  --sidebar-backdrop-fg-color: #{$app-ink};
+  --card-fg-color: #{$app-ink};
+  --dialog-fg-color: #{$app-ink};
+  --popover-fg-color: #{$app-ink};
+  --dim-opacity: #{$app-dim-opacity};
+}
+
+@mixin light-gtk3-text {
+  &, &:backdrop { color: $app-ink; }
+  headerbar, headerbar:backdrop { color: $app-ink; }
+  // GTK3 has no dim-opacity variable. Only strengthen readable descriptions;
+  // native insensitive colors and selection foregrounds remain in control.
+  .dim-label:not(:disabled),
+  headerbar .subtitle:not(:disabled),
+  .titlebar:not(headerbar) .subtitle:not(:disabled) {
+    opacity: $app-dim-opacity;
+  }
+}

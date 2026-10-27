@@ -10,8 +10,8 @@ import {assertEffectContext} from './runtime-context.js';
 import {WindowBackdropSource} from './window-backdrop-source.js';
 import {RoundedBackgroundBlur} from './rounded-background-blur.js';
 
-const themeIsMaterial = () => (Main.getThemeStylesheet()?.get_path() ?? '').endsWith(
-    '/Glass50-Material-Preview/gnome-shell/gnome-shell.css');
+const themeIsMaterial = () => ['Hyalune','Glass50-Material-Preview','Hyalune-Light'].some(name =>
+    (Main.getThemeStylesheet()?.get_path() ?? '').endsWith(`/${name}/gnome-shell/gnome-shell.css`));
 
 export class WindowMaterial {
     constructor({allowVmSession = false, instrument = false, appFilter = null} = {}) {
@@ -73,7 +73,7 @@ export class WindowMaterial {
         if (!themeIsMaterial()) return 'theme';
         if (Main.overview.visible || Main.sessionMode.isLocked) return 'overview-or-locked';
         if (Main.layoutManager.monitors.length !== 1 || global.stage.get_resource_scale() !== 1) return 'monitor-scale';
-        if (this._interface.get_string('color-scheme') !== 'prefer-dark') return 'not-dark';
+        if (!['prefer-dark','prefer-light'].includes(this._interface.get_string('color-scheme'))) return 'not-dark';
         if (this._a11y.get_boolean('high-contrast')) return 'high-contrast';
         if (this._a11y.get_string('reduced-motion') !== 'no-preference') return 'reduced-motion';
         return null;
@@ -135,6 +135,8 @@ export class WindowMaterial {
         }
         for (const actor of actors) this._watch(actor);
         const reason = this._fallback();
+        const scheme = this._interface.get_string('color-scheme');
+        if (this._scheme !== scheme) {this._stop();this._scheme = scheme;}
         // Popup menus have no material binding and cannot change the dependency
         // order between glass windows. Keep existing captures while they map.
         const order = actors.filter(actor => this._eligible(actor));
@@ -165,7 +167,7 @@ export class WindowMaterial {
                     anchor._glass50WindowOwner = actor;anchor._glass50WindowAnchor = true;
                     global.window_group.insert_child_below(anchor, actor);
                     const blur = new RoundedBackgroundBlur(source.actor, anchor, {radius: 24, cornerRadius: corner,
-                        brightness: 0.85, resolutionScale: 0.5, stageSource: true, maxRefreshRate: 30, instrument: this._instrument});
+                        brightness: this._interface.get_string('color-scheme') === 'prefer-light' ? 1.0 : 0.85, resolutionScale: 0.5, stageSource: true, maxRefreshRate: 30, instrument: this._instrument});
                     binding = {source, anchor, blur, corner};this._bindings.set(actor, binding);
                     // A newly inserted native sibling is allocated on the next
                     // stage frame. Retry once after allocation rather than
