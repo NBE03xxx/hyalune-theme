@@ -12,7 +12,7 @@ import tempfile
 import zipfile
 
 p = argparse.ArgumentParser(description=__doc__)
-p.add_argument('--version', default='0.3.0')
+p.add_argument('--version', default='0.3.1')
 output = p.add_mutually_exclusive_group(required=True)
 output.add_argument('--output', type=Path, help='Optional ZIP for offline transfer')
 output.add_argument('--directory', type=Path, help='Prepare a source-install snapshot without a ZIP')

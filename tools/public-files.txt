@@ -155,3 +155,5 @@ tools/tests/probe-light-effects.js
 tools/tests/light-gtk-preview.py
 tools/tests/run-light-effects-vm.py
 tools/tests/verify-shell-name-vm.py
+
+tools/tests/verify-gtk-name-vm.py

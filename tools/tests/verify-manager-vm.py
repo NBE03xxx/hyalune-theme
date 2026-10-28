@@ -99,7 +99,7 @@ for flag,expected in [('--fail-after',1),('--crash-after',86)]:
   check('crash is visible through status',call('status')['pending']);call('recover')
  check(flag+' restores installed profile, links and payload',tree(home)==before and active.read_bytes()==old_owner and not(home/state/'pending.json').exists())
 # Conflict reporting and engine refusal are both required.
-css=home/'.local/share/themes/Glass50-Material-Preview/gtk-3.0/gtk.css';saved=css.read_bytes();css.write_bytes(saved+b'/* user edit */\n');before=tree(home)
+css=home/'.local/share/themes/Hyalune/gtk-3.0/gtk.css';saved=css.read_bytes();css.write_bytes(saved+b'/* user edit */\n');before=tree(home)
 check('external edit is visible in structured state',bool(call('status')['conflicts']))
 r=call('plan',{'profile':default,'apps':[]},1);check('external edit cannot be overwritten by GUI adapter',not r['ok'] and tree(home)==before);css.write_bytes(saved)
 # Use the real installed GTK inventory, but write only into the private HOME.

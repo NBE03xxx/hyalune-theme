@@ -54,7 +54,7 @@ check('an individually disabled Hyalune extension is not re-enabled',result['rea
 setting('org.gnome.shell','enabled-extensions',enabled,'as');call('sync')
 setting('org.gnome.desktop.interface','gtk-theme','Adwaita');scheme('prefer-light');before=state();result=call('sync',expected=1)
 check('unrelated theme conflicts still block automatic changes',not result['ok'] and state()==before)
-setting('org.gnome.desktop.interface','gtk-theme','Glass50-Material-Preview')
+setting('org.gnome.desktop.interface','gtk-theme','Hyalune')
 for flag,expected in [('--fail-after',1),('--crash-after',86)]:
     before=state();call('sync',expected=expected,flags=(flag,'2'))
     if expected==86:check('interrupted automatic sync is visible',call('status')['pending']);call('recover')

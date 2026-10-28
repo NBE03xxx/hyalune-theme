@@ -76,7 +76,7 @@ git pull --ff-only
 
 既知の管理記録を自動認識し、元のGTKリンク・設定値の有無・拡張構成を保持します。更新前の解除や初期化は不要です。試用時に停止した拡張の情報も保持し、後で再有効化したDock等を更新時に停止し直しません。
 
-Shellテーマ名は明暗共通の`Hyalune`です。更新でShellの配置先が変わる場合は、新旧ファイルと設定を同じ処理記録で移行します。古いShellパスは元状態へ戻し、原本と新パスの復元情報を保持します。保存済み旧コードで戻す場合は、その所有形式に対応する手順を使います。
+Shellとレガシーアプリケーション（GTK3）のテーマ名は、明暗共通の`Hyalune`です。更新で配置先が変わる場合は、新旧ファイルと設定を同じ処理記録で移行します。古いパスは元状態へ戻し、原本と新パスの復元情報を保持します。保存済み旧コードで戻す場合は、その所有形式に対応する手順を使います。
 
 ## 解除と設定の扱い
 
@@ -129,7 +129,8 @@ python3 /path/to/saved-package/manage-desktop.py recover --package /path/to/save
 | 対象 | 配置・管理先 |
 | --- | --- |
 | GNOME Shell | `~/.local/share/themes/Hyalune/gnome-shell/`、選択名`Hyalune` |
-| GTK | `~/.local/share/themes/Glass50-Material-Preview/`、内部名を互換維持 |
+| GTK3 | `~/.local/share/themes/Hyalune/gtk-3.0/` |
+| GTK4 | `~/.local/share/themes/Glass50-Material-Preview/gtk-4.0/`、内部import先を互換維持 |
 | Hyalune拡張 | `~/.local/share/gnome-shell/extensions/glass50-blur@myglass.local/` |
 | 通常テーマの所有・保全 | `~/.local/state/glass50/installer-material-v1/` |
 | 新規導入のGTK4 include | `~/.config/gtk-4.0/glass50-managed.css` |

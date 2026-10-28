@@ -22,7 +22,7 @@ python3 tools/export-public.py --output /tmp/hyalune-public-source
 
 ## 名称と互換性
 
-正式名称はHyalune、リポジトリ名は`hyalune-theme`です。既存checkoutのローカルディレクトリ名は変更せず使えます。Shellの選択名・配置先はHyaluneへ統一しています。GTKの内部配置名、拡張UUID、設定・管理記録は導入・復元との互換性のため維持します。[内部識別名](ARCHITECTURE.md#名称と内部識別名)
+正式名称はHyalune、リポジトリ名は`hyalune-theme`です。既存checkoutのローカルディレクトリ名は変更せず使えます。ShellとGTK3の選択名・配置先はHyaluneへ統一しています。GTK4の内部import先、拡張UUID、設定・管理記録は導入・復元との互換性のため維持します。[内部識別名](ARCHITECTURE.md#名称と内部識別名)
 
 ## 対応範囲の案内
 

@@ -50,5 +50,5 @@ for flag,expected in [('--fail-after',1),('--crash-after',86)]:
     check(flag+' inside transient theme refresh restores exact previous state',tree()==before)
 setting('gtk-theme','Adwaita');before=tree();state=call('status');result=call('plan',{'profile':dark,'apps':[]},1)
 check('other external theme settings still block and remain untouched',any(v['target']=='gtk-theme' for v in state['conflicts']) and not result['ok'] and tree()==before)
-setting('gtk-theme','Glass50-Material-Preview')
+setting('gtk-theme','Hyalune')
 print(json.dumps({'root':str(root),'checks':checks},indent=2))

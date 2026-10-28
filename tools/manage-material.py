@@ -17,12 +17,16 @@ core_path = Path(__file__).with_name('manage-theme.py')
 spec = importlib.util.spec_from_file_location('glass50_transactions', core_path)
 core = importlib.util.module_from_spec(spec); spec.loader.exec_module(core)
 UUID = 'glass50-blur@myglass.local'
-# GTK paths stay compatible; the user-visible Shell selection is Hyalune.
+# GTK4's private import stays stable; Shell and the selectable GTK3 theme
+# share the public Hyalune name. Earlier packages remain valid for recovery.
 THEME = '.local/share/themes/Glass50-Material-Preview/'
 SHELL_THEME = '.local/share/themes/Hyalune/'
+GTK_THEME = SHELL_THEME
 
-def theme_target(name, legacy=False):
-    return (SHELL_THEME if name.startswith('gnome-shell/') and not legacy else THEME) + name
+def theme_target(name, legacy=False, legacy_gtk=False):
+    if name.startswith('gnome-shell/') and not legacy: return SHELL_THEME + name
+    if name.startswith('gtk-3.0/') and not legacy_gtk: return GTK_THEME + name
+    return THEME + name
 
 EXT = '.local/share/gnome-shell/extensions/' + UUID + '/'
 THEME_FILES = ('gnome-shell/gnome-shell.css', 'gtk-3.0/gtk.css', 'gtk-3.0/gtk-dark.css', 'gtk-4.0/material.css')
@@ -32,14 +36,19 @@ EXT_FILES = ('extension.js', 'schemas/gschemas.compiled',
              'schemas/org.gnome.shell.extensions.glass50-blur.gschema.xml', *('effects/' + n + '.js' for n in EFFECTS), 'metadata.json')
 PAYLOAD_TARGETS = tuple(theme_target(n) for n in THEME_FILES) + tuple(EXT + n for n in EXT_FILES)
 LEGACY_TARGETS = tuple(THEME + n for n in THEME_FILES) + tuple(EXT + n for n in EXT_FILES)
-TARGETS = tuple(dict.fromkeys((*PAYLOAD_TARGETS, *LEGACY_TARGETS)))
-TARGET_SETS = (set(PAYLOAD_TARGETS), set(LEGACY_TARGETS), set(TARGETS))
+SHELL_ONLY_TARGETS = tuple(theme_target(n, legacy_gtk=True) for n in THEME_FILES) + tuple(EXT + n for n in EXT_FILES)
+PACKAGE_TARGET_SETS = (set(PAYLOAD_TARGETS), set(SHELL_ONLY_TARGETS), set(LEGACY_TARGETS))
+TARGETS = tuple(dict.fromkeys((*PAYLOAD_TARGETS, *SHELL_ONLY_TARGETS, *LEGACY_TARGETS)))
+# Ownership retains retired paths. Accept only unions of the three known
+# package generations, including a restore followed by another migration.
+TARGET_SETS = tuple(set().union(*(PACKAGE_TARGET_SETS[i] for i in range(3) if mask & (1 << i))) for mask in range(1, 8))
+
 STATE = '.local/state/glass50/installer-material-v1'
 BEGIN = b'/* Glass50 managed: material preview begin */'
 END = b'/* Glass50 managed: material preview end */'
 core.THEME = ''; core.FILES = TARGETS; core.STATE = STATE; core.ACTIVE = STATE + '/active.json'
 core.KEYS = {
- 'gtk-theme': ('org.gnome.desktop.interface', 'gtk-theme', "'Glass50-Material-Preview'"),
+ 'gtk-theme': ('org.gnome.desktop.interface', 'gtk-theme', "'Hyalune'"),
  'color-scheme': ('org.gnome.desktop.interface', 'color-scheme', "'prefer-dark'"),
  'shell-theme': ('org.gnome.shell.extensions.user-theme', 'name', "'Hyalune'"),
  'effect-enabled': ('org.gnome.shell.extensions.glass50-blur', 'effect-enabled', None),
@@ -69,7 +78,7 @@ def layer_info():
 
 def load_package(path):
     core.safe(path / 'manifest.json'); m = json.loads((path / 'manifest.json').read_text())
-    if m.get('format') != 2 or m.get('component') != 'material-preview' or set(m.get('files', {})) not in (set(PAYLOAD_TARGETS), set(LEGACY_TARGETS)):
+    if m.get('format') != 2 or m.get('component') != 'material-preview' or set(m.get('files', {})) not in PACKAGE_TARGET_SETS:
         core.fail('Unknown material package format/targets.')
     # Accept earlier format-2 packages without this metadata. Explicit layer
     # declarations must match the supported profile; GDM cannot be selected.
@@ -207,7 +216,7 @@ def make_plan(home, settings, action, package):
     if action == 'remove' and UUID in enabled_before:
         operations.append({'kind': 'setting', 'name': 'enabled-extensions', 'before': extension_current, 'after': disabled})
         extension_current = disabled
-    # Keep both historical and current Shell paths in the closed ownership
+    # Keep historical and current theme paths in the closed ownership
     # record after migration. The retired path is restored to its original,
     # never renamed/deleted outside the journal or silently overwritten.
     originals = dict(active['originals']) if active else {}
@@ -254,8 +263,9 @@ def make_plan(home, settings, action, package):
     for k, (_, _, value) in core.KEYS.items():
         if k == 'enabled-extensions': continue
         now = current_values[k]
-        if action != 'remove' and k == 'shell-theme':
-            value = "'Hyalune'" if theme_target('gnome-shell/gnome-shell.css') in payload else "'Glass50-Material-Preview'"
+        if action != 'remove' and k in ('shell-theme', 'gtk-theme'):
+            name = 'gnome-shell/gnome-shell.css' if k == 'shell-theme' else 'gtk-3.0/gtk.css'
+            value = "'Hyalune'" if theme_target(name) in payload else "'Glass50-Material-Preview'"
         if action != 'remove' and k == 'color-scheme' and manifest.get('appearance') == 'light':
             value = "'prefer-light'"
         if action != 'remove' and k == 'color-scheme' and getattr(ARGS, 'system_appearance_sync', False):

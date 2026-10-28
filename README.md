@@ -20,7 +20,7 @@ Hyaluneは、ガラスのような透明感と読みやすさを両立するデ�
 
 GNOME標準の配置・操作を生かし、GNOME Shell、GTK3、GTK4 / libadwaitaの色と質感をそろえます。背景ぼかしは独自拡張による任意機能です。
 
-最新版は[**v0.3.0**](https://github.com/NBE03xxx/hyalune-theme/releases/tag/v0.3.0)です。Dark／LightとUbuntu明暗設定への自動連動に対応しています。「Hyalune 設定」から共通の外観・対象別の調整・対応Flatpakを管理できます。通常のデスクトップ向けインストーラーは機種名に依存せず、OS・GNOME・Waylandなどの導入条件を確認します。
+最新版は[**v0.3.1**](https://github.com/NBE03xxx/hyalune-theme/releases/tag/v0.3.1)です。Dark／LightとUbuntu明暗設定への自動連動に対応しています。「Hyalune 設定」から共通の外観・対象別の調整・対応Flatpakを管理できます。通常のデスクトップ向けインストーラーは機種名に依存せず、OS・GNOME・Waylandなどの導入条件を確認します。
 
 ## 対象
 

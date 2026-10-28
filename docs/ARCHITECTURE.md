@@ -2,9 +2,9 @@
 
 ## 名称と内部識別名
 
-製品名はHyalune、外観はHyalune Dark／Hyalune Lightです。GNOME Shellの選択名と独自拡張の表示名は`Hyalune`で、Shellテーマ名は明暗共通です。
+製品名はHyalune、外観はHyalune Dark／Hyalune Lightです。GNOME Shellとレガシーアプリケーション（GTK3）のテーマ選択名、独自拡張の表示名は`Hyalune`です。テーマ選択名はDark／Lightで共通です。
 
-Shellの配置先は`~/.local/share/themes/Hyalune/gnome-shell/`です。GTKの内部配置名`Glass50-Material-Preview`、拡張UUID `glass50-blur@myglass.local`、schema・管理記録・CSSの識別子は既存導入との互換性のため保持します。生成物のディレクトリ名と、利用者がShellで選ぶ名前を区別します。
+ShellとGTK3の配置先は`~/.local/share/themes/Hyalune/`です。GTK4の内部import先`Glass50-Material-Preview/gtk-4.0/`、拡張UUID `glass50-blur@myglass.local`、schema・管理記録・CSSの識別子は既存導入との互換性のため保持します。生成物・内部importのディレクトリ名と、利用者が選ぶテーマ名を区別します。
 
 ## 入口と生成物
 

@@ -10,7 +10,7 @@ Hyalune Lightは淡い無彩色の面と濃い文字を使います。v0.3.0で�
 
 ## 明暗を切り替える
 
-Ubuntu「設定 → 外観」で選ぶと、Shell・GTK3・GTK4と、追従／個別設定へ登録した対応Flatpakが切り替わります。GNOMEの`prefer-dark`はDark、`prefer-light`と標準（`default`／未設定）はLightとして扱い、自動連動でその設定値を書き戻しません。Shellテーマの選択名は両方とも`Hyalune`です。
+Ubuntu「設定 → 外観」で選ぶと、Shell・GTK3・GTK4と、追従／個別設定へ登録した対応Flatpakが切り替わります。GNOMEの`prefer-dark`はDark、`prefer-light`と標準（`default`／未設定）はLightとして扱い、自動連動でその設定値を書き戻しません。Shellとレガシーアプリケーションのテーマ選択名は両方とも`Hyalune`です。
 
 管理アプリの「外観」からDark／Lightを選び、素材を編集して適用する方法も使えます。こちらの明示適用はGNOMEの明暗設定も更新します。起動・プレビュー・保存だけでは適用しません。
 
@@ -58,6 +58,6 @@ GTK3にはGTK4と同じコントラスト用media条件がないため、Light�
 
 ## 編集元と確認範囲
 
-Lightの配色は`src/scss/light/_palette.scss`、アプリ文字は`_app-text.scss`を編集元とし、共通SCSSからShell／GTK3／GTK4／Flatpakへ別出力します。`sh tools/build-light.sh`で`build/Hyalune-Light/`へ生成します。実配置ではプロファイルから素材を生成し、GTKの内部配置名と拡張UUIDは互換性のため維持します。
+Lightの配色は`src/scss/light/_palette.scss`、アプリ文字は`_app-text.scss`を編集元とし、共通SCSSからShell／GTK3／GTK4／Flatpakへ別出力します。`sh tools/build-light.sh`で`build/Hyalune-Light/`へ生成します。実配置ではプロファイルから素材を生成し、ShellとGTK3は`Hyalune`へ配置し、GTK4の内部import先と拡張UUIDは互換性のため維持します。
 
 独立VMで明暗往復・値保持・実アプリ・代表倍率・High Contrast退避・Reduced Motion・任意効果・中断復旧を確認しています。通常セッションでも再ログイン後の表示・基本操作・文字の読みやすさ・Ubuntu設定からの明暗往復を確認済みです。これを全アプリ・全倍率・全アクセシビリティ条件の網羅や、GDMのLight適用へ広げません。

@@ -94,7 +94,7 @@ def known_profile(m, owner):
             raise OperationError('invalid-profile-record', '所有記録のプロファイルを照合できません。')
         return value, 'managed-profile'
     # Only identify the fixed release when all four theme payloads match.
-    expected = {m.theme_target(n, legacy=not any(n.startswith(m.SHELL_THEME) for n in owner.get('installed', {}))): hashlib.sha256((ROOT/'build/Glass50-Material-Preview'/n).read_bytes()).hexdigest()
+    expected = {m.theme_target(n, legacy=m.SHELL_THEME+'gnome-shell/gnome-shell.css' not in owner.get('package_files', {}), legacy_gtk=m.GTK_THEME+'gtk-3.0/gtk.css' not in owner.get('package_files', {})): hashlib.sha256((ROOT/'build/Glass50-Material-Preview'/n).read_bytes()).hexdigest()
                 for n in m.THEME_FILES}
     if all(owner.get('package_files', {}).get(n) == h for n, h in expected.items()):
         value = profile.defaults()
@@ -249,7 +249,8 @@ def package_profile(value, destination):
     manifest = json.loads((destination/'manifest.json').read_text())
     m = module('manage-material')
     for name in m.THEME_FILES:
-        target = m.theme_target(name, legacy=m.theme_target(name) not in manifest['files'])
+        target = m.theme_target(name, legacy=m.theme_target(name) not in manifest['files'],
+                                legacy_gtk=m.theme_target(name) not in manifest['files'])
         data = (generated/name).read_bytes(); (destination/'payload'/target).write_bytes(data)
         manifest['files'][target] = hashlib.sha256(data).hexdigest()
     manifest['appearance'] = profile.variant(value)
@@ -388,7 +389,7 @@ def execute(args):
                     theme = s.get('shell-theme')
                     native_ops.extend([{'kind':'setting','name':'shell-theme','before':theme,'after':"''"},
                                        {'kind':'setting','name':'shell-theme','before':"''",'after':theme}])
-                if owner and any(op['kind']=='file' and op['name']==m.THEME+'gtk-3.0/gtk.css' for op in native_ops) and not any(op['kind']=='setting' and op['name']=='gtk-theme' for op in native_ops):
+                if owner and any(op['kind']=='file' and op['name'] in (m.GTK_THEME+'gtk-3.0/gtk.css',m.THEME+'gtk-3.0/gtk.css') for op in native_ops) and not any(op['kind']=='setting' and op['name']=='gtk-theme' for op in native_ops):
                     theme = s.get('gtk-theme')
                     native_ops.extend([{'kind':'setting','name':'gtk-theme','before':theme,'after':"'Adwaita'"},
                                        {'kind':'setting','name':'gtk-theme','before':"'Adwaita'",'after':theme}])
