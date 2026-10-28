@@ -157,3 +157,5 @@ tools/tests/run-light-effects-vm.py
 tools/tests/verify-shell-name-vm.py
 
 tools/tests/verify-gtk-name-vm.py
+
+docs/images/hyalune-settings.png

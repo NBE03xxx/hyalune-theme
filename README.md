@@ -94,6 +94,12 @@ cd hyalune-theme
 
 アプリ一覧や検索から「Hyalune 設定」を開きます。共通の外観とプレビューを中心に表示し、個別調整は対象を選んだときだけ開きます。対応Flatpakの共通追従・個別値・現在値の保持を選択できます。保存と適用は別操作です。
 
+<p align="center">
+  <a href="docs/images/hyalune-settings.png">
+    <img src="docs/images/hyalune-settings.png" width="480" alt="Hyalune 設定の外観画面。Dark／Lightの選択、素材プレビュー、不透明度の調整">
+  </a>
+</p>
+
 アプリだけの解除は`./install.sh manager remove`です。テーマ・プロファイル・バックアップは保持します。GDMのGUI操作には管理者が専用窓口を別途導入し、OS標準の認証画面を使います。[導入・GDM認証・確認範囲](docs/THEME-MANAGER.md)
 
 ### Flatpak
