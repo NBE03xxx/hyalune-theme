@@ -159,3 +159,12 @@ tools/tests/verify-shell-name-vm.py
 tools/tests/verify-gtk-name-vm.py
 
 docs/images/hyalune-settings.png
+
+# Settings localization
+src/manager/i18n.py
+src/manager/locale/ja/LC_MESSAGES/hyalune.po
+src/manager/locale/ja/LC_MESSAGES/hyalune.mo
+tools/build-translations.sh
+tools/tests/verify-i18n.py
+tools/tests/run-i18n-vm.py
+tools/tests/probe-i18n-ui.py

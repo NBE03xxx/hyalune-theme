@@ -23,7 +23,7 @@ LINK = '/usr/share/gnome-shell/gdm-theme.gresource'
 STATE = Path('/var/lib/hyalune-gdm')
 ASSETS = Path('/usr/local/share/hyalune/gdm')
 PREFIX = '/org/gnome/shell/theme/'
-VERSION = '0.3.1'
+VERSION = '0.3.2'
 
 
 def call(*args):

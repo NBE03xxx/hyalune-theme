@@ -13,7 +13,7 @@ import time
 
 spec = importlib.util.spec_from_file_location('flatpak_transactions', Path(__file__).with_name('manage-theme.py'))
 core = importlib.util.module_from_spec(spec); spec.loader.exec_module(core)
-VERSION = '0.3.1'
+VERSION = '0.3.2'
 BEGIN = b'/* Glass50 managed: flatpak GTK begin */'
 END = b'/* Glass50 managed: flatpak GTK end */'
 DENY = ('xdg-config/gtk-3.0', 'xdg-config/gtk-4.0')

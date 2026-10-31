@@ -106,7 +106,7 @@ def main():
                 after=originals[name] if action=='remove' or name not in files else c.image(files[name])
                 if now!=after:operations.append({'kind':'file','name':name,'before':now,'after':after})
                 installed[name]=after
-            state=None if action=='remove' else c.image(c.canonical({'format':1,'component':'hyalune-settings-app','version':'0.3.1',
+            state=None if action=='remove' else c.image(c.canonical({'format':1,'component':'hyalune-settings-app','version':'0.3.2',
                   'originals':originals,'installed':installed}),0o600)
             current=c.snapshot(h/c.ACTIVE)
             if current!=state:operations.append({'kind':'file','name':c.ACTIVE,'before':current,'after':state})

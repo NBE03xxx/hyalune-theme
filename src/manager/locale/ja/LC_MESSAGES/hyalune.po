@@ -1,0 +1,1141 @@
+# Japanese translations for Hyalune Settings.
+# SPDX-License-Identifier: MIT
+# English msgids are the default UI. The legacy context converts old helper
+# diagnostics at the display boundary without changing API or saved data.
+msgid ""
+msgstr "Project-Id-Version: Hyalune Settings\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-31 00:00+0900\nPO-Revision-Date: 2026-10-31 00:00+0900\nLast-Translator: Hyalune contributors\nLanguage-Team: Japanese\nLanguage: ja\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\n"
+
+msgid " Edits are retained. Choose Discard Edits to return to the current values."
+msgstr " 編集内容は保持しています。現在値へ戻すには「編集を取り消す」を選んでください。"
+
+msgid " · Update pending"
+msgstr " · 再適用待ち"
+
+msgid " — Standard GTK3 appearance in Light mode (custom values retained)"
+msgstr " — LightのGTK3は標準外観（個別値は保存）"
+
+msgid ", "
+msgstr "、"
+
+msgid "A legacy installation was interrupted. Recover it using the existing CLI."
+msgstr "旧導入の中断があります。既存CLIで復旧してください。"
+
+msgid "A preview of the material and primary text. Verify the actual login screen and High Contrast separately."
+msgstr "素材と主な文字の参考表示です。認証画面の実描画・High Contrastは別途確認します。"
+
+msgid "Adjust Individual Parts"
+msgstr "部分ごとに調整"
+
+msgid "Adjust the common material, check the preview, then apply."
+msgstr "共通の素材を調整し、プレビューで確認してから適用します。"
+
+#, python-brace-format
+msgid "Adjust {target}"
+msgstr "{target}を調整"
+
+msgid "Administrator authentication could not be completed. No changes have started."
+msgstr "管理者認証を完了できませんでした。変更は開始していません。"
+
+msgid "Administrator authentication is required."
+msgstr "管理者認証が必要です。"
+
+msgid "Administrator authentication was cancelled."
+msgstr "管理者認証を取り消しました。"
+
+msgid "An absolute local image is required"
+msgstr "ローカル画像の絶対パスが必要です"
+
+msgid "An administrator runs this once from a trusted source checkout.\nsudo ./install.sh manager-gdm install\n\nThe GUI runs as a regular user. Installing the helper alone does not change GDM."
+msgstr "信頼できる取得済みソースから、管理者が一度だけ実行します。\nsudo ./install.sh manager-gdm install\n\nGUI本体は通常ユーザーで動作します。導入だけではGDMを変更しません。"
+
+msgid "An authenticated regular user is required."
+msgstr "認証した通常利用者が必要です。"
+
+msgid "An operation was interrupted. Recover it from History and Restore."
+msgstr "中断があります。履歴と復元から復旧してください。"
+
+msgid "An operation was interrupted. Run recovery first."
+msgstr "中断があります。復旧を先に実行してください。"
+
+msgid "Animated wallpaper is unsupported; choose a static image"
+msgstr "アニメーション壁紙には未対応です。静止画像を選択してください"
+
+msgid "App Material Color"
+msgstr "このアプリの素材色"
+
+msgid "App Opacity"
+msgstr "このアプリの不透明度"
+
+msgid "App is running; it will not be stopped"
+msgstr "アプリが起動中です。自動終了しません"
+
+msgid "Appearance"
+msgstr "外観"
+
+msgid "Appearance mode"
+msgstr "外観の明暗"
+
+msgid "Appearance synchronization stopped because the extension was disabled."
+msgstr "拡張が停止したため明暗連動を中止しました。"
+
+msgid "Applies only to the login screen. It is separate from desktop appearance and Flatpak changes."
+msgstr "ログイン画面だけに適用します。通常の外観とFlatpakの適用には含みません。"
+
+msgid "Apply"
+msgstr "適用"
+
+msgid "Apply Changes"
+msgstr "変更内容を適用"
+
+msgid "Apply explicitly to update extension code."
+msgstr "拡張コードの更新は明示的な適用で行ってください。"
+
+msgid "Apply to Login Screen"
+msgstr "ログイン画面に適用"
+
+msgid "Apps following common settings are updated each time you apply changes. Running apps and conflicting targets are deferred; apps are never closed automatically."
+msgstr "共通設定へ追従するアプリは「適用」のたびに更新します。起動中や競合中の対象は保留し、勝手に終了しません。"
+
+msgid "Automatically follows the Ubuntu appearance setting. Use Apply to activate the mode and material edited here. The login screen is managed separately."
+msgstr "Ubuntuの明暗設定に自動で連動します。ここで編集した明暗・素材は「適用」で反映します。ログイン画面は別管理です。"
+
+msgid "Background"
+msgstr "背景"
+
+msgid "Blur"
+msgstr "ぼかし"
+
+msgid "Blur is also available in Light mode within the extension’s supported conditions. It stops for High Contrast, Reduced Motion, and unsupported scales. Installed or enabled effects may not be actively rendering."
+msgstr "Lightでも対応条件内でぼかしを使います。High Contrast／Reduced Motion／対応外の倍率では停止します。既存拡張の対応条件で動きます。配置／設定の有効と実際の描画は区別します。倍率・High Contrast等により停止する場合があります。"
+
+msgid "Blur settings must be enabled or disabled."
+msgstr "ぼかし設定は有効／無効で指定してください。"
+
+msgid "Browser/Electron-style executable"
+msgstr "ブラウザー／Electron系の実行ファイル"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+#, python-brace-format
+msgid "Cannot change app: {details}"
+msgstr "アプリを変更できません: {details}"
+
+msgid "Cannot load the image."
+msgstr "画像を読み込めません。"
+
+#, python-brace-format
+msgid "Cannot read the saved profile: {details}"
+msgstr "保存プロファイルを読み込めません: {details}"
+
+msgid "Cannot resolve a simple app command"
+msgstr "単純なアプリコマンドを解決できません"
+
+msgid "Cannot save through a symbolic link."
+msgstr "リンク先には保存できません。"
+
+msgid "Cannot save to a symbolic link."
+msgstr "リンク先に保存できません。"
+
+msgid "Cannot use a symbolic link for history."
+msgstr "履歴へのリンクは使用できません。"
+
+msgid "Cannot verify the administrator-owned GDM helper."
+msgstr "管理者所有のGDM処理を確認できません。"
+
+msgid "Cannot verify the history ID."
+msgstr "履歴IDを確認できません。"
+
+msgid "Cannot verify the normalized image."
+msgstr "正規化画像を照合できません。"
+
+msgid "Cannot verify the profile in the ownership record."
+msgstr "所有記録のプロファイルを照合できません。"
+
+msgid "Check Current GDM Settings"
+msgstr "現在のGDM設定を確認"
+
+msgid "Check the Flatpak settings."
+msgstr "Flatpak設定を確認してください。"
+
+msgid "Check the GDM background."
+msgstr "GDM背景を確認してください。"
+
+msgid "Check the GDM text color."
+msgstr "GDM文字色を確認してください。"
+
+msgid "Check the app ID."
+msgstr "アプリIDを確認してください。"
+
+msgid "Check the app policy format."
+msgstr "アプリ個別設定の形式を確認してください。"
+
+msgid "Check the material settings for the other appearance mode."
+msgstr "反対側の素材設定を確認してください。"
+
+msgid "Check the override targets for the other appearance mode."
+msgstr "反対側の個別調整対象を確認してください。"
+
+msgid "Check the saved image on the actual login screen."
+msgstr "保存済みの画像は実ログイン画面で確認してください。"
+
+msgid "Check the settings data format."
+msgstr "設定データの形式を確認してください。"
+
+msgid "Checking"
+msgstr "確認しています"
+
+msgid "Checking installation and Flatpak apps"
+msgstr "配置状態とFlatpakを確認しています"
+
+msgid "Checking planned changes"
+msgstr "変更計画を確認しています"
+
+msgid "Checking removal plan"
+msgstr "解除計画を確認しています"
+
+msgid "Checking status"
+msgstr "状態を確認しています"
+
+msgid "Checking the GDM administrator helper"
+msgstr "GDMの管理者処理を確認しています"
+
+msgid "Choose Dark or Light."
+msgstr "DarkまたはLightを選択してください。"
+
+msgid "Choose Quick Settings and window effects separately. Changes take effect only when you apply them."
+msgstr "Quick Settingsとウィンドウの効果を個別に選べます。「適用」まで反映しません。"
+
+msgid "Choose a Static GDM Background Image"
+msgstr "GDMの静止背景画像を選択"
+
+msgid "Choose a local image."
+msgstr "ローカル画像を選択してください。"
+
+msgid "Choose an Image"
+msgstr "画像を選択"
+
+msgid "Choose follow, custom, or hold."
+msgstr "追従・個別・保持から選択してください。"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Close App Settings"
+msgstr "個別設定を閉じる"
+
+msgid "Close the affected Flatpak apps before restoring."
+msgstr "対象のFlatpakを閉じてから戻してください。"
+
+msgid "Command is outside the app files"
+msgstr "コマンドがアプリのファイル外にあります"
+
+msgid "Common Opacity"
+msgstr "共通の不透明度"
+
+msgid "Completed"
+msgstr "完了"
+
+msgid "Conflict"
+msgstr "競合"
+
+#, python-brace-format
+msgid "Conflict: {details}"
+msgstr "競合: {details}"
+
+msgid "Correct the material color."
+msgstr "素材色を直してください。"
+
+msgid "Could not confirm a supported GTK toolkit."
+msgstr "対応するGTK系と確認できません。"
+
+msgid "Current Desktop Wallpaper"
+msgstr "現在のデスクトップ壁紙"
+
+msgid "Custom Settings"
+msgstr "個別設定"
+
+msgid "Customize Username Text Color"
+msgstr "ユーザー名の文字色を指定"
+
+#, python-brace-format
+msgid "Desktop theme: {version}\nProfile: {profile}\nGDM: Explicit administrator check required\n{note}"
+msgstr "通常テーマ: {version}\nプロファイル: {profile}\nGDM: 明示した管理者確認が必要\n{note}"
+
+msgid "Desktop user cannot read the wallpaper image"
+msgstr "通常ユーザーが壁紙画像を読み込めません"
+
+msgid "Discard Edits"
+msgstr "編集を取り消す"
+
+msgid "Discard GDM Edits"
+msgstr "GDMの編集を取り消す"
+
+msgid "Dynamic XML wallpaper is unsupported; choose a static image or --background bundled"
+msgstr "動的XML壁紙には未対応です。静止画像か--background bundledを選択してください"
+
+msgid "Enter material colors in #RRGGBB format before continuing."
+msgstr "素材色を #RRGGBB 形式に直してから進めてください。"
+
+msgid "Existing per-app profile is preserved"
+msgstr "既存のアプリ別プロファイルを保持します"
+
+msgid "External changes detected. Resolve the conflicts before applying."
+msgstr "外部変更を検出しました。適用前に競合を解消してください。"
+
+msgid "Finish the independent Shell test before applying to the desktop."
+msgstr "独立Shellの検証を終了してから通常テーマへ適用してください。"
+
+msgid "Flatpak Apps"
+msgstr "Flatpakアプリ"
+
+msgid "Flatpak appearance policy"
+msgstr "Flatpakの設定方法"
+
+msgid "Flatpak is not installed."
+msgstr "Flatpakは導入されていません。"
+
+msgid "Follow Common Settings"
+msgstr "共通設定に追従"
+
+msgid "For the first apply, choose an image, the current wallpaper, or the bundled background."
+msgstr "初回は背景画像または現在の壁紙・同梱背景を選択してください。"
+
+msgid "GDM draft saved. It has not been applied to the login screen."
+msgstr "GDMの編集を保存しました。実ログイン画面には未適用です。"
+
+#, python-brace-format
+msgid "GDM generation failed: {details}"
+msgstr "GDMの生成に失敗しました: {details}"
+
+msgid "GDM is managed. Changes take effect on the next login screen."
+msgstr "GDMは管理中です。反映は次のログイン画面からです。"
+
+msgid "GDM recovery completed."
+msgstr "GDMの復旧処理が完了しました。"
+
+msgid "GDM settings are too large."
+msgstr "GDM設定が大きすぎます。"
+
+msgid "GDM theme removed. Check the next login screen."
+msgstr "GDMを解除しました。次のログイン画面で確認してください。"
+
+msgid "GDM updated. Check its appearance and normal login on the next login screen."
+msgstr "GDMを更新しました。次のログイン画面で表示と通常ログインを確認してください。"
+
+msgid "GNOME extensions are globally disabled, so appearance synchronization is paused. Enable them in Extensions to resume."
+msgstr "GNOME拡張全体が停止中のため、明暗連動も停止しています。拡張機能アプリで有効にすると再開します。"
+
+msgid "GTK3 Flatpak apps use their standard appearance in Light mode. Custom material values are retained."
+msgstr "LightのGTK3 Flatpakは標準外観を使います。素材の個別値は保存します。"
+
+msgid "GTK3 Windows"
+msgstr "GTK3ウィンドウ"
+
+msgid "GTK3 library dependency"
+msgstr "GTK3ライブラリへの依存"
+
+msgid "GTK3 uses its standard appearance to preserve High Contrast. Custom material values are retained."
+msgstr "High Contrastを維持するためGTK3は標準外観。素材の個別値は保存します。"
+
+msgid "GTK4 Windows"
+msgstr "GTK4ウィンドウ"
+
+msgid "GTK4/libadwaita library dependency"
+msgstr "GTK4/libadwaitaライブラリへの依存"
+
+msgid "Glass Material Preview"
+msgstr "ガラス素材のプレビュー"
+
+msgid "Helper Installation Instructions"
+msgstr "管理者処理の導入手順"
+
+msgid "History and Restore"
+msgstr "履歴と復元"
+
+msgid "Hyalune  •  Panel preview"
+msgstr "Hyalune  •  パネルの参考表示"
+
+msgid "Hyalune Background"
+msgstr "Hyaluneの背景"
+
+msgid "Hyalune Settings"
+msgstr "Hyalune 設定"
+
+msgid "Images"
+msgstr "画像"
+
+#, python-brace-format
+msgid "Inspection failed: {details}"
+msgstr "検出に失敗しました: {details}"
+
+msgid "Install"
+msgstr "インストール"
+
+msgid "Install GDM Administrator Helper"
+msgstr "GDM管理者処理の導入"
+
+msgid "Installation status checked. The loaded appearance has not been verified."
+msgstr "配置状態を確認しました。実読み込みは未確認です。"
+
+msgid "Invalid background format."
+msgstr "背景の形式が違います。"
+
+msgid "Invalid text color format."
+msgstr "文字色の形式が違います。"
+
+msgid "KDE/Qt runtime"
+msgstr "KDE/Qtランタイム"
+
+msgid "Keep Current Appearance"
+msgstr "現在の適用を保持"
+
+msgid "Keep Editing"
+msgstr "編集を続ける"
+
+msgid "Keep Saved Background"
+msgstr "保存済みの背景を保持"
+
+msgid "Keep this window open until the operation completes. The journal is retained if interrupted."
+msgstr "処理完了まで閉じずにお待ちください。中断時のjournalは保持されます。"
+
+msgid "Keeps the saved image."
+msgstr "保存済み画像を保持します。"
+
+msgid "Known defaults"
+msgstr "既知の既定値"
+
+msgid "Large executable needs manual classification"
+msgstr "大きな実行ファイルのため手動判定が必要です"
+
+msgid "Login Screen"
+msgstr "ログイン画面"
+
+msgid "Login Screen Material Color"
+msgstr "ログイン画面の素材色"
+
+msgid "Login Screen Opacity"
+msgstr "ログイン画面の不透明度"
+
+msgid "Login screen background"
+msgstr "ログイン画面の背景"
+
+msgid "Login screen username text color"
+msgstr "ログイン画面のユーザー名の文字色"
+
+msgid "Managed"
+msgstr "管理中"
+
+msgid "Material Color"
+msgstr "素材色"
+
+msgid "Menus and Dialogs"
+msgstr "メニュー・ダイアログ"
+
+msgid "Multiple installations share this app ID"
+msgstr "同じアプリIDが複数の導入先にあります"
+
+msgid "No Flatpak apps found."
+msgstr "Flatpakアプリはありません。"
+
+msgid "No GTK dependency established"
+msgstr "GTKへの依存を確認できません"
+
+msgid "No apply history."
+msgstr "適用履歴はありません。"
+
+msgid "No desktop wallpaper image is configured"
+msgstr "デスクトップの壁紙画像が未設定です"
+
+msgid "None"
+msgstr "なし"
+
+msgid "Normalized wallpaper exceeds 64MiB"
+msgstr "正規化した壁紙が64MiBを超えています"
+
+msgid "Not applied"
+msgstr "未適用"
+
+msgid "Not installed"
+msgstr "未導入"
+
+msgid "Only local file:// wallpaper images are supported"
+msgstr "ローカルのfile://壁紙だけに対応します"
+
+msgid "Only the login screen will be changed. The desktop theme and Flatpak apps are not included.\nAdministrator authentication is also required when applying. Changes take effect on the next login screen. You will not be logged out and GDM will not be restarted automatically."
+msgstr "ログイン画面だけを変更します。通常テーマ・Flatpakは含みません。\n適用時にも管理者認証を求めます。次のログイン画面から反映し、自動ログアウト・再起動は行いません。"
+
+msgid "Only updates to an existing installation can be undone. Remove the theme to undo an initial installation."
+msgstr "既存導入への更新だけを直前の適用へ戻せます。初回はテーマ解除を使ってください。"
+
+msgid "Opacity must be between 0% and 100%."
+msgstr "不透明度は0〜100％です。"
+
+msgid "Override target"
+msgstr "個別調整の対象"
+
+#, python-brace-format
+msgid "Overrides: {targets}. Login screen managed separately (default: 32%)."
+msgstr "個別設定: {targets}。ログイン画面は別管理（既定32％）。"
+
+msgid "Overview"
+msgstr "概要"
+
+msgid "Panel"
+msgstr "パネル"
+
+msgid "Panel override: 38%. Login screen: 32%, managed separately."
+msgstr "パネルに個別設定あり（38％）。ログイン画面は別操作で32％。"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Pending or linked management record"
+msgstr "中断中またはリンクされた管理記録です"
+
+msgid "Profile saved. It has not been applied to your desktop."
+msgstr "プロファイルを保存しました。実環境には未適用です。"
+
+msgid "Qt library dependency"
+msgstr "Qtライブラリへの依存"
+
+msgid "Quick Settings Blur"
+msgstr "Quick Settingsのぼかし"
+
+msgid "Recover"
+msgstr "復旧"
+
+msgid "Recover Interrupted GDM Operation"
+msgstr "GDMの中断を復旧"
+
+msgid "Recover Interrupted Operation"
+msgstr "中断した処理を復旧"
+
+msgid "Recover the interrupted app operation first."
+msgstr "アプリの中断を先に復旧してください。"
+
+msgid "Recover using the existing journal."
+msgstr "既存journalを使って復旧します。"
+
+msgid "Recover using the saved GDM records. The desktop theme will not be changed."
+msgstr "GDM専用の保存記録で復旧します。通常テーマは変更しません。"
+
+msgid "Recovered"
+msgstr "復旧済み"
+
+msgid "Reload"
+msgstr "再読込"
+
+msgid "Reload Installation Status"
+msgstr "配置状態を再読込"
+
+msgid "Remove"
+msgstr "解除"
+
+msgid "Remove GDM Theme"
+msgstr "GDMを解除"
+
+msgid "Remove GDM Theme and Restore Previous Settings"
+msgstr "GDMを解除して導入前へ戻す"
+
+msgid "Remove Theme and Restore Previous Settings"
+msgstr "テーマを解除して導入前へ戻す"
+
+msgid "Remove the desktop theme and managed Flatpak styling. GDM and all backups are retained."
+msgstr "通常テーマと管理中Flatpakを解除します。GDMと全バックアップを保持します。"
+
+msgid "Removing the theme includes managed Flatpak apps. GDM is a separate operation. The settings app and backups are retained."
+msgstr "テーマ解除は管理中Flatpakを含みます。GDMは別操作です。アプリ本体の解除やバックアップ削除は行いません。"
+
+msgid "Reset Draft to Hyalune Defaults"
+msgstr "Hyaluneの既定値を編集に戻す"
+
+msgid "Restore Previous Settings"
+msgstr "導入前へ戻す"
+
+msgid "Restore extension code updates using the saved previous package. Profile-only updates can be undone here."
+msgstr "拡張コード更新は保存した旧パッケージから戻してください。プロファイルだけの更新は直前へ戻せます。"
+
+msgid "Restore the theme, settings, and affected Flatpak apps to their state before the last update using the saved records. Stops if current values differ from the recorded state."
+msgstr "最後の更新直前の通常テーマ・設定・対象Flatpakを、そのままの記録から戻します。現在値が履歴と異なる場合は停止します。"
+
+msgid "Review Changes"
+msgstr "変更を確認"
+
+msgid "Review Login Screen Changes"
+msgstr "ログイン画面の変更内容を確認"
+
+msgid "Review and Apply Changes"
+msgstr "変更内容を確認して適用"
+
+msgid "Review the changes first."
+msgstr "先に変更内容を確認してください。"
+
+msgid "Review the removal plan first."
+msgstr "先に解除内容を確認してください。"
+
+msgid "Rolled Back"
+msgstr "巻戻し済み"
+
+msgid "Run as a regular user."
+msgstr "通常ユーザーで起動してください。"
+
+msgid "Running / Deferred"
+msgstr "起動中・保留"
+
+#, python-brace-format
+msgid "SCSS generation failed: {details}"
+msgstr "SCSS生成に失敗しました: {details}"
+
+msgid "Save GDM Draft"
+msgstr "GDMの編集を保存"
+
+msgid "Save Profile"
+msgstr "プロファイルを保存"
+
+msgid "Saved profile"
+msgstr "保存済みプロファイル"
+
+msgid "Scan Again"
+msgstr "再検出"
+
+msgid "Script/static executable: GTK use not established"
+msgstr "スクリプト／静的実行ファイルのためGTK使用を確認できません"
+
+msgid "Select a Target"
+msgstr "対象を選択"
+
+msgid "Settings data is too large."
+msgstr "設定データが大きすぎます。"
+
+#, python-brace-format
+msgid "Some Flatpak apps were deferred: {apps}"
+msgstr "一部のFlatpakを保留しました: {apps}"
+
+msgid "Specify a local static image."
+msgstr "ローカル静止画像を指定してください。"
+
+msgid "Specify a private VM test directory."
+msgstr "専用のVM試験領域を指定してください。"
+
+msgid "Specify colors in #RRGGBB format."
+msgstr "色は #RRGGBB 形式で指定してください。"
+
+msgid "Specify only opacity and material color."
+msgstr "不透明度と素材色だけを指定してください。"
+
+msgid "Standard Button"
+msgstr "標準ボタン"
+
+msgid "Status has not been checked. Administrator authentication is requested only when you choose to check it."
+msgstr "状態は未確認です。確認操作を選んだときだけ管理者認証を求めます。"
+
+msgid "Target Material Color"
+msgstr "対象の素材色"
+
+msgid "Target Opacity"
+msgstr "選択した対象の不透明度"
+
+msgid "The GDM administrator helper is not installed. See the installation instructions."
+msgstr "GDM用の管理者処理が未導入です。導入手順を確認してください。"
+
+msgid "The GDM state or image changed after review. Review the changes again."
+msgstr "GDMの状態・画像が確認後に変わりました。もう一度変更内容を確認してください。"
+
+msgid "The GDM theme is not installed."
+msgstr "GDMは未導入です。"
+
+msgid "The GNOME appearance setting has changed. Apply to use the mode selected here."
+msgstr "GNOME側の明暗設定が変わっています。「適用」で選んだ外観へそろえます。"
+
+msgid "The app is not installed or could not be detected."
+msgstr "未導入または検出できません。"
+
+msgid "The app is running. Changes are deferred until it is closed."
+msgstr "起動中です。終了後の適用まで保留します。"
+
+msgid "The app is running. Close it and scan again."
+msgstr "起動中です。終了後に再検出してください。"
+
+msgid "The appearance mode or draft values changed. Retrying with current values."
+msgstr "明暗または編集値が変わりました。最新値で再試行します。"
+
+msgid "The caller UIDs do not match."
+msgstr "呼出元UIDが一致しません。"
+
+msgid "The current GDM material values are unknown. Defaults are shown for editing."
+msgstr "現在のGDM材質値は未判定です。編集用の既定値を表示しています。"
+
+msgid "The desktop is not displaying a wallpaper image"
+msgstr "デスクトップに壁紙画像が表示されていません"
+
+#, python-brace-format
+msgid "The desktop theme will be changed.\nFlatpak apps using common or custom settings: {count}.\nDeferred: {deferred}. GDM is not included.\nRestart apps or log in again as needed."
+msgstr "通常テーマと追従・個別設定のFlatpak {count}件を変更します。\n保留 {deferred}件。GDMは含みません。\nアプリの再起動や再ログインが必要です。"
+
+msgid "The existing CLI and ownership records are retained. Run recover first after an interruption."
+msgstr "既存CLIと所有記録を保持しています。中断時はrecoverを先に実行してください。"
+
+msgid "The legacy material values are unknown. Defaults are shown for editing."
+msgstr "旧版の値は未判定です。編集用の既定値を表示しています。"
+
+msgid "The operation failed."
+msgstr "処理に失敗しました。"
+
+msgid "The private GUI test cannot change the real GDM."
+msgstr "専用GUI検証から実GDMは変更しません。"
+
+msgid "The state changed after review. Review the changes again."
+msgstr "確認後に状態が変わりました。もう一度変更内容を確認してください。"
+
+msgid "There are no changes apart from deferred apps."
+msgstr "保留中のアプリ以外に変更はありません。"
+
+msgid "There are unapplied edits. Saving alone does not apply them to your desktop."
+msgstr "未適用の編集があります。保存だけでは実環境に反映しません。"
+
+msgid "There is a conflict."
+msgstr "競合しています。"
+
+msgid "There is no previous apply to restore."
+msgstr "戻せる直前の適用がありません。"
+
+msgid "These values match the last installed profile. Verify the loaded appearance separately."
+msgstr "最後に配置したプロファイルと同じ値です。実読み込みは別途確認してください。"
+
+msgid "This is the installed state. Verify the loaded code and actual appearance separately."
+msgstr "配置状態です。実読み込みと実画面は別途確認してください。"
+
+msgid "This preview uses real GTK widgets to illustrate the material. It does not reproduce the Shell or GDM screen or actual blur."
+msgstr "GTK部品の実描画と素材の参考表示です。Shell／GDMの実画面や実ぼかしを再現するものではありません。"
+
+msgid "Too many app libraries for bounded inspection"
+msgstr "アプリのライブラリ数が検査上限を超えています"
+
+msgid "Unapplied Edits"
+msgstr "未適用の編集があります"
+
+msgid "Undo"
+msgstr "取り消す"
+
+msgid "Undo Last Apply"
+msgstr "直前の適用へ戻す"
+
+msgid "Unknown legacy values"
+msgstr "旧版の値は未判定"
+
+msgid "Unsaved edits will be discarded when you close this window. Your desktop will not be changed."
+msgstr "保存していない編集は閉じると破棄します。実環境は変更しません。"
+
+msgid "Unsupported / Unknown"
+msgstr "未対応／未判定"
+
+msgid "Unsupported GDM argument."
+msgstr "未対応のGDM引数です。"
+
+msgid "Unsupported GDM operation."
+msgstr "未対応のGDM操作です。"
+
+msgid "Unsupported GDM response."
+msgstr "未対応のGDM応答です。"
+
+msgid "Unsupported GDM settings."
+msgstr "未対応のGDM設定です。"
+
+msgid "Unsupported app ID."
+msgstr "未対応のアプリIDです。"
+
+msgid "Unsupported appearance mode."
+msgstr "未対応の外観です。"
+
+msgid "Unsupported desktop ownership target."
+msgstr "未対応のデスクトップ所有対象です。"
+
+msgid "Unsupported operation response."
+msgstr "未対応の操作応答です。"
+
+msgid "Unsupported override target."
+msgstr "未対応の個別調整対象です。"
+
+msgid "Unsupported ownership record."
+msgstr "未対応の所有記録です。"
+
+msgid "Unsupported profile field."
+msgstr "未対応のプロファイル項目です。"
+
+msgid "Unsupported profile format."
+msgstr "未対応のプロファイル形式です。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Use Common Settings for This Target"
+msgstr "この対象を共通設定に戻す"
+
+msgid "User"
+msgstr "利用者"
+
+msgid "Uses the Hyalune background."
+msgstr "Hyaluneの背景を使います。"
+
+msgid "Wallpaper URI is not an absolute local file"
+msgstr "壁紙URIがローカルの絶対パスではありません"
+
+msgid "Wallpaper exceeds 40 million pixels"
+msgstr "壁紙が40百万画素を超えています"
+
+msgid "Wallpaper has no decodable image"
+msgstr "壁紙を画像として読み込めません"
+
+msgid "Wallpaper is not a supported static image"
+msgstr "対応する静止画像として読み込めません"
+
+msgid "Wallpaper must be a regular file"
+msgstr "壁紙は通常ファイルである必要があります"
+
+msgid "Wallpaper source exceeds 32MiB"
+msgstr "壁紙の元画像が32MiBを超えています"
+
+msgid "Wallpaper source is empty or exceeds 32MiB"
+msgstr "壁紙の元画像が空か32MiBを超えています"
+
+msgid "Window Material Effects"
+msgstr "ウィンドウの素材効果"
+
+msgid "Working. Please wait for completion or recovery."
+msgstr "処理中です。完了・復旧までお待ちください"
+
+#, python-brace-format
+msgid "{app} ({reason})"
+msgstr "{app}（{reason}）"
+
+#, python-brace-format
+msgid "{target} (#RRGGBB)"
+msgstr "{target}（#RRGGBB）"
+
+msgctxt "legacy"
+msgid "DarkまたはLightを選択してください。"
+msgstr "Choose Dark or Light."
+
+msgctxt "legacy"
+msgid "Flatpak設定を確認してください。"
+msgstr "Check the Flatpak settings."
+
+msgctxt "legacy"
+msgid "GDMの状態・画像が確認後に変わりました。もう一度変更内容を確認してください。"
+msgstr "The GDM state or image changed after review. Review the changes again."
+
+msgctxt "legacy"
+msgid "GDM文字色を確認してください。"
+msgstr "Check the GDM text color."
+
+msgctxt "legacy"
+msgid "GDM背景を確認してください。"
+msgstr "Check the GDM background."
+
+msgctxt "legacy"
+msgid "GDM設定が大きすぎます。"
+msgstr "GDM settings are too large."
+
+msgctxt "legacy"
+msgid "GTK3ウィンドウ"
+msgstr "GTK3 Windows"
+
+msgctxt "legacy"
+msgid "GTK4ウィンドウ"
+msgstr "GTK4 Windows"
+
+msgctxt "legacy"
+msgid "High Contrastを維持するためGTK3は標準外観。素材の個別値は保存します。"
+msgstr "GTK3 uses its standard appearance to preserve High Contrast. Custom material values are retained."
+
+msgctxt "legacy"
+msgid "ぼかし設定は有効／無効で指定してください。"
+msgstr "Blur settings must be enabled or disabled."
+
+msgctxt "legacy"
+msgid "アプリIDを確認してください。"
+msgstr "Check the app ID."
+
+msgctxt "legacy"
+msgid "アプリの中断を先に復旧してください。"
+msgstr "Recover the interrupted app operation first."
+
+msgctxt "legacy"
+msgid "アプリ個別設定の形式を確認してください。"
+msgstr "Check the app policy format."
+
+msgctxt "legacy"
+msgid "パネル"
+msgstr "Panel"
+
+msgctxt "legacy"
+msgid "メニュー・ダイアログ"
+msgstr "Menus and Dialogs"
+
+msgctxt "legacy"
+msgid "ローカル静止画像を指定してください。"
+msgstr "Specify a local static image."
+
+msgctxt "legacy"
+msgid "不透明度と素材色だけを指定してください。"
+msgstr "Specify only opacity and material color."
+
+msgctxt "legacy"
+msgid "不透明度は0〜100％です。"
+msgstr "Opacity must be between 0% and 100%."
+
+msgctxt "legacy"
+msgid "保留中のアプリ以外に変更はありません。"
+msgstr "There are no changes apart from deferred apps."
+
+msgctxt "legacy"
+msgid "先に変更内容を確認してください。"
+msgstr "Review the changes first."
+
+msgctxt "legacy"
+msgid "先に解除内容を確認してください。"
+msgstr "Review the removal plan first."
+
+msgctxt "legacy"
+msgid "初回は背景画像または現在の壁紙・同梱背景を選択してください。"
+msgstr "For the first apply, choose an image, the current wallpaper, or the bundled background."
+
+msgctxt "legacy"
+msgid "反対側の個別調整対象を確認してください。"
+msgstr "Check the override targets for the other appearance mode."
+
+msgctxt "legacy"
+msgid "反対側の素材設定を確認してください。"
+msgstr "Check the material settings for the other appearance mode."
+
+msgctxt "legacy"
+msgid "呼出元UIDが一致しません。"
+msgstr "The caller UIDs do not match."
+
+msgctxt "legacy"
+msgid "対応するGTK系と確認できません。"
+msgstr "Could not confirm a supported GTK toolkit."
+
+msgctxt "legacy"
+msgid "対象のFlatpakを閉じてから戻してください。"
+msgstr "Close the affected Flatpak apps before restoring."
+
+msgctxt "legacy"
+msgid "専用のVM試験領域を指定してください。"
+msgstr "Specify a private VM test directory."
+
+msgctxt "legacy"
+msgid "履歴IDを確認できません。"
+msgstr "Cannot verify the history ID."
+
+msgctxt "legacy"
+msgid "履歴へのリンクは使用できません。"
+msgstr "Cannot use a symbolic link for history."
+
+msgctxt "legacy"
+msgid "戻せる直前の適用がありません。"
+msgstr "There is no previous apply to restore."
+
+msgctxt "legacy"
+msgid "所有記録のプロファイルを照合できません。"
+msgstr "Cannot verify the profile in the ownership record."
+
+msgctxt "legacy"
+msgid "拡張が停止したため明暗連動を中止しました。"
+msgstr "Appearance synchronization stopped because the extension was disabled."
+
+msgctxt "legacy"
+msgid "拡張コードの更新は明示的な適用で行ってください。"
+msgstr "Apply explicitly to update extension code."
+
+msgctxt "legacy"
+msgid "拡張コード更新は保存した旧パッケージから戻してください。プロファイルだけの更新は直前へ戻せます。"
+msgstr "Restore extension code updates using the saved previous package. Profile-only updates can be undone here."
+
+msgctxt "legacy"
+msgid "文字色の形式が違います。"
+msgstr "Invalid text color format."
+
+msgctxt "legacy"
+msgid "既存CLIと所有記録を保持しています。中断時はrecoverを先に実行してください。"
+msgstr "The existing CLI and ownership records are retained. Run recover first after an interruption."
+
+msgctxt "legacy"
+msgid "既存導入への更新だけを直前の適用へ戻せます。初回はテーマ解除を使ってください。"
+msgstr "Only updates to an existing installation can be undone. Remove the theme to undo an initial installation."
+
+msgctxt "legacy"
+msgid "明暗または編集値が変わりました。最新値で再試行します。"
+msgstr "The appearance mode or draft values changed. Retrying with current values."
+
+msgctxt "legacy"
+msgid "未対応のGDM引数です。"
+msgstr "Unsupported GDM argument."
+
+msgctxt "legacy"
+msgid "未対応のGDM操作です。"
+msgstr "Unsupported GDM operation."
+
+msgctxt "legacy"
+msgid "未対応のGDM設定です。"
+msgstr "Unsupported GDM settings."
+
+msgctxt "legacy"
+msgid "未対応のアプリIDです。"
+msgstr "Unsupported app ID."
+
+msgctxt "legacy"
+msgid "未対応のデスクトップ所有対象です。"
+msgstr "Unsupported desktop ownership target."
+
+msgctxt "legacy"
+msgid "未対応のプロファイル形式です。"
+msgstr "Unsupported profile format."
+
+msgctxt "legacy"
+msgid "未対応のプロファイル項目です。"
+msgstr "Unsupported profile field."
+
+msgctxt "legacy"
+msgid "未対応の個別調整対象です。"
+msgstr "Unsupported override target."
+
+msgctxt "legacy"
+msgid "未対応の外観です。"
+msgstr "Unsupported appearance mode."
+
+msgctxt "legacy"
+msgid "未対応の所有記録です。"
+msgstr "Unsupported ownership record."
+
+msgctxt "legacy"
+msgid "未導入または検出できません。"
+msgstr "The app is not installed or could not be detected."
+
+msgctxt "legacy"
+msgid "正規化画像を照合できません。"
+msgstr "Cannot verify the normalized image."
+
+msgctxt "legacy"
+msgid "独立Shellの検証を終了してから通常テーマへ適用してください。"
+msgstr "Finish the independent Shell test before applying to the desktop."
+
+msgctxt "legacy"
+msgid "画像を読み込めません。"
+msgstr "Cannot load the image."
+
+msgctxt "legacy"
+msgid "確認後に状態が変わりました。もう一度変更内容を確認してください。"
+msgstr "The state changed after review. Review the changes again."
+
+msgctxt "legacy"
+msgid "競合しています。"
+msgstr "There is a conflict."
+
+msgctxt "legacy"
+msgid "管理者認証が必要です。"
+msgstr "Administrator authentication is required."
+
+msgctxt "legacy"
+msgid "管理者認証を取り消しました。"
+msgstr "Administrator authentication was cancelled."
+
+msgctxt "legacy"
+msgid "背景の形式が違います。"
+msgstr "Invalid background format."
+
+msgctxt "legacy"
+msgid "色は #RRGGBB 形式で指定してください。"
+msgstr "Specify colors in #RRGGBB format."
+
+msgctxt "legacy"
+msgid "設定データが大きすぎます。"
+msgstr "Settings data is too large."
+
+msgctxt "legacy"
+msgid "設定データの形式を確認してください。"
+msgstr "Check the settings data format."
+
+msgctxt "legacy"
+msgid "認証した通常利用者が必要です。"
+msgstr "An authenticated regular user is required."
+
+msgctxt "legacy"
+msgid "起動中です。終了後に再検出してください。"
+msgstr "The app is running. Close it and scan again."
+
+msgctxt "legacy"
+msgid "起動中です。終了後の適用まで保留します。"
+msgstr "The app is running. Changes are deferred until it is closed."
+
+msgctxt "legacy"
+msgid "追従・個別・保持から選択してください。"
+msgstr "Choose follow, custom, or hold."
+
+msgctxt "legacy"
+msgid "通常ユーザーで起動してください。"
+msgstr "Run as a regular user."
+
+msgctxt "legacy"
+msgid "配置状態です。実読み込みと実画面は別途確認してください。"
+msgstr "This is the installed state. Verify the loaded code and actual appearance separately."
+
+msgid "Run as the regular desktop user (without sudo)."
+msgstr "通常のデスクトップユーザーで実行してください（sudo不可）。"
+
+msgctxt "legacy"
+msgid "通常のデスクトップユーザーで実行してください（sudo不可）。"
+msgstr "Run as the regular desktop user (without sudo)."
+
+msgid "Check the ownership, location, and write permissions of the user HOME."
+msgstr "ユーザーHOMEの所有者・実体・書き込み権限を確認してください。"
+
+msgctxt "legacy"
+msgid "ユーザーHOMEの所有者・実体・書き込み権限を確認してください。"
+msgstr "Check the ownership, location, and write permissions of the user HOME."
+
+msgid "Cannot connect to this user’s D-Bus session."
+msgstr "このユーザーのD-Busセッションへ接続できません。"
+
+msgctxt "legacy"
+msgid "このユーザーのD-Busセッションへ接続できません。"
+msgstr "Cannot connect to this user’s D-Bus session."
+
+msgid "This OS has not been verified. Ubuntu 26.04 is currently required."
+msgstr "このOSは動作未確認です。現在の導入対象はUbuntu 26.04です。"
+
+msgctxt "legacy"
+msgid "このOSは動作未確認です。現在の導入対象はUbuntu 26.04です。"
+msgstr "This OS has not been verified. Ubuntu 26.04 is currently required."
+
+msgid "Installation requires a running GNOME Shell 50.x session."
+msgstr "導入には実行中のGNOME Shell 50.xが必要です。"
+
+msgctxt "legacy"
+msgid "導入には実行中のGNOME Shell 50.xが必要です。"
+msgstr "Installation requires a running GNOME Shell 50.x session."
+
+msgid "An active GNOME Wayland session for this user is required."
+msgstr "このユーザーのアクティブなGNOME Waylandセッションが必要です。"
+
+msgctxt "legacy"
+msgid "このユーザーのアクティブなGNOME Waylandセッションが必要です。"
+msgstr "An active GNOME Wayland session for this user is required."
+
+msgid "Python3 PyGObject / Gio (python3-gi) is required."
+msgstr "Python3のPyGObject / Gio (python3-gi)が必要です。"
+
+msgctxt "legacy"
+msgid "Python3のPyGObject / Gio (python3-gi)が必要です。"
+msgstr "Python3 PyGObject / Gio (python3-gi) is required."
+
+#, python-brace-format
+
+msgid "Desktop environment inspection failed: {details}"
+msgstr "デスクトップ環境の読み取り確認に失敗しました: {details}"
+
+#, python-brace-format
+
+msgid "Disable the conflicting blur extensions first: {details}"
+msgstr "先に競合するぼかし拡張を無効化してください: {details}"
