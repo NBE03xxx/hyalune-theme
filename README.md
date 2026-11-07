@@ -29,7 +29,8 @@ GNOME標準の配置・操作を生かし、GNOME Shell、GTK3、GTK4 / libadwai
 | GNOME Shell | トップバー、Quick Settings、通知、カレンダー、Overview、OSD、ログアウト・電源オフの確認など |
 | GTK3アプリ | タイトルバー、ボタン、タブ、サイドバーなど。本文の独自描画はアプリに依存 |
 | GTK4 / libadwaitaアプリ | ウィンドウ操作ボタン、タイトル面、標準的な内容面など。アプリの構造・配色によって差あり |
-| Flatpakアプリ | 対応GTK系へアプリ単位で適用。[後述](#flatpak) |
+| GTK系Flatpakアプリ | 対応アプリへ個別に適用。[後述](#flatpak) |
+| Qtアプリ（任意プレビュー） | Nextcloud Desktop、Mozc設定、Flatpak版KeePassXCのタイトルバーの丸ボタン。[対応バージョンと導入手順](docs/QT.md) |
 | Chromeなど独自UIのアプリ | 丸ボタンなどGTKを参照する一部。タイトルバーや本文の統一・透明化は対象外 |
 | Snap / AppImage | アプリ内テーマの対象外 |
 
