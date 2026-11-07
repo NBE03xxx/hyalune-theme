@@ -17,3 +17,6 @@ __pycache__/
 /HANDOFF.md
 /local-docs/
 /public-export/
+
+# ABI-specific Qt decoration binaries
+/build/Hyalune-Qt/

@@ -20,6 +20,8 @@ def module(path, name):
 
 
 def main():
+    if sys.argv[1:2] == ['qt']:
+        return subprocess.call([sys.executable, str(Path(__file__).with_name('manage-qt.py')), *sys.argv[2:]])
     if sys.argv[1:2] == ['manager-gdm']:
         return subprocess.call([sys.executable, str(Path(__file__).with_name('install-gdm-helper.py')), *sys.argv[2:]])
     if sys.argv[1:2] == ['manager']:
@@ -30,8 +32,8 @@ def main():
         return subprocess.call([sys.executable, str(Path(__file__).with_name('manage-flatpak.py')), *sys.argv[2:]])
     p = argparse.ArgumentParser(prog='install.sh', description=
         'git cloneしたソースから導入します。初回は検出したGTK系Flatpakにも適用します。', epilog=
-        './install.sh plan; ./install.sh apply --blur on; ./install.sh flatpak scan; ./install.sh manager install')
-    p.add_argument('action', nargs='?', choices=['layers', 'plan', 'apply', 'update', 'remove', 'recover', 'status', 'flatpak', 'gdm', 'manager', 'manager-gdm'])
+        './install.sh plan; ./install.sh apply --blur on; ./install.sh flatpak scan; ./install.sh manager install; ./install.sh qt status')
+    p.add_argument('action', nargs='?', choices=['layers', 'plan', 'apply', 'update', 'remove', 'recover', 'status', 'flatpak', 'gdm', 'manager', 'manager-gdm', 'qt'])
     p.add_argument('--target', choices=['desktop', 'vm', 't16-trial'], default='desktop', help=argparse.SUPPRESS)
     p.add_argument('--operation', choices=['apply', 'update', 'remove'], default='apply')
     p.add_argument('--blur', choices=['keep', 'on', 'off'], default='keep')

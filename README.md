@@ -20,7 +20,7 @@ Hyaluneは、ガラスのような透明感と読みやすさを両立するデ�
 
 GNOME標準の配置・操作を生かし、GNOME Shell、GTK3、GTK4 / libadwaitaの色と質感をそろえます。背景ぼかしは独自拡張による任意機能です。
 
-最新版は[**v0.3.2**](https://github.com/NBE03xxx/hyalune-theme/releases/tag/v0.3.2)です。Dark／LightとUbuntu明暗設定への自動連動に対応しています。「Hyalune 設定」から共通の外観・対象別の調整・対応Flatpakを管理できます。通常のデスクトップ向けインストーラーは機種名に依存せず、OS・GNOME・Waylandなどの導入条件を確認します。
+最新版は[**v0.4.0**](https://github.com/NBE03xxx/hyalune-theme/releases/tag/v0.4.0)です。Nextcloud・Mozc設定・Flatpak版KeePassXC向けのQt丸ボタンを任意で導入できます。Dark／LightとUbuntu明暗設定への自動連動に対応しています。「Hyalune 設定」から共通の外観・対象別の調整・対応Flatpakを管理できます。通常のデスクトップ向けインストーラーは機種名に依存せず、OS・GNOME・Waylandなどの導入条件を確認します。
 
 ## 対象
 
@@ -116,7 +116,11 @@ Hyalune初回導入時に、インストール済みのFlatpakアプリを検出
 ./install.sh flatpak apply --app APP_ID
 ```
 
-適用後はアプリを開き直します。Qt系は未対応です。詳細は[Flatpakへの適用・更新・解除](docs/FLATPAK.md)を参照してください。[Hyalune 設定](docs/THEME-MANAGER.md)にも、再検出・選択適用を実装しています。
+適用後はアプリを開き直します。ここでのCSS適用はGTK系が対象です。詳細は[Flatpakへの適用・更新・解除](docs/FLATPAK.md)を参照してください。[Hyalune 設定](docs/THEME-MANAGER.md)にも、再検出・選択適用を実装しています。
+
+### Qtのウィンドウボタン（任意）
+
+Wayland上のNextcloud、Mozc、Flatpak版KeePassXCを対象とするプレビューです。GNOME ShellでHyaluneを選ぶと丸ボタンになり、別のShellテーマでは開いているウィンドウもQt標準の装飾に戻ります。[対象バージョン・ビルド・導入と解除](docs/QT.md)
 
 ### GDM（任意）
 

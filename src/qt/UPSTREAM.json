@@ -1,0 +1,72 @@
+[
+  {
+    "directory": "qt5",
+    "repository": "https://github.com/qt/qtwayland",
+    "tag": "v5.15.18-lts-lgpl",
+    "commit": "5a85cd79f9e16f9191d7187aa4b9f34b3f2c969b",
+    "files": {
+      "bradient.json": {
+        "upstream_path": "src/plugins/decorations/bradient/bradient.json",
+        "upstream_sha256": "40d02f1fe4be64b74bb497cd4b5a03d0576b56a129767706aba155e3e4d59874"
+      },
+      "main.cpp": {
+        "upstream_path": "src/plugins/decorations/bradient/main.cpp",
+        "upstream_sha256": "06b0d8a5ce0059498e16c999fce8b19c77137329956915301f380fda248c0c5f"
+      }
+    },
+    "license_choice": "LGPL-3.0-only",
+    "changes": "Hyalune factory key, theme-aware round-button rendering, live read-only D-Bus policy. Qt5 additionally tracks hover and pressed-state cleanup. Original fallback rendering and window interaction remain available."
+  },
+  {
+    "directory": "qt6-6.10",
+    "repository": "https://github.com/qt/qtwayland",
+    "tag": "v6.10.2",
+    "commit": "4360cb966b57f51174f4dfdbb416ff48de068e24",
+    "files": {
+      "qwaylandadwaitadecoration_p.h": {
+        "upstream_path": "src/plugins/decorations/adwaita/qwaylandadwaitadecoration_p.h",
+        "upstream_sha256": "e0ec011e8f1cc7a0c0e722fc0b7470d8068a84fece3faceb7cd5bce707f2073f"
+      },
+      "adwaita.json": {
+        "upstream_path": "src/plugins/decorations/adwaita/adwaita.json",
+        "upstream_sha256": "e9443eb50784f553a2484113bb82cfe2ccb5b3118a96e7690c7721b356ae9226"
+      },
+      "main.cpp": {
+        "upstream_path": "src/plugins/decorations/adwaita/main.cpp",
+        "upstream_sha256": "3e77eb64691dfc34877ab80fb498fa32cdeec0d6104c2bea6e5e666acc433cc4"
+      },
+      "qwaylandadwaitadecoration.cpp": {
+        "upstream_path": "src/plugins/decorations/adwaita/qwaylandadwaitadecoration.cpp",
+        "upstream_sha256": "5a1135caa5624e4d2c5f2989979ab84bec7d9cca062f4155b35971cdb140a759"
+      }
+    },
+    "license_choice": "LGPL-3.0-only",
+    "changes": "Hyalune factory key, theme-aware round-button rendering, live read-only D-Bus policy. Qt5 additionally tracks hover and pressed-state cleanup. Original fallback rendering and window interaction remain available."
+  },
+  {
+    "directory": "qt6-6.11",
+    "repository": "https://github.com/qt/qtwayland",
+    "tag": "v6.11.3",
+    "commit": "b4295e92018e1ad042c3715b8743c2ef8f643d79",
+    "files": {
+      "qwaylandadwaitadecoration_p.h": {
+        "upstream_path": "src/plugins/decorations/adwaita/qwaylandadwaitadecoration_p.h",
+        "upstream_sha256": "f69167acbaae90d2ff54e3f2e6378074717d62cc87fc4b449628e40ecc58cc4a"
+      },
+      "adwaita.json": {
+        "upstream_path": "src/plugins/decorations/adwaita/adwaita.json",
+        "upstream_sha256": "e9443eb50784f553a2484113bb82cfe2ccb5b3118a96e7690c7721b356ae9226"
+      },
+      "main.cpp": {
+        "upstream_path": "src/plugins/decorations/adwaita/main.cpp",
+        "upstream_sha256": "22c1919208f02633a9d1fb335d8309e70894f0d1521c4f6ded244fb9b72562d3"
+      },
+      "qwaylandadwaitadecoration.cpp": {
+        "upstream_path": "src/plugins/decorations/adwaita/qwaylandadwaitadecoration.cpp",
+        "upstream_sha256": "1fa3209be030cd88e49aac94eb6cc0ca814ccbe806168b57914a648a66c7fac5"
+      }
+    },
+    "license_choice": "LGPL-3.0-only",
+    "changes": "Hyalune factory key, theme-aware round-button rendering, live read-only D-Bus policy. Qt5 additionally tracks hover and pressed-state cleanup. Original fallback rendering and window interaction remain available."
+  }
+]

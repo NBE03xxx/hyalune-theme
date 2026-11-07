@@ -1,6 +1,6 @@
 # Hyalune：Flatpakアプリ
 
-対応対象はGTK3、GTK4／libadwaitaを使用するFlatpakアプリです。Flathubは配布元であり、すべてのFlathubアプリが同じUIを使うわけではありません。確認例はgedit、GNOME Text Editor、Planifyです。Qt系、独自描画の本文、Snap／AppImageは対象外です。
+対応対象はGTK3、GTK4／libadwaitaを使用するFlatpakアプリです。Flathubは配布元であり、すべてのFlathubアプリが同じUIを使うわけではありません。確認例はgedit、GNOME Text Editor、Planifyです。Qt系、独自描画の本文、Snap／AppImageはこのCSS適用の対象外です。Flatpak版KeePassXCのタイトルバーには、独立した[Qtウィンドウボタンのプレビュー](QT.md)があります。
 
 ## 初回導入時
 

@@ -8,6 +8,7 @@ LICENSEと既存ソースに記載された著作権表示を保持します。
 | --- | --- |
 | `src/scss/`と生成CSS | 独自スタイル。MacTahoe / WhiteSurのコード・画像・アセットを取り込まない |
 | `src/extension/`、`src/effects/` | 本プロジェクトの独自拡張・効果。MIT |
+| `src/qt/`のQt装飾の派生部分 | 元の著作権とライセンス表示を保持。LGPL v3で提供。出典と対象は下記 |
 | 導入・ビルド・管理・検証ツール、文書 | 本プロジェクトの新規作成部分はMIT |
 | 管理アプリアイコン `data/io.github.NBE03xxx.Hyalune.Settings.svg` | GNOME Tweaksアイコンの色変更版。GNOME Design Team、CC BY-SA 4.0。詳細は下記 |
 | README紹介画像 | 本テーマを適用した専用環境での実際の画面。背景は紹介用に新規生成した画像。外部テーマの壁紙は転載しない。画面中のGNOME / アプリの表示・アイコン・商標の権利はそれぞれの権利者に帰属 |
@@ -33,3 +34,8 @@ LICENSEと既存ソースに記載された著作権表示を保持します。
 独立GDMプレビューのコード・SCSS・overlayはMITです。導入先のGNOME / Ubuntu標準gresourceを読み取り、その環境だけで専用資源を生成します。配布用Gitソースに標準CSS・SVGのコピーは含みません。生成資源には、元のCSSにあるRed Hat / Intelの著作権・LGPL2.1等の表示を保持します。独自overlayのMIT表示で元資源全体の条件を置き換えません。生成資源を別途配布する場合は、元のgnome-shellパッケージに対応するソースと各ファイルのライセンス条件を個別に確認してください。
 
 GDM初回取り込みの壁紙は、導入利用者の環境だけで管理用PNGへ変換・保存します。利用者の画像をGitソース・公開用exportへ収集しません。壁紙そのものの権利は元の権利者に帰属します。
+
+
+## Qt Wayland装飾
+
+`src/qt/qt5`のBradient装飾と、`src/qt/qt6-6.10`・`src/qt/qt6-6.11`のAdwaita装飾は、Qt Waylandソースの派生です。[UPSTREAM.json](../src/qt/UPSTREAM.json)に元ファイル、コミット、元ファイルのSHA-256を記録しています。元の著作権とファイル内のライセンス表示を保持し、LGPL v3を選択して提供します。[LGPL v3全文](../src/qt/licenses/LGPL-3.0.txt)と[GPL v3全文](../src/qt/licenses/GPL-3.0.txt)を同梱します。Hyalune contributorsは2026年11月7日に、丸ボタンの描画とShellテーマ連動を追加しました。Qt本体は実行環境のライブラリを使用します。Qt部品を導入すると、生成ライブラリに対応するソースとライセンスも同じ部品のディレクトリへ配置します。連動サービス、ランチャー、導入・ビルドツールの新規作成部分はMITです。
